@@ -20,7 +20,7 @@ public class ErrorHandler {
                 String.format(msg, ex.getMessage()),
                 headers,
                 HttpStatus.UNPROCESSABLE_ENTITY
-        );
+        );//jdbc:hsqldb:hsql://localhost:9001/cinema
     }
 
 }

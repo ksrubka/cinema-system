@@ -21,6 +21,6 @@ public class JPAMoviesRepository implements MovieRepository {
 
     @Override
     public Movie load(String title) {
-        return null; // TODO
+        return entityManager.find(Movie.class, title);
     }
 }
