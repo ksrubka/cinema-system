@@ -4,39 +4,28 @@ import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 
 public class CreateCinemaRequest {
 
-    private String name;
-    private String city;
+    private CinemaDto cinema;
 
-
-    public CreateCinemaRequest(String name, String city) {
-        this.name = name;
-        this.city = city;
+    public void validate(CinemaRepository cinemaRepository) {
+        if (cinema == null) {
+            throw new InvalidRequestException("Cinema is required");
+        }
+        cinema.validate(cinemaRepository);
     }
 
+    public CinemaDto getCinema() {
+        return cinema;
+    }
 
-     public void validate (CinemaRepository cinemaRepository){
-         if (this.name == null || this.name.trim().isEmpty())
-             throw new InvalidRequestException("The cinema's name is required");
-         if (this.city == null || this.city.trim().isEmpty())
-             throw new InvalidRequestException("The city is required");
-
-         if (cinemaRepository.load(this.name, this.city)!= null)
-             throw new InvalidRequestException("This cinema exists in the system");
-     }
+    public void setCinema(CinemaDto cinema) {
+        this.cinema = cinema;
+    }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return cinema.getName();
     }
 
     public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+        return cinema.getCity();
     }
 }
