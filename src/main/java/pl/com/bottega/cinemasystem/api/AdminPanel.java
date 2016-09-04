@@ -5,6 +5,4 @@ package pl.com.bottega.cinemasystem.api;
  */
 public class AdminPanel {
 
-    public AdminPanel() {
-    }
 }
