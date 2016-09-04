@@ -4,9 +4,6 @@ import pl.com.bottega.cinemasystem.domain.MovieRepository;
 
 import java.util.List;
 
-/**
- * Created by paulina.pislewicz on 2016-09-04.
- */
 public class MovieDto {
 
     private String title;
@@ -17,25 +14,53 @@ public class MovieDto {
     private Integer length;
 
     public void validate(MovieRepository movieRepository) {
-        if (this.title == null || this.title.trim().isEmpty())
-            throw new InvalidRequestException("Movie title is required");
-        if (this.description == null || this.description.trim().isEmpty())
-            throw new InvalidRequestException("movie description is required");
-        if (this.minAge == null || this.description.trim().isEmpty())
-            throw new InvalidRequestException("movie description is required");
-        if (this.actors == null || this.description.trim().isEmpty())
-            throw new InvalidRequestException("movie description is required");
-        if (this.genres == null || this.description.trim().isEmpty())
-            throw new InvalidRequestException("movie description is required");
-        if (this.length == null || this.description.trim().isEmpty())
-            throw new InvalidRequestException("movie description is required"); //BARDZO SMUTNY KODZIK :(
-
-
-        if (movieRepository.load(this.title, this.description, this.minAge, this.actors, this.genres, this.length) != null)
-            throw new InvalidRequestException("This movie is already in your system");
-
+        checkState();
+        checkIfExists(movieRepository);
     }
 
+    private void checkIfExists(MovieRepository movieRepository) {
+        if (movieRepository.load(this.title, this.description, this.minAge, this.actors, this.genres, this.length) != null)
+            throw new InvalidRequestException("This movie is already in your system");
+    }
+
+    private void checkState() {
+        checkTitle();
+        checkDescription();
+        checkMinAge();
+        checkActors();
+        checkGenres();
+        checkLength();
+    }
+
+    private void checkLength() {
+        if (this.length == null || this.length <= 0)
+            throw new InvalidRequestException("movie length is required");
+    }
+
+    private void checkGenres() {
+        if (this.genres == null)
+            throw new InvalidRequestException("genres list is required");
+    }
+
+    private void checkActors() {
+        if (this.actors == null)
+            throw new InvalidRequestException("actors list is required");
+    }
+
+    private void checkMinAge() {
+        if (this.minAge == null)
+            throw new InvalidRequestException("minimal age is required");
+    }
+
+    private void checkDescription() {
+        if (this.description == null || this.description.trim().isEmpty())
+            throw new InvalidRequestException("movie description is required");
+    }
+
+    private void checkTitle() {
+        if (this.title == null || this.title.trim().isEmpty())
+            throw new InvalidRequestException("movie title is required");
+    }
 
     public String getTitle() {
         return title;
@@ -84,5 +109,4 @@ public class MovieDto {
     public void setLength(Integer length) {
         this.length = length;
     }
-
 }
