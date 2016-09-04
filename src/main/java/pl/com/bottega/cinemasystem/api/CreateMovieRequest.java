@@ -11,7 +11,6 @@ public class CreateMovieRequest {
     private String description;
     private Collection<String> actors;
 
-    private MoviesController moviesController;
     private MovieRepository movieRepository;
 
     public CreateMovieRequest(String title, String description, Collection<String> actors) {
