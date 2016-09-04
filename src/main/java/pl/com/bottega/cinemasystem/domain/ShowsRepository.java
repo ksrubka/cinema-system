@@ -1,4 +1,4 @@
 package pl.com.bottega.cinemasystem.domain;
 
-public class ShowsFactory {
+public interface ShowsRepository {
 }
