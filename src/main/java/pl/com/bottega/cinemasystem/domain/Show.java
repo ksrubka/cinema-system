@@ -9,9 +9,9 @@ public class Show {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Cinema cinema;
-    @OneToOne
+    @ManyToOne
     private Movie movie;
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
