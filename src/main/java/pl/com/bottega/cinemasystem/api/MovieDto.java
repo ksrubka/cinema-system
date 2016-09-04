@@ -13,14 +13,8 @@ public class MovieDto {
     private List<String> genres;
     private Integer length;
 
-    public void validate(MovieRepository movieRepository) {
+    public void validate() {
         checkState();
-        checkIfExists(movieRepository);
-    }
-
-    private void checkIfExists(MovieRepository movieRepository) {
-        if (movieRepository.load(this.title, this.description, this.minAge, this.actors, this.genres, this.length) != null)
-            throw new InvalidRequestException("This movie is already in your system");
     }
 
     private void checkState() {
