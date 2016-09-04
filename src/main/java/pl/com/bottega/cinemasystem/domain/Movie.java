@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
