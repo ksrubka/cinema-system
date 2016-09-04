@@ -2,7 +2,7 @@ package pl.com.bottega.cinemasystem.domain;
 
 public class Movie {
 
-    String title;
+    private String title;
 
     public Movie(String title) {
         this.title = title;
