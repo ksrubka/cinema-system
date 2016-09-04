@@ -8,7 +8,7 @@ public class Cinema {
     }
 
     public String toString() {
-        return "";
+        return "ale fajne kino!";
     }
 
 }
