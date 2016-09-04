@@ -21,11 +21,4 @@ public class CreateCinemaRequest {
         this.cinema = cinema;
     }
 
-    public String getName() {
-        return cinema.getName();
-    }
-
-    public String getCity() {
-        return cinema.getCity();
-    }
 }
