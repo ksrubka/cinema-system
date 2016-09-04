@@ -15,7 +15,7 @@ public class JPACinemaRepository implements CinemaRepository {
 
     @Override
     public void save(Cinema cinema) {
-
+        entityManager.persist(cinema);
     }
 
     @Override
