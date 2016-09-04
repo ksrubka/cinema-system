@@ -1,8 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
-/**
- * Created by Nizari on 04.09.2016.
- */
+import java.util.Date;
+
 public class CalendarDto {
 
     private Date fromDate;
