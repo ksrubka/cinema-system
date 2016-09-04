@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public class JPAMoviesRepository implements MovieRepository {
 
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -23,4 +24,6 @@ public class JPAMoviesRepository implements MovieRepository {
     public Movie load(String title) {
         return entityManager.find(Movie.class, title);
     }
+
+
 }

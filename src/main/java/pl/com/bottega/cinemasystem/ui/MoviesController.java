@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.com.bottega.cinemasystem.api.AdminPanel;
 import pl.com.bottega.cinemasystem.api.CreateMovieRequest;
-import pl.com.bottega.cinemasystem.domain.Movie;
 
 @RestController
 @RequestMapping("/movies")
