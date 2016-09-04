@@ -15,6 +15,9 @@ public class CreateCinemaRequest {
 
 
      public void validate (CinemaRepository cinemaRepository){
-
+         if (cinemaRepository.load(this.name, this.city)!= null)
+             throw new InvalidRequestException();
+         if (this.name.equals("")|| this.city.isEmpty())
+             throw new InvalidRequestException();
      }
 }
