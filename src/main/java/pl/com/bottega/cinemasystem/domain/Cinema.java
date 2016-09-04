@@ -5,6 +5,9 @@ package pl.com.bottega.cinemasystem.domain;
  */
 public class Cinema {
 
-    public Cinema() {
+    private String movie;
+
+    public Cinema(String movie ) {
+        this.movie = movie;
     }
 }
