@@ -1,8 +1,23 @@
 package pl.com.bottega.cinemasystem.api;
 
-/**
- * Created by Beata Iłowiecka on 04.09.2016.
- */
+import pl.com.bottega.cinemasystem.domain.Cinema;
+import pl.com.bottega.cinemasystem.domain.CinemaRepository;
+
 public class AdminPanel {
 
+    private CinemaRepository cinemaRepository;
+
+    public void createCinema(CreateCinemaRequest createCinemaRequest) {
+        createCinemaRequest.validate(cinemaRepository);
+        Cinema cinema = new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
+        cinemaRepository.save(cinema);
+    }
+
+    public void createMovie(CreateMovieRequest createMovieRequest) {
+
+    }
+
+    /*public void createShow(CreateShowRequest createShowRequest) {
+
+    }*/
 }
