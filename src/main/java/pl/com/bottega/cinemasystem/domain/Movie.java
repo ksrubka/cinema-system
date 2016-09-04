@@ -1,10 +1,16 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 
-
+@Entity
 public class Movie {
 
+    @Id
+    @GeneratedValue
+    private Long id;
     private String title;
     private String description;
     private Integer minAge;
