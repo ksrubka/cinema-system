@@ -8,10 +8,10 @@ public class CreateMovieRequest {
 
     private MovieDto movie;
 
-    public void validate(MovieRepository movieRepository) {
+    public void validate() {
         if(movie == null)
             throw new InvalidRequestException("Movie is required");
-        movie.validate(movieRepository);
+        movie.validate();
     }
 
     public MovieDto getMovie() {
