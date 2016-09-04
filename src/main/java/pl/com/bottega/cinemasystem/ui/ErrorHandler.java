@@ -18,7 +18,7 @@ public class ErrorHandler {
         return new ResponseEntity<String>(
                 "{'error': 'Invalid Request Exception'}",
                 headers,
-                HttpStatus.UNAUTHORIZED
+                HttpStatus.UNPROCESSABLE_ENTITY
         );
     }
 }
