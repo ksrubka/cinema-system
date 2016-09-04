@@ -6,8 +6,10 @@ package pl.com.bottega.cinemasystem.domain;
 public class Cinema {
 
     private String movie;
+    private Long id;
 
-    public Cinema(String movie ) {
+    public Cinema(String movie, Long id ) {
         this.movie = movie;
+        this.id = id;
     }
 }
