@@ -7,13 +7,16 @@ import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 import pl.com.bottega.cinemasystem.domain.Movie;
 import pl.com.bottega.cinemasystem.domain.MovieRepository;
 
-import java.util.Properties;
-
 @Service
 public class AdminPanel {
 
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
+
+    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository) {
+        this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
+    }
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
@@ -24,7 +27,16 @@ public class AdminPanel {
 
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
-
+        createMovieRequest.validate(movieRepository);
+        Movie movie = new Movie(
+                createMovieRequest.getTitle(),
+                createMovieRequest.getDescription(),
+                createMovieRequest.getMinAge(),
+                createMovieRequest.getActors(),
+                createMovieRequest.getGenres(),
+                createMovieRequest.getLength()
+        );
+        movieRepository.save(movie);
     }
 
     /*
