@@ -15,10 +15,13 @@ public class CreateCinemaRequest {
 
 
      public void validate (CinemaRepository cinemaRepository){
+         if (this.name == null || this.name.trim().isEmpty())
+             throw new InvalidRequestException("The cinema's name is required");
+         if (this.city == null || this.city.trim().isEmpty())
+             throw new InvalidRequestException("The city is required");
+
          if (cinemaRepository.load(this.name, this.city)!= null)
-             throw new InvalidRequestException();
-         if (this.name.equals("")|| this.city.isEmpty())
-             throw new InvalidRequestException();
+             throw new InvalidRequestException("This cinema exists in the system");
      }
 
     public String getName() {
