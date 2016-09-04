@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemasystem.domain.Cinema;
 import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Repository
@@ -14,7 +15,7 @@ public class JPACinemaRepository implements CinemaRepository {
 
     @Override
     public void save(Cinema cinema) {
-
+        entityManager.persist(cinema);
     }
 
     @Override

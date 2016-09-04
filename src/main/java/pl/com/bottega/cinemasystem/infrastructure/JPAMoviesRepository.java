@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public class JPAMoviesRepository implements MovieRepository {
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -21,9 +20,7 @@ public class JPAMoviesRepository implements MovieRepository {
     }
 
     @Override
-    public Movie load(String title, String description, Integer minAge, List<String> actors, List<String> genres, Integer length) {
-        return null; //TODO
+    public Movie load(String title) {
+        return null;
     }
-
-
 }
