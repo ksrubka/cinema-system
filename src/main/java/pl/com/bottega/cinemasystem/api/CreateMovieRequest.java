@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.domain.MovieRepository;
-import pl.com.bottega.cinemasystem.ui.MoviesController;
 
 import java.util.Collection;
 
@@ -19,7 +18,7 @@ public class CreateMovieRequest {
         this.actors = actors;
     }
 
-    public void validate(String title, String description, Collection<String> actors) {
+    public void validate(MovieRepository movieRepository) {
         if (this.title == null || this.title.trim().isEmpty())
             throw new InvalidRequestException("Movie title is required");
         if (this.description == null || this.description.trim().isEmpty())
