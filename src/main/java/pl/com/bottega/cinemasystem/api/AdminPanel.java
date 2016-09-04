@@ -20,7 +20,7 @@ public class AdminPanel {
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
-        createCinemaRequest.validate(cinemaRepository);
+        createCinemaRequest.validate();
         Cinema cinema = new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
         cinemaRepository.save(cinema);
     }
