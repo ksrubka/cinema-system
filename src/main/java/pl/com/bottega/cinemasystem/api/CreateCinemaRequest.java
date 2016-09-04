@@ -13,12 +13,11 @@ public class CreateCinemaRequest {
         cinema.validate(cinemaRepository);
     }
 
-    public CinemaDto getCinema() {
-        return cinema;
+    public String getName() {
+        return cinema.getName();
     }
 
-    public void setCinema(CinemaDto cinema) {
-        this.cinema = cinema;
+    public String getCity() {
+        return cinema.getCity();
     }
-
 }
