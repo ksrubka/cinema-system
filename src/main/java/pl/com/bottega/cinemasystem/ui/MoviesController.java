@@ -13,10 +13,12 @@ public class MoviesController {
 
     private AdminPanel adminPanel;
 
+    public MoviesController(AdminPanel adminPanel) {
+        this.adminPanel = adminPanel;
+    }
+
     @PutMapping
     public void create(@RequestBody CreateMovieRequest request) {
         adminPanel.createMovie(request);
     }
-
-
 }
