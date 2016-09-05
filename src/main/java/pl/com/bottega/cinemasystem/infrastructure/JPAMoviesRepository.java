@@ -20,8 +20,10 @@ public class JPAMoviesRepository implements MovieRepository {
 
     @Override
     public Movie load(String title) {
-        return entityManager.createQuery("FROM Movie m " +
-                        "WHERE m.title = :title",
-                Movie.class).setParameter("title", title).getSingleResult();
+        return entityManager.createQuery(
+                "FROM Movie m WHERE m.title = :title",
+                Movie.class)
+                .setParameter("title", title)
+                .getSingleResult();
     }
 }
