@@ -6,7 +6,6 @@ import pl.com.bottega.cinemasystem.domain.MovieRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Repository
 public class JPAMoviesRepository implements MovieRepository {
@@ -21,6 +20,8 @@ public class JPAMoviesRepository implements MovieRepository {
 
     @Override
     public Movie load(String title) {
-        return entityManager.find(Movie.class, title);
+        return entityManager.createQuery("FROM Movie m " +
+                        "WHERE m.title = :title",
+                Movie.class).setParameter("title", title).getSingleResult();
     }
 }
