@@ -11,19 +11,16 @@ import java.util.List;
 @Repository
 public class JPAMoviesRepository implements MovieRepository {
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public void save(Movie movie) {
-        entityManager.merge(movie);
+        entityManager.persist(movie);
     }
 
     @Override
     public Movie load(String title) {
         return entityManager.find(Movie.class, title);
     }
-
-
 }
