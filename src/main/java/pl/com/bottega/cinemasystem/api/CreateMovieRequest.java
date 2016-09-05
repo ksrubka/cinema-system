@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemasystem.api;
 
-import pl.com.bottega.cinemasystem.domain.MovieRepository;
-
 import java.util.List;
 
 public class CreateMovieRequest {
@@ -22,27 +20,27 @@ public class CreateMovieRequest {
         this.movie = movie;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return movie.getTitle();
     }
 
-    public String getDescription() {
+    String getDescription() {
         return movie.getDescription();
     }
 
-    public Integer getMinAge() {
+    Integer getMinAge() {
         return movie.getMinAge();
     }
 
-    public List<String> getActors() {
+    List<String> getActors() {
         return movie.getActors();
     }
 
-    public List<String> getGenres() {
+    List<String> getGenres() {
         return movie.getGenres();
     }
 
-    public Integer getLength() {
+    Integer getLength() {
         return movie.getLength();
     }
 }
