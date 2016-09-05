@@ -17,4 +17,12 @@ public class CreateCinemaRequest {
     public String getCity() {
         return cinema.getCity();
     }
+
+    public CinemaDto getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(CinemaDto cinema) {
+        this.cinema = cinema;
+    }
 }
