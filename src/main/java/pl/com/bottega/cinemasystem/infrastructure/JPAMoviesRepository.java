@@ -19,6 +19,15 @@ public class JPAMoviesRepository implements MovieRepository {
     }
 
     @Override
+    public Movie load(Long movieId) {
+        return entityManager.createQuery(
+                "FROM Movie m WHERE m.movieId = :movieId",
+                Movie.class)
+                .setParameter("movieId", movieId)
+                .getSingleResult();
+    }
+
+    @Override
     public Movie load(String title) {
         return entityManager.createQuery(
                 "FROM Movie m WHERE m.title = :title",
