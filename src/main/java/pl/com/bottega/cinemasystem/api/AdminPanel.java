@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,7 +47,20 @@ public class AdminPanel {
     @Transactional
     public void createShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         createShowsRequest.validate();
-        List<Show> shows = ShowsFactory.create(cinemaId, createShowsRequest);
+        List<Show> shows = getShows(cinemaId, createShowsRequest);
+        saveShows(shows);
+    }
+
+    private List<Show> getShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
+        Cinema cinema = cinemaRepository.load(cinemaId);
+        Movie movie = movieRepository.load(createShowsRequest.getMovieId());
+        List<Date> dates = createShowsRequest.getShowDates();
+        List<Show> shows = new ArrayList<>();
+        dates.forEach(date -> shows.add(new Show(cinema, movie, date)));
+        return shows;
+    }
+
+    private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
     }
 }
