@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemasystem.api;
 
-import pl.com.bottega.cinemasystem.domain.MovieRepository;
-
 import java.util.List;
 
 public class MovieDto {
@@ -26,24 +24,9 @@ public class MovieDto {
         checkLength();
     }
 
-    private void checkLength() {
-        if (this.length == null || this.length <= 0)
-            throw new InvalidRequestException("movie length is required");
-    }
-
-    private void checkGenres() {
-        if (this.genres == null)
-            throw new InvalidRequestException("genres list is required");
-    }
-
-    private void checkActors() {
-        if (this.actors == null)
-            throw new InvalidRequestException("actors list is required");
-    }
-
-    private void checkMinAge() {
-        if (this.minAge == null)
-            throw new InvalidRequestException("minimal age is required");
+    private void checkTitle() {
+        if (this.title == null || this.title.trim().isEmpty())
+            throw new InvalidRequestException("movie title is required");
     }
 
     private void checkDescription() {
@@ -51,9 +34,24 @@ public class MovieDto {
             throw new InvalidRequestException("movie description is required");
     }
 
-    private void checkTitle() {
-        if (this.title == null || this.title.trim().isEmpty())
-            throw new InvalidRequestException("movie title is required");
+    private void checkMinAge() {
+        if (this.minAge == null)
+            throw new InvalidRequestException("minimal age is required");
+    }
+
+    private void checkActors() {
+        if (this.actors == null)
+            throw new InvalidRequestException("actors list is required");
+    }
+
+    private void checkGenres() {
+        if (this.genres == null)
+            throw new InvalidRequestException("genres list is required");
+    }
+
+    private void checkLength() {
+        if (this.length == null || this.length <= 0)
+            throw new InvalidRequestException("movie length is required");
     }
 
     public String getTitle() {
