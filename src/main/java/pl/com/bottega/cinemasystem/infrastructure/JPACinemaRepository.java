@@ -19,7 +19,11 @@ public class JPACinemaRepository implements CinemaRepository {
     }
 
     @Override
-    public Cinema load(String name, String city) {
-        return null;
+    public Cinema load(Long id) {
+        return entityManager.createQuery(
+                "FROM Cinema c WHERE c.id = :id",
+                Cinema.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }
