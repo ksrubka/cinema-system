@@ -2,20 +2,23 @@ package pl.com.bottega.cinemasystem.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.domain.Cinema;
-import pl.com.bottega.cinemasystem.domain.CinemaRepository;
-import pl.com.bottega.cinemasystem.domain.Movie;
-import pl.com.bottega.cinemasystem.domain.MovieRepository;
+import pl.com.bottega.cinemasystem.domain.*;
+
+import java.util.List;
 
 @Service
 public class AdminPanel {
 
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
+    private ShowsRepository showsRepository;
 
-    public AdminPanel(CinemaRepository cinemaRepository, MovieRepository movieRepository) {
+    public AdminPanel(CinemaRepository cinemaRepository,
+                      MovieRepository movieRepository,
+                      ShowsRepository showsRepository) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
+        this.showsRepository = showsRepository;
     }
 
     @Transactional
@@ -39,9 +42,10 @@ public class AdminPanel {
         movieRepository.save(movie);
     }
 
-    /*
     @Transactional
-    public void createShow(CreateShowRequest createShowRequest) {
-
-    }*/
+    public void createShows(CreateShowsRequest createShowsRequest) {
+        createShowsRequest.validate();
+        List<Show> shows = ShowsFactory.create(createShowsRequest);
+        shows.forEach(show -> showsRepository.save(show));
+    }
 }
