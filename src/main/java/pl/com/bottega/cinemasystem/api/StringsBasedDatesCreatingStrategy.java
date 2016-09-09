@@ -21,6 +21,8 @@ public class StringsBasedDatesCreatingStrategy implements DatesCreatingStrategy 
     public void validate() {
         checkIfDatesAreSpecified();
         checkIfDatesAreCorrect();
+        checkIfDateHasNotPassed();
+        checkIfDatesAreNotRedundant();
     }
 
     private void checkIfDatesAreSpecified() {
@@ -37,6 +39,15 @@ public class StringsBasedDatesCreatingStrategy implements DatesCreatingStrategy 
                 throw new InvalidRequestException("Incorrect date format");
             }
         });
+    }
+
+    private void checkIfDateHasNotPassed() {
+        //// TODO: 09.09.2016
+    }
+
+
+    private void checkIfDatesAreNotRedundant() {
+        //// TODO: 09.09.2016
     }
 
     @Override
