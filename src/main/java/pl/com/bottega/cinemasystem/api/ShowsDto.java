@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 //todo decide polymorphism or logic
-public class ShowsWrapper {
+public class ShowsDto {
 
     private Long movieId;
     private CalendarDto calendar;
