@@ -18,12 +18,11 @@ public class JPAMoviesRepository implements MovieRepository {
     public void save(Movie movie) {
         entityManager.persist(movie);
     }
-
     @Override
     public Movie load(Long movieId) {
         try {
             return entityManager.createQuery(
-                    "FROM Movie m WHERE m.movieId = :movieId",
+                    "FROM Movie m WHERE m.id = :movieId",
                     Movie.class)
                     .setParameter("movieId", movieId)
                     .getSingleResult();
