@@ -21,8 +21,8 @@ public class JPACinemaCatalog implements CinemaCatalog {
     @Override
     public ListAllCinemasResponse listAll() {
         String jpa = "select new pl.com.bottega.cinemasystem.api.CinemaDto(" +
-        "c.name, + c.city) FROM Cinema c";
-        Query query = entityManager.createQuery(jpa);
-        return (ListAllCinemasResponse) query.getResultList();
+        "c.name, c.city) FROM Cinema c";
+        Query query = entityManager.createQuery(jpa, ListAllCinemasResponse.class);
+        return new ListAllCinemasResponse(query.getResultList());
     }
 }
