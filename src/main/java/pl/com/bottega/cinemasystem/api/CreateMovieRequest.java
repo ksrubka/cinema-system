@@ -7,8 +7,6 @@ public class CreateMovieRequest {
     private MovieDto movie;
 
     public void validate() {
-        if(movie == null)
-            throw new InvalidRequestException("Movie is required");
         movie.validate();
     }
 

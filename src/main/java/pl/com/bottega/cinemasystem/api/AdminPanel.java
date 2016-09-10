@@ -25,26 +25,20 @@ public class AdminPanel {
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
-        createCinemaRequest.validate();
         Cinema cinema = new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
         cinemaRepository.save(cinema);
     }
 
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
-        createMovieRequest.validate();
-        Movie movie = new Movie(
-                createMovieRequest.getTitle(),
-                createMovieRequest.getDescription(),
-                createMovieRequest.getMinAge(),
-                createMovieRequest.getActors(),
-                createMovieRequest.getGenres(),
-                createMovieRequest.getLength()
-        );
+        Movie movie = MovieFactory.createMovie(createMovieRequest);
         movieRepository.save(movie);
     }
 
-    @Transactional
+    /**
+     * *****COMMENTED, BECAUSE IT NEEDS TO BE REDONE AND IS NOT NECESSARY YET*****
+     *
+     * @Transactional
     public void createShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         createShowsRequest.validate();
         List<Show> shows = getShows(cinemaId, createShowsRequest);
@@ -62,5 +56,5 @@ public class AdminPanel {
 
     private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
-    }
+    }*/
 }
