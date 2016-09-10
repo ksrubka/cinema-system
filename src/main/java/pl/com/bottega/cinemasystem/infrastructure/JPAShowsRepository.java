@@ -13,7 +13,6 @@ public class JPAShowsRepository implements ShowsRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
     public void save(Show show) {
         entityManager.persist(show);

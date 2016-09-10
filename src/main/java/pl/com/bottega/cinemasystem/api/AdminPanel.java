@@ -24,7 +24,6 @@ public class AdminPanel {
         this.showsRepository = showsRepository;
     }
 
-
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
         createCinemaRequest.validate();
@@ -34,15 +33,7 @@ public class AdminPanel {
 
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
-        createMovieRequest.validate();
-        Movie movie = new Movie(
-                createMovieRequest.getTitle(),
-                createMovieRequest.getDescription(),
-                createMovieRequest.getMinAge(),
-                createMovieRequest.getActors(),
-                createMovieRequest.getGenres(),
-                createMovieRequest.getLength()
-        );
+        Movie movie = MovieFactory.createMovie(createMovieRequest);
         movieRepository.save(movie);
     }
 
