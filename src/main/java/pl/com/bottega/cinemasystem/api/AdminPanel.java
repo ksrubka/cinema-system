@@ -1,5 +1,6 @@
 package pl.com.bottega.cinemasystem.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
@@ -14,6 +15,7 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
     private ShowsRepository showsRepository;
+    @Autowired
     private CinemaFactory cinemaFactory;
 
     public AdminPanel(CinemaRepository cinemaRepository,
