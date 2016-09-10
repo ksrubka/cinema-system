@@ -24,8 +24,7 @@ public class CinemasController {
     }
 
     @GetMapping
-    public void listAll(ListAllCinemasResponse response) {
-        cinemaCatalog.listAll();
-
+    public ListAllCinemasResponse listAll() {
+       return cinemaCatalog.listAll();
     }
 }
