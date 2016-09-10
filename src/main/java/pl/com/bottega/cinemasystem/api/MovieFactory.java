@@ -1,7 +1,10 @@
 package pl.com.bottega.cinemasystem.api;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import pl.com.bottega.cinemasystem.domain.Movie;
 
+@Component
 public class MovieFactory {
 
     public static Movie createMovie(CreateMovieRequest request) {
