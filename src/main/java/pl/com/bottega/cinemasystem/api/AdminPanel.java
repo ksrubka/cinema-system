@@ -36,7 +36,7 @@ public class AdminPanel {
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
         createMovieRequest.validate();
-        Movie movie = MovieFactory.createMovie(createMovieRequest);
+        Movie movie = movieFactory.createMovie(createMovieRequest);
         movieRepository.save(movie);
     }
 

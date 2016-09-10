@@ -18,27 +18,27 @@ public class CreateMovieRequest {
         this.movie = movie;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return movie.getTitle();
     }
 
-    String getDescription() {
+    public String getDescription() {
         return movie.getDescription();
     }
 
-    Integer getMinAge() {
+    public Integer getMinAge() {
         return movie.getMinAge();
     }
 
-    List<String> getActors() {
+    public List<String> getActors() {
         return movie.getActors();
     }
 
-    List<String> getGenres() {
+    public List<String> getGenres() {
         return movie.getGenres();
     }
 
-    Integer getLength() {
+    public Integer getLength() {
         return movie.getLength();
     }
 }
