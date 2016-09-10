@@ -35,10 +35,7 @@ public class AdminPanel {
         movieRepository.save(movie);
     }
 
-    /**
-     * *****COMMENTED, BECAUSE IT NEEDS TO BE REDONE AND IS NOT NECESSARY YET*****
-     *
-     * @Transactional
+    @Transactional
     public void createShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         createShowsRequest.validate();
         List<Show> shows = getShows(cinemaId, createShowsRequest);
@@ -56,5 +53,5 @@ public class AdminPanel {
 
     private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
-    }*/
+    }
 }
