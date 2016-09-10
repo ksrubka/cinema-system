@@ -57,7 +57,6 @@ public class CreateCinemaTest {
 
     @Test
     public void shouldCreateCinema() {
-
         //given
         when(cinemaFactory.createCinema(createCinemaRequest)).thenReturn(anyCinema);
 
