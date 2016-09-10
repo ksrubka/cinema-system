@@ -1,12 +1,12 @@
 package pl.com.bottega.cinemasystem.api;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 public class CreateCinemaRequest {
 
     private CinemaDto cinema;
 
     public void validate() {
-        if (cinema == null)
-            throw new InvalidRequestException("Cinema is required");
         cinema.validate();
         }
 
@@ -25,4 +25,7 @@ public class CreateCinemaRequest {
     public void setCinema(CinemaDto cinema) {
         this.cinema = cinema;
     }
+
+
+
 }

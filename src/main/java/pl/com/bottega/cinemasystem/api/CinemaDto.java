@@ -22,6 +22,21 @@ public class CinemaDto {
     private void checkState() {
         checkName();
         checkCity();
+        checkState();
+        CheckNameLength();
+        checkCityLength();
+    }
+
+    private void checkCityLength() {
+        if(city.length() == 0){
+            throw new InvalidRequestException("Cinema city is required");
+        }
+    }
+
+    private void CheckNameLength() {
+        if (name.length() == 0){
+            throw new InvalidRequestException("Cinema name required");
+        }
     }
 
     private void checkName() {

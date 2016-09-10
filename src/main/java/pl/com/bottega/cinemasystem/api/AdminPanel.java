@@ -14,6 +14,7 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
     private ShowsRepository showsRepository;
+    private CinemaFactory cinemaFactory;
 
     public AdminPanel(CinemaRepository cinemaRepository,
                       MovieRepository movieRepository,
@@ -25,7 +26,8 @@ public class AdminPanel {
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
-        Cinema cinema = new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
+        createCinemaRequest.validate();
+        Cinema cinema = cinemaFactory.createCinema(createCinemaRequest);
         cinemaRepository.save(cinema);
     }
 
