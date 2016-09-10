@@ -16,6 +16,9 @@ public class Show {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date date;
 
+    public Show() {
+    }
+
     public Show(Cinema cinema, Movie movie, Date date) {
         this.cinema = cinema;
         this.movie = movie;

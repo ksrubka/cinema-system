@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
 import org.springframework.stereotype.Repository;
+import pl.com.bottega.cinemasystem.api.InvalidRequestException;
 import pl.com.bottega.cinemasystem.domain.Movie;
 import pl.com.bottega.cinemasystem.domain.MovieRepository;
 
@@ -17,14 +18,18 @@ public class JPAMoviesRepository implements MovieRepository {
     public void save(Movie movie) {
         entityManager.persist(movie);
     }
-
     @Override
     public Movie load(Long movieId) {
-        return entityManager.createQuery(
-                "FROM Movie m WHERE m.movieId = :movieId",
-                Movie.class)
-                .setParameter("movieId", movieId)
-                .getSingleResult();
+        try {
+            return entityManager.createQuery(
+                    "FROM Movie m WHERE m.id = :movieId",
+                    Movie.class)
+                    .setParameter("movieId", movieId)
+                    .getSingleResult();
+        }
+        catch (Exception ex) {
+            throw new InvalidRequestException("No such movie in repository: id " + movieId);
+        }
     }
 
     @Override

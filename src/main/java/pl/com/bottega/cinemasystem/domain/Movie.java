@@ -21,6 +21,9 @@ public class Movie {
     private List<String> genres;
     private Integer length;
 
+    public Movie() {
+    }
+
     public Movie(String title, String description, Integer minAge, List<String> actors, List<String> genres, Integer length) {
         this.title = title;
         this.description = description;

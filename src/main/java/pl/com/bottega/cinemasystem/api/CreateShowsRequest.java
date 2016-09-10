@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CreateShowsRequest {
 
-    private ShowsWrapper shows;
+    private ShowsDto shows;
 
     public void validate() {
         shows.validate();
@@ -19,11 +19,11 @@ public class CreateShowsRequest {
         return shows.getShowDates();
     }
 
-    public ShowsWrapper getShows() {
+    public ShowsDto getShows() {
         return shows;
     }
 
-    public void setShows(ShowsWrapper shows) {
+    public void setShows(ShowsDto shows) {
         this.shows = shows;
     }
 }
