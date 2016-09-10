@@ -18,15 +18,15 @@ public class AdminPanel {
 
     public AdminPanel(CinemaRepository cinemaRepository,
                       MovieRepository movieRepository,
-                      ShowsRepository showsRepository) {
+                      ShowsRepository showsRepository, CinemaFactory cinemaFactory) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.showsRepository = showsRepository;
+        this.cinemaFactory = cinemaFactory;
     }
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
-        createCinemaRequest.validate();
         Cinema cinema = cinemaFactory.createCinema(createCinemaRequest);
         cinemaRepository.save(cinema);
     }

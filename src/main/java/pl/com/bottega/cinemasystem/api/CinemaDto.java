@@ -20,6 +20,7 @@ public class CinemaDto {
         checkState();
         CheckNameLength();
         checkCityLength();
+        checkIsExist();
     }
 
     private void checkCityLength() {
@@ -42,6 +43,11 @@ public class CinemaDto {
     private void checkCity() {
         if (this.city == null || this.city.trim().isEmpty())
             throw new InvalidRequestException("cinema city location is required");
+    }
+    private void checkIsExist(){
+        if(this.name == name && this.city == city){
+            throw new InvalidRequestException("This cinema exist");
+        }
     }
 
     public String getName() {

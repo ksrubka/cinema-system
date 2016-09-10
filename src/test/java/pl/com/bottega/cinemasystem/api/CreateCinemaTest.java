@@ -10,13 +10,18 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.Cinema;
 import pl.com.bottega.cinemasystem.domain.CinemaRepository;
+import pl.com.bottega.cinemasystem.domain.MovieRepository;
+import pl.com.bottega.cinemasystem.domain.ShowsRepository;
 import pl.com.bottega.cinemasystem.infrastructure.JPACinemaRepository;
 
+import javax.persistence.ManyToOne;
+
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.mock.staticmock.AnnotationDrivenStaticEntityMockingControl.verify;
+
 
 /**
  * Created by Seta on 2016-09-10.
@@ -31,6 +36,10 @@ public class CreateCinemaTest {
     private CreateCinemaRequest createCinemaRequest;
     @Mock
     private CinemaFactory cinemaFactory;
+    @Mock
+    private MovieRepository movieRepository;
+    @Mock
+    private ShowsRepository showRepository;
 
     @Mock
     private Cinema anyCinema;
@@ -45,26 +54,42 @@ public class CreateCinemaTest {
 
     @Before
     public void setUp(){
-        Cinema cinema = cinemaFactory.createCinema(createCinemaRequest);
+        adminPanel = new AdminPanel(cinemaRepository, movieRepository, showRepository, cinemaFactory);
     }
 
 
     @Test
     public void shouldCreateCinema() {
 
-     when(cinemaFactory.createCinema(createCinemaRequest)).thenReturn(anyCinema);
-     assertNotNull(anyCinema);
+        //given
+        when(cinemaFactory.createCinema(createCinemaRequest)).thenReturn(anyCinema);
 
+        //when
+        adminPanel.createCinema(createCinemaRequest);
+
+        //then
+        verify(cinemaRepository).save(anyCinema);
     }
-
-
 
     @Test
-    public void shouldNotCreateCinemaIfNameNotExist() throws Exception {
-        exception.expect(InvalidRequestException.class);
-
+    public void shouldLoadCinema(){
+        when(cinemaFactory.createCinema(createCinemaRequest)).thenReturn(anyCinema);
+        cinemaRepository.load(anyCinema.getId());
 
     }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldThrowInvalidExceptionWhenCinemaExist(){
+        doThrow(InvalidRequestException.class).when(cinemaRepository).save(anyCinema);
+        //when
+        when(cinemaFactory.createCinema(createCinemaRequest)).thenReturn(anyCinema);
+        adminPanel.createCinema(createCinemaRequest);
+        //then
+        adminPanel.createCinema(createCinemaRequest);
+
+    }
+
+
 
 
 }
