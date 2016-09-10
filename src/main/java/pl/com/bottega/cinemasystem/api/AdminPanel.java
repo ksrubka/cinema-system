@@ -14,31 +14,34 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
     private ShowsRepository showsRepository;
+    private MovieFactory movieFactory;
 
     public AdminPanel(CinemaRepository cinemaRepository,
                       MovieRepository movieRepository,
-                      ShowsRepository showsRepository) {
+                      ShowsRepository showsRepository,
+                      MovieFactory movieFactory) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.showsRepository = showsRepository;
+        this.movieFactory = movieFactory;
     }
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
+        createCinemaRequest.validate();
         Cinema cinema = new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
         cinemaRepository.save(cinema);
     }
 
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
+        createMovieRequest.validate();
         Movie movie = MovieFactory.createMovie(createMovieRequest);
         movieRepository.save(movie);
     }
 
-    /**
-     * *****COMMENTED, BECAUSE IT NEEDS TO BE REDONE AND IS NOT NECESSARY YET*****
-     *
-     * @Transactional
+
+    @Transactional
     public void createShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         createShowsRequest.validate();
         List<Show> shows = getShows(cinemaId, createShowsRequest);
@@ -56,5 +59,5 @@ public class AdminPanel {
 
     private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
-    }*/
+    }
 }
