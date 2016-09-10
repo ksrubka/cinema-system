@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by Seta on 2016-09-10.
  */
-public class CinemaFactoryTest {
+public class CinemaFactoryRequestTest {
 
 //    private CinemaFactory cinemaFactory;
 //    private String anyName = "anyName";

@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CreateCinemaTest {
+public class CreateCinemaRequestTest {
 
     @Mock
     private JPACinemaRepository cinemaRepository;
