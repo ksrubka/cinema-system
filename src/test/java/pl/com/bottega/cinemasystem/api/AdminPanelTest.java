@@ -6,10 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemasystem.domain.CinemaRepository;
-import pl.com.bottega.cinemasystem.domain.Movie;
-import pl.com.bottega.cinemasystem.domain.MovieRepository;
-import pl.com.bottega.cinemasystem.domain.ShowsRepository;
+import pl.com.bottega.cinemasystem.domain.*;
 
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -31,22 +28,31 @@ public class AdminPanelTest {
     private MovieFactory anyMovieFactory;
 
     @Mock
+    private CinemaFactory anyCinemaFactory;
+
+    @Mock
     private CreateMovieRequest anyCreateMovieRequest;
 
     @Mock
+    private CreateCinemaRequest anyCreateCinemaRequest;
+
+    @Mock
     private Movie anyMovie;
+
+    @Mock
+    private Cinema anyCinema;
 
     private AdminPanel adminPanel;
 
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory);
+        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory, anyCinemaFactory);
     }
 
 
     @Test
-    public void shouldCreateNewCinema() {
+    public void shouldCreateNewMovie() {
         //given
         when(anyMovieFactory.createMovie(anyCreateMovieRequest)).thenReturn(anyMovie);
 
@@ -55,6 +61,20 @@ public class AdminPanelTest {
 
         //then
         verify(anyMovieRepository).save(anyMovie);
+    }
+
+
+    @Test
+    public void shouldCreateCinema() {
+
+        //given
+        when(anyCinemaFactory.createCinema(anyCreateCinemaRequest)).thenReturn(anyCinema);
+
+        //when
+        adminPanel.createCinema(anyCreateCinemaRequest);
+
+        //then
+        verify(anyCinemaRepository).save(anyCinema);
     }
 
 
@@ -68,6 +88,18 @@ public class AdminPanelTest {
 
         //when
         adminPanel.createMovie(anyCreateMovieRequest);
+    }
+
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldThrowInvalidExceptionWhenCinemaExist(){
+        doThrow(InvalidRequestException.class).when(anyCinemaRepository).save(anyCinema);
+        //when
+        when(anyCinemaFactory.createCinema(anyCreateCinemaRequest)).thenReturn(anyCinema);
+        adminPanel.createCinema(anyCreateCinemaRequest);
+        //then
+        adminPanel.createCinema(anyCreateCinemaRequest);
+
     }
 
 
