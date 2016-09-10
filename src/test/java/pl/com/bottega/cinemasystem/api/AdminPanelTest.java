@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemasystem.api;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,7 +49,6 @@ public class AdminPanelTest {
         adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory, anyCinemaFactory);
     }
 
-
     @Test
     public void shouldCreateNewMovie() {
         //given
@@ -62,7 +60,6 @@ public class AdminPanelTest {
         //then
         verify(anyMovieRepository).save(anyMovie);
     }
-
 
     @Test
     public void shouldCreateCinema() {
@@ -101,6 +98,4 @@ public class AdminPanelTest {
         adminPanel.createCinema(anyCreateCinemaRequest);
 
     }
-
-
 }

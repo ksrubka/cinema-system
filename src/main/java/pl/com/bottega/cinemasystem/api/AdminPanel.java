@@ -43,7 +43,6 @@ public class AdminPanel {
         movieRepository.save(movie);
     }
 
-
     @Transactional
     public void createShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         createShowsRequest.validate();

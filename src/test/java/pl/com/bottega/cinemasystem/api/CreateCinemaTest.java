@@ -22,13 +22,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.verify;
 
-
-/**
- * Created by Seta on 2016-09-10.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class CreateCinemaTest {
-
 
     @Mock
     private JPACinemaRepository cinemaRepository;
@@ -36,6 +31,8 @@ public class CreateCinemaTest {
     private CreateCinemaRequest createCinemaRequest;
     @Mock
     private CinemaFactory cinemaFactory;
+    @Mock
+    private MovieFactory movieFactory;
     @Mock
     private MovieRepository movieRepository;
     @Mock
@@ -54,9 +51,9 @@ public class CreateCinemaTest {
 
     @Before
     public void setUp(){
-        adminPanel = new AdminPanel(cinemaRepository, movieRepository, showRepository, cinemaFactory);
+        adminPanel = new AdminPanel(cinemaRepository, movieRepository,
+                showRepository, movieFactory, cinemaFactory);
     }
-
 
     @Test
     public void shouldCreateCinema() {
@@ -75,7 +72,6 @@ public class CreateCinemaTest {
     public void shouldLoadCinema(){
         when(cinemaFactory.createCinema(createCinemaRequest)).thenReturn(anyCinema);
         cinemaRepository.load(anyCinema.getId());
-
     }
 
     @Test(expected = InvalidRequestException.class)
@@ -86,10 +82,5 @@ public class CreateCinemaTest {
         adminPanel.createCinema(createCinemaRequest);
         //then
         adminPanel.createCinema(createCinemaRequest);
-
     }
-
-
-
-
 }
