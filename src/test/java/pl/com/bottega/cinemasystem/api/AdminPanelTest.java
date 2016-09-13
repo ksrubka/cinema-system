@@ -7,8 +7,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.*;
 
-import javax.persistence.ManyToOne;
-
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,16 +42,11 @@ public class AdminPanelTest {
     private Cinema anyCinema;
 
     private AdminPanel adminPanel;
-    @Mock
-    private MovieRepository movieRepository;
-    @Mock
-    private MovieFactory movieFactory;
-
 
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(anyCinemaRepository,movieRepository,anyShowsRepository,anyCinemaFactory);
+        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory, anyCinemaFactory);
     }
 
     @Test
