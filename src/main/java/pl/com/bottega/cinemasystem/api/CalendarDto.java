@@ -1,36 +1,35 @@
 package pl.com.bottega.cinemasystem.api;
 
 import java.util.Collection;
-import java.util.Date;
 
 public class CalendarDto {
 
-    private Date fromDate;
-    private Date untilDate;
-    private Collection<Weekday> weekDays;
+    private String fromDate;
+    private String untilDate;
+    private Collection<String> weekDays;
     private Collection<String> hours;
 
-    public Date getFromDate() {
+    public String getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
+    public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Date getUntilDate() {
+    public String getUntilDate() {
         return untilDate;
     }
 
-    public void setUntilDate(Date untilDate) {
+    public void setUntilDate(String untilDate) {
         this.untilDate = untilDate;
     }
 
-    public Collection<Weekday> getWeekDays() {
+    public Collection<String> getWeekDays() {
         return weekDays;
     }
 
-    public void setWeekDays(Collection<Weekday> weekDays) {
+    public void setWeekDays(Collection<String> weekDays) {
         this.weekDays = weekDays;
     }
 
