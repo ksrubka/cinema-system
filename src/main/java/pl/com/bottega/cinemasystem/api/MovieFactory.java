@@ -10,4 +10,5 @@ public class MovieFactory {
         return new Movie (request.getTitle(), request.getDescription(), request.getMinAge(), request.getActors(),
                 request.getGenres(), request.getLength());
     }
+    public MovieFactory(){}
 }

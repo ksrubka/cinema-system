@@ -8,4 +8,6 @@ public class CinemaFactory {
     public Cinema createCinema(CreateCinemaRequest createCinemaRequest) {
         return new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
     }
+
+    public CinemaFactory(){}
 }

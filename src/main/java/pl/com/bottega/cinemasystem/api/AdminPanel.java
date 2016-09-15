@@ -30,9 +30,7 @@ public class AdminPanel {
     }
 
 
-    public AdminPanel(){
 
-    }
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {

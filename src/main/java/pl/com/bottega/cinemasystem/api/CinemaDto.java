@@ -9,6 +9,11 @@ public class CinemaDto {
     public CinemaDto() {
     }
 
+    public CinemaDto(String name, String city){
+        this.name = name;
+        this.city = city;
+    }
+
     public CinemaDto(Long id, String name, String city) {
         this.id = id;
         this.name = name;

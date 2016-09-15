@@ -6,6 +6,8 @@ public class CreateMovieRequest {
 
     private MovieDto movie;
 
+    public CreateMovieRequest(){}
+
 
     public void validate() {
         checkState();
