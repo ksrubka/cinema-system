@@ -1,8 +1,6 @@
 package pl.com.bottega.cinemasystem.api;
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 public class ShowsDto {
 
@@ -33,6 +31,4 @@ public class ShowsDto {
     public void setDates(Collection<String> dates) {
         this.dates = dates;
     }
-
-
 }
