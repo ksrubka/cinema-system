@@ -10,10 +10,6 @@ public class ShowsDto {
     private CalendarDto calendar;
     private Collection<String> dates;
 
-    public List<Date> getShowDates() {
-        return generateStrategyCreatingShowDates().generateShowDates();
-    }
-
     public Long getMovieId() {
         return movieId;
     }
@@ -38,23 +34,4 @@ public class ShowsDto {
         this.dates = dates;
     }
 
-    public void validate() {
-        checkMovieId();
-        generateStrategyCreatingShowDates().validate();
-    }
-
-    private void checkMovieId() {
-        if (movieId < 0) {
-            throw new InvalidRequestException("Incorrect movie id");
-        }
-    }
-
-    private DatesCreatingStrategy generateStrategyCreatingShowDates() {
-        if (calendar == null) {
-            return new StringsBasedDatesCreatingStrategy(dates);
-        }
-        else {
-            return new CalendarBasedDatesCreatingStrategy(calendar);
-        }
-    }
 }
