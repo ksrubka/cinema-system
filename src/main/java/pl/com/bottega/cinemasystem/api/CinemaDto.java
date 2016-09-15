@@ -15,6 +15,25 @@ public class CinemaDto {
         this.city = city;
     }
 
+    public void validate() {
+        checkState();
+    }
+
+    private void checkState() {
+        checkName();
+        checkCity();
+    }
+
+    private void checkName() {
+        if (this.name == null || this.name.trim().isEmpty())
+            throw new InvalidRequestException("cinema name is required");
+    }
+
+    private void checkCity() {
+        if (this.city == null || this.city.trim().isEmpty())
+            throw new InvalidRequestException("cinema city location is required");
+    }
+
     public String getName() {
         return name;
     }
