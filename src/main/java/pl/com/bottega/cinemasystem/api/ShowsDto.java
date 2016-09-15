@@ -33,5 +33,4 @@ public class ShowsDto {
     public void setDates(Collection<String> dates) {
         this.dates = dates;
     }
-
 }
