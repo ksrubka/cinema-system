@@ -11,48 +11,6 @@ public class MovieDto {
     private List<String> genres;
     private Integer length;
 
-    public void validate() {
-        checkState();
-    }
-
-    private void checkState() {
-        checkTitle();
-        checkDescription();
-        checkMinAge();
-        checkActors();
-        checkGenres();
-        checkLength();
-    }
-
-    private void checkTitle() {
-        if (this.title == null || this.title.trim().isEmpty())
-            throw new InvalidRequestException("movie title is required");
-    }
-
-    private void checkDescription() {
-        if (this.description == null || this.description.trim().isEmpty())
-            throw new InvalidRequestException("movie description is required");
-    }
-
-    private void checkMinAge() {
-        if (this.minAge == null)
-            throw new InvalidRequestException("minimal age is required");
-    }
-
-    private void checkActors() {
-        if (this.actors == null)
-            throw new InvalidRequestException("actors list is required");
-    }
-
-    private void checkGenres() {
-        if (this.genres == null)
-            throw new InvalidRequestException("genres list is required");
-    }
-
-    private void checkLength() {
-        if (this.length == null || this.length <= 0)
-            throw new InvalidRequestException("movie length is required");
-    }
 
     public String getTitle() {
         return title;
