@@ -47,7 +47,4 @@ public class CreateCinemaRequestTest {
         createCinemaRequest.validate();
 
     }
-
-
-
 }
