@@ -2,11 +2,9 @@ package pl.com.bottega.cinemasystem.api;
 
 public class CinemaDto {
 
-
     private Long id;
     private String name;
     private String city;
-
 
     public CinemaDto() {
     }
@@ -15,26 +13,6 @@ public class CinemaDto {
         this.id = id;
         this.name = name;
         this.city = city;
-    }
-
-    public void validate() {
-        checkState();
-    }
-
-    private void checkState() {
-        checkName();
-        checkCity();
-
-    }
-
-    private void checkName() {
-        if (this.name == null || this.name.trim().isEmpty())
-            throw new InvalidRequestException("cinema name is required");
-    }
-
-    private void checkCity() {
-        if (this.city == null || this.city.trim().isEmpty())
-            throw new InvalidRequestException("cinema city location is required");
     }
 
     public String getName() {
@@ -71,7 +49,6 @@ public class CinemaDto {
         if (id != null ? !id.equals(cinemaDto.id) : cinemaDto.id != null) return false;
         if (name != null ? !name.equals(cinemaDto.name) : cinemaDto.name != null) return false;
         return city != null ? city.equals(cinemaDto.city) : cinemaDto.city == null;
-
     }
 
     @Override
@@ -81,6 +58,4 @@ public class CinemaDto {
         result = 31 * result + (city != null ? city.hashCode() : 0);
         return result;
     }
-
-
 }
