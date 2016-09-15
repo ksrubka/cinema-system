@@ -2,11 +2,7 @@ package pl.com.bottega.cinemasystem.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 
 public class StringsBasedDatesCreatingStrategy implements DatesCreatingStrategy {
 
@@ -21,8 +17,7 @@ public class StringsBasedDatesCreatingStrategy implements DatesCreatingStrategy 
     public void validate() {
         checkIfDatesAreSpecified();
         checkIfDatesAreCorrect();
-        checkIfDateHasNotPassed();
-        checkIfDatesAreNotRedundant();
+        checkIfDatesHasNotPassed();
     }
 
     private void checkIfDatesAreSpecified() {
@@ -32,34 +27,38 @@ public class StringsBasedDatesCreatingStrategy implements DatesCreatingStrategy 
     }
 
     private void checkIfDatesAreCorrect() {
-        stringDates.forEach(date -> {
-            try {
-                formatter.parse(date);
-            } catch (ParseException e) {
-                throw new InvalidRequestException("Incorrect date format");
-            }
+        stringDates.forEach(date -> parseDate(date));
+    }
+
+    private void checkIfDatesHasNotPassed() {
+        Date now = new Date();
+        stringDates.forEach(stringDate -> {
+            Date date = parseDate(stringDate);
+            checkIfDatePassed(now, date);
         });
     }
 
-    private void checkIfDateHasNotPassed() {
-        //// TODO: 09.09.2016
+    private Date parseDate(String stringDate) {
+        Date date;
+        try {
+            date = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            throw new InvalidRequestException("Incorrect stringDate format");
+        }
+        return date;
     }
 
-
-    private void checkIfDatesAreNotRedundant() {
-        //// TODO: 09.09.2016
+    private void checkIfDatePassed(Date now, Date date) {
+        if (now.compareTo(date) >= 0) {
+            throw new InvalidRequestException("Given date has already passed: " + date);
+        }
     }
 
     @Override
-    public List<Date> generateShowDates() {
-        List<Date> dates = new ArrayList<>();
-        stringDates.forEach(date -> {
-            try {
-                dates.add(formatter.parse(date));
-            } catch (ParseException e) {
-                throw new InvalidRequestException("Incorrect date format");
-            }
-        });
+    public Set<Date> generateShowDates() {
+        Set<Date> dates = new TreeSet<>();
+        stringDates.forEach(date ->
+                dates.add(parseDate(date)));
         return dates;
     }
 }
