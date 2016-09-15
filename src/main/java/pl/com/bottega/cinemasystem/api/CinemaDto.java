@@ -15,6 +15,11 @@ public class CinemaDto {
         this.city = city;
     }
 
+    public CinemaDto(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
+
     public String getName() {
         return name;
     }
