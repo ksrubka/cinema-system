@@ -8,6 +8,8 @@ public class CreateShowsRequest {
 
     private ShowsDto shows;
 
+    public CreateShowsRequest(){}
+
     public void validate() {
         checkMovieId();
         generateStrategyCreatingShowDates().validate();
