@@ -1,28 +1,14 @@
 package pl.com.bottega.cinemasystem.api;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+
 public class CreateCinemaRequest {
 
     private CinemaDto cinema;
 
-
     public void validate() {
-        checkState();
-    }
-
-    private void checkState() {
-        checkName();
-        checkCity();
-    }
-
-    private void checkName() {
-        if (cinema.getName() == null || cinema.getName().trim().isEmpty())
-            throw new InvalidRequestException("cinema name is required");
-    }
-
-    private void checkCity() {
-        if (cinema.getCity() == null || cinema.getCity().trim().isEmpty())
-            throw new InvalidRequestException("cinema city location is required");
-    }
+        cinema.validate();
+        }
 
     public String getName() {
         return cinema.getName();
@@ -36,10 +22,10 @@ public class CreateCinemaRequest {
         return cinema;
     }
 
-
     public void setCinema(CinemaDto cinema) {
         this.cinema = cinema;
     }
+
 
 
 }

@@ -7,7 +7,7 @@ import java.util.Date;
 public class Show {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Cinema cinema;
