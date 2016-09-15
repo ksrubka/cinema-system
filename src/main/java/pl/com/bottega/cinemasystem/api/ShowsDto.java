@@ -1,8 +1,6 @@
 package pl.com.bottega.cinemasystem.api;
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 public class ShowsDto {
 
