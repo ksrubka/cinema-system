@@ -9,15 +9,34 @@ public class CinemaDto {
     public CinemaDto() {
     }
 
+    public CinemaDto(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
+
     public CinemaDto(Long id, String name, String city) {
         this.id = id;
         this.name = name;
         this.city = city;
     }
 
-    public CinemaDto(String name, String city) {
-        this.name = name;
-        this.city = city;
+    public void validate() {
+        checkState();
+    }
+
+    private void checkState() {
+        checkName();
+        checkCity();
+    }
+
+    private void checkName() {
+        if (this.name == null || this.name.trim().isEmpty())
+            throw new InvalidRequestException("cinema name is required");
+    }
+
+    private void checkCity() {
+        if (this.city == null || this.city.trim().isEmpty())
+            throw new InvalidRequestException("cinema city location is required");
     }
 
     public String getName() {
