@@ -29,9 +29,6 @@ public class AdminPanel {
         this.cinemaFactory = cinemaFactory;
     }
 
-
-
-
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
         createCinemaRequest.validate();
