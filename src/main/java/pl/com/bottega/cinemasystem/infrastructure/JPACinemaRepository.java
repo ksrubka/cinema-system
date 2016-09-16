@@ -6,6 +6,7 @@ import pl.com.bottega.cinemasystem.domain.Cinema;
 import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -17,7 +18,13 @@ public class JPACinemaRepository implements CinemaRepository {
 
     @Override
     public void save(Cinema cinema) {
-        entityManager.persist(cinema);
+        try {
+            entityManager.persist(cinema);
+        }
+        catch (EntityExistsException ex) {
+            throw new InvalidRequestException("Can not persist, entity already exists: id " +
+                    cinema.getId());
+        }
     }
 
     @Override

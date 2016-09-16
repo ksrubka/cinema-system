@@ -9,6 +9,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String title;
     private String description;
     private Integer minAge;
@@ -21,7 +22,8 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(String title, String description, Integer minAge, List<String> actors, List<String> genres, Integer length) {
+    public Movie(String title, String description, Integer minAge,
+                 List<String> actors, List<String> genres, Integer length) {
         this.title = title;
         this.description = description;
         this.minAge = minAge;
