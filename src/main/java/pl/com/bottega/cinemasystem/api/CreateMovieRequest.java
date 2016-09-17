@@ -65,7 +65,7 @@ public class CreateMovieRequest {
 
     private void validateId(){
         if(movie.getId() == null || movie.getId() == 0)
-            throw new InvalidRequestException("id can not be null or 0");
+            throw new InvalidRequestException("movie id can not be null or zero");
     }
 
 
