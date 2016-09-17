@@ -1,60 +1,22 @@
 package pl.com.bottega.cinemasystem.api;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import pl.com.bottega.cinemasystem.api.utils.DateUtil;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy {
 
     private CalendarDto calendar;
-    private SimpleDateFormat dateAndHourFormatter = new SimpleDateFormat("yyyy/MM/dd hh:mm");
-    private SimpleDateFormat hourFormatter = new SimpleDateFormat("hh:mm");
 
     public CalendarBasedDatesCreatingStrategy(CalendarDto calendar) {
         this.calendar = calendar;
     }
 
     @Override
-    public void validate() {
-        checkDates();
-        checkHours();
-        checkWeekdays();
-    }
-
-    private void checkDates() {
-        check(dateAndHourFormatter, calendar.getFromDate(),
-                "Incorrect start borderDate format: " + calendar.getFromDate());
-        check(dateAndHourFormatter, calendar.getUntilDate(),
-                "Incorrect end borderDate format: " + calendar.getUntilDate());
-    }
-
-    private void checkHours() {
-        Collection<String> hours = calendar.getHours();
-        hours.forEach(hour -> check(hourFormatter, hour, "Incorrect hour format: " + hour));
-    }
-
-    private void check(SimpleDateFormat formatter,
-                       String formatToCheck, String errorMessage) {
-        try {
-            formatter.parse(formatToCheck);
-        } catch (ParseException e) {
-            throw new InvalidRequestException(errorMessage);
-        }
-    }
-
-    private void checkWeekdays() {
-        try {
-            calendar.getWeekDays().forEach(day -> Weekday.valueOf(day));
-        } catch (Exception ex) {
-            throw new InvalidRequestException("Incorrect weekday");
-        }
-    }
-
-    @Override
     public Set<Date> generateShowDates() {
-        Date startDate = parseDate(calendar.getFromDate());
-        Date endDate = parseDate(calendar.getUntilDate());
+        Date startDate = DateUtil.parseDate(calendar.getFromDate());
+        Date endDate = DateUtil.parseDate(calendar.getUntilDate());
         Set<Weekday> weekdays = parseWeekdays();
         Set<Integer> weekdayCodes = generateWeekdayCodes(weekdays);
 
@@ -68,31 +30,6 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
         dates.addAll(prepareShowDatesForMiddleDays(weekdayCodes, start, end));
         dates.addAll(prepareShowDatesForLastDay(weekdayCodes, end));
         return dates;
-    }
-
-    private Date parseDate(String stringDate) {
-        Date date;
-        try {
-            date = dateAndHourFormatter.parse(stringDate);
-            setCorrectHour(stringDate, date);
-        } catch (ParseException e) {
-            throw new InvalidRequestException("Incorrect borderDate format: " + stringDate);
-        }
-        return date;
-    }
-
-    private void setCorrectHour(String stringDate, Date date) {
-        Calendar validDate = Calendar.getInstance();
-        validDate.setTime(date);
-        validDate.set(Calendar.HOUR_OF_DAY, getHour(stringDate));
-    }
-
-    private int getHour(String stringDate) {
-        String[] dateAndTime = stringDate.split(" ");
-        String stringTime = dateAndTime[1];
-        String[] hourAndMinute = stringTime.split(":");
-        String hour = hourAndMinute[0];
-        return Integer.valueOf(hour);
     }
 
     private Set<Weekday> parseWeekdays() {
@@ -112,15 +49,23 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
         if (currentDayIsShowDay(weekdayCodes, startDate) &&
                 !isMidnight(startDate)) {
             int[][] showHours = prepareShowHours();
-            Calendar tempShowHour = (Calendar) startDate.clone();
+            Calendar currentShowHour = (Calendar) startDate.clone();
             for (int[] showHour : showHours) {
-                setHour(tempShowHour, showHour[0], showHour[1]);
-                if (tempShowHour.after(startDate) || tempShowHour.equals(startDate)) {
-                    showDates.add(tempShowHour.getTime());
+                setHour(currentShowHour, hour(showHour), minute(showHour));
+                if (currentShowHour.after(startDate) || currentShowHour.equals(startDate)) {
+                    showDates.add(currentShowHour.getTime());
                 }
             }
         }
         return showDates;
+    }
+
+    private int hour(int[] showHour) {
+        return showHour[0];
+    }
+
+    private int minute(int[] showHour) {
+        return showHour[1];
     }
 
     private boolean currentDayIsShowDay(Set<Integer> weekdayCodes, Calendar date) {
@@ -137,21 +82,14 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
     //hours format:
     // {{12,43}, {15, 0}} -> is a list of two hours -> 12:43 and 15:00
     private int[][] prepareShowHours() {
-        int[][] hours = new int[calendar.getHours().size()][2];
+        Collection<String> calendarHours = calendar.getHours();
+        int[][] hours = new int[calendarHours.size()][2];
         int index = 0;
-        for (String time : calendar.getHours()) {
-            hours[index] = parseHourAndMinute(time);
+        for (String time : calendarHours) {
+            hours[index] = DateUtil.prepareHourAndMinute(time);
             index++;
         }
         return hours;
-    }
-
-    private int[] parseHourAndMinute(String time) {
-        String[] stringHourAndMinute = time.split(":");
-        int[] hourAndMinute = new int[2];
-        hourAndMinute[0] = Integer.valueOf(stringHourAndMinute[0]);
-        hourAndMinute[1] = Integer.valueOf(stringHourAndMinute[1]);
-        return hourAndMinute;
     }
 
     private void setHour(Calendar beginningOfLastDay, int hour, int minute) {
@@ -208,10 +146,10 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
         Set<Date> showDates = new TreeSet<>();
         if (currentDayIsShowDay(weekdayCodes, startDate)) {
             int[][] showHours = prepareShowHours();
-            Calendar tempShowHour = (Calendar) startDate.clone();
+            Calendar currentShowHour = (Calendar) startDate.clone();
             for (int[] showHour : showHours) {
-                setHour(tempShowHour, showHour[0], showHour[1]);
-                showDates.add(tempShowHour.getTime());
+                setHour(currentShowHour, hour(showHour), minute(showHour));
+                showDates.add(currentShowHour.getTime());
             }
         }
         return showDates;
@@ -222,11 +160,11 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
         if (currentDayIsShowDay(weekdayCodes, endDate) &&
                 !isMidnight(endDate)) {
             int[][] showHours = prepareShowHours();
-            Calendar tempShowHour = (Calendar) endDate.clone();
+            Calendar currentShowHour = (Calendar) endDate.clone();
             for (int[] showHour : showHours) {
-                setHour(tempShowHour, showHour[0], showHour[1]);
-                if (tempShowHour.before(endDate) || tempShowHour.equals(endDate)) {
-                    showDates.add(tempShowHour.getTime());
+                setHour(currentShowHour, hour(showHour), minute(showHour));
+                if (currentShowHour.before(endDate) || currentShowHour.equals(endDate)) {
+                    showDates.add(currentShowHour.getTime());
                 }
             }
         }
