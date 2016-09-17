@@ -18,7 +18,6 @@ public class CreateMovieRequest {
         validateActors();
         validateGenres();
         validateLength();
-        validateId();
     }
 
     private void validateTitle() {
@@ -62,12 +61,6 @@ public class CreateMovieRequest {
         if (movie.getLength() == null || movie.getLength() <= 0)
             throw new InvalidRequestException("movie length is required");
     }
-
-    private void validateId(){
-        if(movie.getId() == null || movie.getId() == 0)
-            throw new InvalidRequestException("movie id can not be null or zero");
-    }
-
 
     public MovieDto getMovie() {
         return movie;

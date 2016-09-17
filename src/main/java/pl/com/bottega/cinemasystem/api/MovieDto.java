@@ -11,9 +11,7 @@ public class MovieDto {
     private String title;
     private String description;
     private Integer minAge;
-    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> actors;
-    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> genres;
     private Integer length;
 
