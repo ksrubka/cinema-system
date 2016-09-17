@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.Cinema;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -18,12 +19,6 @@ public class CreateCinemaRequestTest {
     public static final String EMPTY_STRING = "";
 
     private CreateCinemaRequest createCinemaRequest;
-
-    @Mock
-    private Cinema anyCinema;
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     private String anyName = "any name";
     private String anyCity = "any city";
@@ -44,6 +39,7 @@ public class CreateCinemaRequestTest {
         when(cinemaDto.getCity()).thenReturn(anyCity);
         createCinemaRequest.setCinema(cinemaDto);
         createCinemaRequest.validate();
+        assertEquals(cinemaDto, createCinemaRequest.getCinema());
     }
 
     @Test
