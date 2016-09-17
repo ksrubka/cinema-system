@@ -50,52 +50,37 @@ public class AdminPanelTest {
     }
 
     @Test
-    public void shouldCreateNewMovie() {
+    public void shouldCreateMovie() {
         //given
         when(anyMovieFactory.createMovie(anyCreateMovieRequest)).thenReturn(anyMovie);
-
         //when
         adminPanel.createMovie(anyCreateMovieRequest);
-
         //then
         verify(anyMovieRepository).save(anyMovie);
     }
 
     @Test
     public void shouldCreateCinema() {
-
         //given
         when(anyCinemaFactory.createCinema(anyCreateCinemaRequest)).thenReturn(anyCinema);
-
         //when
         adminPanel.createCinema(anyCreateCinemaRequest);
-
         //then
         verify(anyCinemaRepository).save(anyCinema);
     }
-
 
     @Test(expected = InvalidRequestException.class)
     public void shouldThrownInvalidRequestExWhenAddedCinemaAlreadyExists(){
         //given
         doThrow(InvalidRequestException.class).when(anyMovieRepository).save(anyMovie);
-
         when(anyMovieFactory.createMovie(anyCreateMovieRequest)).thenReturn(anyMovie);
         adminPanel.createMovie(anyCreateMovieRequest);
-
         //when
         adminPanel.createMovie(anyCreateMovieRequest);
     }
 
-
-    @Test(expected = InvalidRequestException.class)
-    public void shouldThrowInvalidExceptionWhenCinemaExist(){
-        doThrow(InvalidRequestException.class).when(anyCinemaRepository).save(anyCinema);
-        //when
-        when(anyCinemaFactory.createCinema(anyCreateCinemaRequest)).thenReturn(anyCinema);
-        adminPanel.createCinema(anyCreateCinemaRequest);
-        //then
-        adminPanel.createCinema(anyCreateCinemaRequest);
+    @Test
+    public void shouldCreateShows() {
 
     }
 }
