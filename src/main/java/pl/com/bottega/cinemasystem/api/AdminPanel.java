@@ -16,17 +16,20 @@ public class AdminPanel {
     private ShowsRepository showsRepository;
     private MovieFactory movieFactory;
     private CinemaFactory cinemaFactory;
+    private ShowsFactory showsFactory;
 
     public AdminPanel(CinemaRepository cinemaRepository,
                       MovieRepository movieRepository,
                       ShowsRepository showsRepository,
                       MovieFactory movieFactory,
-                      CinemaFactory cinemaFactory) {
+                      CinemaFactory cinemaFactory,
+                      ShowsFactory showsFactory) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.showsRepository = showsRepository;
         this.movieFactory = movieFactory;
         this.cinemaFactory = cinemaFactory;
+        this.showsFactory = showsFactory;
     }
 
     @Transactional
@@ -46,18 +49,10 @@ public class AdminPanel {
     @Transactional
     public void createShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         createShowsRequest.validate();
-        List<Show> shows = getShows(cinemaId, createShowsRequest);
+        List<Show> shows = showsFactory.getShows(cinemaId, createShowsRequest);
         saveShows(shows);
     }
 
-    private List<Show> getShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
-        Cinema cinema = cinemaRepository.load(cinemaId);
-        Movie movie = movieRepository.load(createShowsRequest.getMovieId());
-        List<Date> dates = createShowsRequest.getShowDates();
-        List<Show> shows = new ArrayList<>();
-        dates.forEach(date -> shows.add(new Show(cinema, movie, date)));
-        return shows;
-    }
 
     private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
