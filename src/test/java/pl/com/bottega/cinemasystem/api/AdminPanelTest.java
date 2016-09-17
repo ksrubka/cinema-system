@@ -41,7 +41,9 @@ public class AdminPanelTest {
     @Mock
     private Cinema anyCinema;
 
+
     private AdminPanel adminPanel;
+
 
 
     @Before
@@ -79,8 +81,4 @@ public class AdminPanelTest {
         adminPanel.createMovie(anyCreateMovieRequest);
     }
 
-    @Test
-    public void shouldCreateShows() {
-
-    }
 }
