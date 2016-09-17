@@ -53,7 +53,6 @@ public class AdminPanel {
         saveShows(shows);
     }
 
-
     private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
     }
