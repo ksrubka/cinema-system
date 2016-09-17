@@ -8,34 +8,34 @@ public class CreateMovieRequest {
 
 
     public void validate() {
-        checkState();
+        validateState();
     }
 
-    private void checkState() {
-        checkTitle();
-        checkDescription();
-        checkMinAge();
-        checkActors();
-        checkGenres();
-        checkLength();
+    private void validateState() {
+        validateTitle();
+        validateDescription();
+        validateMinAge();
+        validateActors();
+        validateGenres();
+        validateLength();
     }
 
-    private void checkTitle() {
+    private void validateTitle() {
         if (movie.getTitle() == null || movie.getTitle().trim().isEmpty())
             throw new InvalidRequestException("movie title is required");
     }
 
-    private void checkDescription() {
+    private void validateDescription() {
         if (movie.getDescription() == null || movie.getDescription().trim().isEmpty())
             throw new InvalidRequestException("movie description is required");
     }
 
-    private void checkMinAge() {
+    private void validateMinAge() {
         if (movie.getMinAge() == null)
             throw new InvalidRequestException("minimal age is required");
     }
 
-    private void checkActors() {
+    private void validateActors() {
         if (movie.getActors() == null || movie.getActors().isEmpty()) {
             throw new InvalidRequestException("actors list is required");
         }
@@ -46,7 +46,7 @@ public class CreateMovieRequest {
         });
     }
 
-    private void checkGenres() {
+    private void validateGenres() {
         if (movie.getGenres() == null || movie.getGenres().isEmpty()){
             throw new InvalidRequestException("genres list is required");
         }
@@ -57,7 +57,7 @@ public class CreateMovieRequest {
         });
     }
 
-    private void checkLength() {
+    private void validateLength() {
         if (movie.getLength() == null || movie.getLength() <= 0)
             throw new InvalidRequestException("movie length is required");
     }
