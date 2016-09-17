@@ -34,7 +34,7 @@ public class CreateMovieRequestTest {
     public void setUp(){
        createMovieRequest = new CreateMovieRequest();
         anyActors.add("Andrzej Grabowski");
-        anyGenres.add("opis");
+        anyGenres.add("horror");
     }
     @Test
     public void shouldValidateMovieWithCorrectMovieDto() {
