@@ -47,8 +47,6 @@ public class CreateCinemaRequestTest {
         assertNotNull(createCinemaRequest.getName());
         assertEquals(cinemaDto.getCity(), createCinemaRequest.getCity());
         assertEquals(cinemaDto, createCinemaRequest.getCinema());
-
-
     }
 
 
@@ -81,6 +79,4 @@ public class CreateCinemaRequestTest {
         //when
         createCinemaRequest.validate();
     }
-
-
 }
