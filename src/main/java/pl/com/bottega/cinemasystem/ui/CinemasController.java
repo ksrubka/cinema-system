@@ -1,10 +1,9 @@
 package pl.com.bottega.cinemasystem.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemasystem.api.AdminPanel;
-import pl.com.bottega.cinemasystem.api.CinemaCatalog;
-import pl.com.bottega.cinemasystem.api.CreateCinemaRequest;
-import pl.com.bottega.cinemasystem.api.ListAllCinemasResponse;
+import pl.com.bottega.cinemasystem.api.*;
+
+import java.time.LocalTime;
 
 @RestController
 @RequestMapping("/cinemas")
@@ -26,5 +25,10 @@ public class CinemasController {
     @GetMapping
     public ListAllCinemasResponse listAll() {
        return cinemaCatalog.listAll();
+    }
+
+    @GetMapping
+    public ListMoviesInCinemaResponse listMoviesInCinema (Long cinemaId, LocalTime date){
+        return null;
     }
 }
