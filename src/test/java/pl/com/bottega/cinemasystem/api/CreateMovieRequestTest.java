@@ -27,11 +27,14 @@ public class CreateMovieRequestTest {
     private String anyDescription = "any desc";
     private Integer anyMinAge = 1;
     private List<String> anyGenres = new ArrayList<>();
+
     private Integer anyLength = 1;
 
     @Before
     public void setUp(){
        createMovieRequest = new CreateMovieRequest();
+        anyActors.add("Andrzej Grabowski");
+        anyGenres.add("horror");
     }
     @Test
     public void shouldValidateMovieWithCorrectMovieDto() {
@@ -44,7 +47,7 @@ public class CreateMovieRequestTest {
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void shouldNotValidateCinemaWithNameAsNull() {
+    public void shouldNotValidateMovieWithNameAsNull() {
         //given
         when(movieDto.getActors()).thenReturn(null);
         when(movieDto.getDescription()).thenReturn(anyDescription);
@@ -58,7 +61,7 @@ public class CreateMovieRequestTest {
         createMovieRequest.validate();
     }
     @Test(expected = InvalidRequestException.class)
-    public void shouldNotValidateCinemaWithEmptyDescription() {
+    public void shouldNotValidateMovieWithEmptyDescription() {
         //given
         when(movieDto.getActors()).thenReturn(anyActors);
         when(movieDto.getDescription()).thenReturn(emptyString);
