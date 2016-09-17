@@ -36,20 +36,14 @@ public class AdminPanelTest {
     private CreateCinemaRequest anyCreateCinemaRequest;
 
     @Mock
-    private CreateShowsRequest anyCreateShowsRequest;
-
-    @Mock
     private Movie anyMovie;
 
     @Mock
     private Cinema anyCinema;
 
-    @Mock
-    private Show anyShow;
-
-    private Long anyCinemaId;
 
     private AdminPanel adminPanel;
+
 
 
     @Before
@@ -87,13 +81,4 @@ public class AdminPanelTest {
         adminPanel.createMovie(anyCreateMovieRequest);
     }
 
-    @Test
-    public void shouldCreateShows() {
-        //given
-
-        //when
-        adminPanel.createShows(anyCinemaId, anyCreateShowsRequest);
-        //then
-        verify(anyShowsRepository).save(anyShow);
-    }
 }
