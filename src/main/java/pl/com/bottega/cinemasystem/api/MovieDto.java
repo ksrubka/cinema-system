@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.FetchType;
 import java.util.List;
 
 public class MovieDto {
@@ -7,7 +9,9 @@ public class MovieDto {
     private String title;
     private String description;
     private Integer minAge;
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> actors;
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> genres;
     private Integer length;
 
