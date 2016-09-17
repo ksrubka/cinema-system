@@ -10,7 +10,15 @@ public class CreateShowsRequest {
 
     public void validate() {
         checkMovieId();
-        generateStrategyCreatingShowDates().validate();
+        generateValidationStrategy().validate();
+    }
+
+    private ValidationStrategy generateValidationStrategy() {
+        if (shows.getCalendar() == null) {
+            return new DatesBasedValidationStrategy(shows.getDates());
+        } else {
+            return new CalendarBasedValidationStrategy(shows.getCalendar());
+        }
     }
 
     private void checkMovieId() {
