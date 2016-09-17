@@ -36,13 +36,25 @@ public class CreateMovieRequest {
     }
 
     private void checkActors() {
-        if (movie.getActors() == null)
+        if (movie.getActors() == null || movie.getActors().isEmpty()) {
             throw new InvalidRequestException("actors list is required");
+        }
+        movie.getActors().forEach(actor -> {
+            if(actor.trim().isEmpty() || actor == null){
+                throw new InvalidRequestException("actor can not be null");
+            }
+        });
     }
 
     private void checkGenres() {
-        if (movie.getGenres() == null)
+        if (movie.getGenres() == null || movie.getGenres().isEmpty()){
             throw new InvalidRequestException("genres list is required");
+        }
+        movie.getGenres().forEach(genre -> {
+            if (genre.trim().isEmpty() || genre == null){
+                throw new InvalidRequestException("genre can not be null or empty");
+            }
+        });
     }
 
     private void checkLength() {
