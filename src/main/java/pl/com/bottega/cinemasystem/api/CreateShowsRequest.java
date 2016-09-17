@@ -22,7 +22,7 @@ public class CreateShowsRequest {
     }
 
     private void validateMovieId() {
-        if (shows.getMovieId() < 0 || shows.getMovieId() == null) {
+        if (shows.getMovieId() == null || shows.getMovieId() <= 0) {
             throw new InvalidRequestException("Incorrect movie id");
         }
     }
