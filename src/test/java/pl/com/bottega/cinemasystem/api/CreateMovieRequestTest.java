@@ -27,11 +27,14 @@ public class CreateMovieRequestTest {
     private String anyDescription = "any desc";
     private Integer anyMinAge = 1;
     private List<String> anyGenres = new ArrayList<>();
+
     private Integer anyLength = 1;
 
     @Before
     public void setUp(){
        createMovieRequest = new CreateMovieRequest();
+        anyActors.add("Andrzej Grabowski");
+        anyGenres.add("opis");
     }
     @Test
     public void shouldValidateMovieWithCorrectMovieDto() {
