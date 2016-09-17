@@ -6,6 +6,5 @@ import java.util.Set;
 
 public interface DatesCreatingStrategy {
 
-    void validate();
     Set<Date> generateShowDates();
 }
