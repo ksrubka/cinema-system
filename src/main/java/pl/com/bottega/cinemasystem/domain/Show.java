@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import pl.com.bottega.cinemasystem.api.PriceCalculator;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +13,6 @@ public class Show {
     @Id
     @GeneratedValue
     private Long id;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Cinema cinema;
     @ManyToOne(cascade = CascadeType.ALL)

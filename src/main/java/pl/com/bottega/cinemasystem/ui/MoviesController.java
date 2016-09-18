@@ -20,7 +20,7 @@ public class MoviesController {
         adminPanel.createMovie(request);
     }
     @PostMapping
-    public void updatePrices(Long movieId,@RequestBody UpdatePricesRequest request){
+    public void updatePrices(@PathVariable Long movieId,@RequestBody UpdatePricesRequest request){
         adminPanel.updatePrices(request);
     }
 }
