@@ -13,10 +13,8 @@ import java.util.Collection;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class CreateShowsRequestTest {
-
 
     private Long movieId = 15L;
     private CalendarDto calendar;
@@ -30,13 +28,13 @@ public class CreateShowsRequestTest {
     @Before
     public void setUp(){
         createShowsRequest = new CreateShowsRequest();
-        dates.add("2017/09/01 14:00");
+//        dates.add("2017/09/01 14:00"); // TODO: 18.09.2016 change to localDateTime
     }
     @Test
     public void shouldValidateShow() {
         //given
         when(showsDto.getCalendar()).thenReturn(calendar);
-        when(showsDto.getDates()).thenReturn(dates);
+//        when(showsDto.getDates()).thenReturn(dates);
         when(showsDto.getMovieId()).thenReturn(movieId);
         createShowsRequest.setShows(showsDto);
         //when
