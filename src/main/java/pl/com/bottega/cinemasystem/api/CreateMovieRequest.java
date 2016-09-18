@@ -1,67 +1,59 @@
 package pl.com.bottega.cinemasystem.api;
 
+import java.util.Collection;
 import java.util.List;
 
 public class CreateMovieRequest {
 
     private MovieDto movie;
 
-
     public void validate() {
-        checkState();
+        validateTitle();
+        validateDescription();
+        validateMinAge();
+        validateActors();
+        validateGenres();
+        validateLength();
     }
 
-    private void checkState() {
-        checkTitle();
-        checkDescription();
-        checkMinAge();
-        checkActors();
-        checkGenres();
-        checkLength();
-    }
-
-    private void checkTitle() {
+    private void validateTitle() {
         if (movie.getTitle() == null || movie.getTitle().trim().isEmpty())
             throw new InvalidRequestException("movie title is required");
     }
 
-    private void checkDescription() {
+    private void validateDescription() {
         if (movie.getDescription() == null || movie.getDescription().trim().isEmpty())
             throw new InvalidRequestException("movie description is required");
     }
 
-    private void checkMinAge() {
+    private void validateMinAge() {
         if (movie.getMinAge() == null)
             throw new InvalidRequestException("minimal age is required");
     }
 
-    private void checkActors() {
-        if (movie.getActors() == null || movie.getActors().isEmpty()) {
-            throw new InvalidRequestException("actors list is required");
+    private void validateActors() {
+        validateString(movie.getActors(), "actor list invalid");
+    }
+
+    private void validateGenres() {
+        validateString(movie.getGenres(), "genres list invalid");
+    }
+
+    private void validateString(Collection<String> validations, String msg){
+        if (validations == null || validations.isEmpty()) {
+            throw new InvalidRequestException(msg);
         }
-        movie.getActors().forEach(actor -> {
+        validations.forEach(actor -> {
             if(actor.trim().isEmpty() || actor == null){
-                throw new InvalidRequestException("actor can not be null");
+                throw new InvalidRequestException(msg);
             }
         });
     }
 
-    private void checkGenres() {
-        if (movie.getGenres() == null || movie.getGenres().isEmpty()){
-            throw new InvalidRequestException("genres list is required");
-        }
-        movie.getGenres().forEach(genre -> {
-            if (genre.trim().isEmpty() || genre == null){
-                throw new InvalidRequestException("genre can not be null or empty");
-            }
-        });
-    }
-
-    private void checkLength() {
+    private void validateLength() {
         if (movie.getLength() == null || movie.getLength() <= 0)
             throw new InvalidRequestException("movie length is required");
     }
-
 
     public MovieDto getMovie() {
         return movie;

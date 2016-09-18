@@ -9,7 +9,7 @@ public class CreateShowsRequest {
     private ShowsDto shows;
 
     public void validate() {
-        checkMovieId();
+        validateMovieId();
         generateValidationStrategy().validate();
     }
 
@@ -21,8 +21,8 @@ public class CreateShowsRequest {
         }
     }
 
-    private void checkMovieId() {
-        if (shows.getMovieId() < 0) {
+    private void validateMovieId() {
+        if (shows.getMovieId() == null || shows.getMovieId() <= 0) {
             throw new InvalidRequestException("Incorrect movie id");
         }
     }

@@ -5,20 +5,16 @@ public class CreateCinemaRequest {
     private CinemaDto cinema;
 
     public void validate() {
-        checkState();
+        validateCity();
+        validateName();
     }
 
-    private void checkState() {
-        checkName();
-        checkCity();
-    }
-
-    private void checkName() {
+    private void validateName() {
         if (cinema.getName() == null || cinema.getName().trim().isEmpty())
             throw new InvalidRequestException("cinema name is required");
     }
 
-    private void checkCity() {
+    private void validateCity() {
         if (cinema.getCity() == null || cinema.getCity().trim().isEmpty())
             throw new InvalidRequestException("cinema city location is required");
     }

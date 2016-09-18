@@ -33,7 +33,8 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
     }
 
     private Set<Weekday> parseWeekdays() {
-        return calendar.getWeekDays().stream()
+        Collection<String> weekDays = calendar.getWeekDays();
+        return weekDays.stream()
                 .map(day -> Weekday.valueOf(day))
                 .collect(Collectors.toSet());
     }
