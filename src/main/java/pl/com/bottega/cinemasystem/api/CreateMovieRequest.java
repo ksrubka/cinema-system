@@ -1,17 +1,13 @@
 package pl.com.bottega.cinemasystem.api;
 
+import java.util.Collection;
 import java.util.List;
 
 public class CreateMovieRequest {
 
     private MovieDto movie;
 
-
     public void validate() {
-        validateState();
-    }
-
-    private void validateState() {
         validateTitle();
         validateDescription();
         validateMinAge();
@@ -36,23 +32,20 @@ public class CreateMovieRequest {
     }
 
     private void validateActors() {
-        if (movie.getActors() == null || movie.getActors().isEmpty()) {
-            throw new InvalidRequestException("actors list is required");
-        }
-        movie.getActors().forEach(actor -> {
-            if(actor.trim().isEmpty() || actor == null){
-                throw new InvalidRequestException("actor can not be null");
-            }
-        });
+        validateString(movie.getActors(), "actor list invalid");
     }
 
     private void validateGenres() {
-        if (movie.getGenres() == null || movie.getGenres().isEmpty()){
-            throw new InvalidRequestException("genres list is required");
+        validateString(movie.getGenres(), "genres list invalid");
+    }
+
+    private void validateString(Collection<String> validations, String msg){
+        if (validations == null || validations.isEmpty()) {
+            throw new InvalidRequestException(msg);
         }
-        movie.getGenres().forEach(genre -> {
-            if (genre.trim().isEmpty() || genre == null){
-                throw new InvalidRequestException("genre can not be null or empty");
+        validations.forEach(actor -> {
+            if(actor.trim().isEmpty() || actor == null){
+                throw new InvalidRequestException(msg);
             }
         });
     }
@@ -61,7 +54,6 @@ public class CreateMovieRequest {
         if (movie.getLength() == null || movie.getLength() <= 0)
             throw new InvalidRequestException("movie length is required");
     }
-
 
     public MovieDto getMovie() {
         return movie;
