@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Collection;
 
-public class ShowsDto {
+public class ManyShowsDto {
 
     private Long movieId;
     private CalendarDto calendar;

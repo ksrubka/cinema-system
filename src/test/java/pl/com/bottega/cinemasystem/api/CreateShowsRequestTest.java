@@ -25,7 +25,7 @@ public class CreateShowsRequestTest {
     @Mock
     private ShowsRepository showsRepository;
     @Mock
-    private ShowsDto showsDto;
+    private ManyShowsDto showsDto;
 
     @Before
     public void setUp(){

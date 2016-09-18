@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CreateShowsRequest {
 
-    private ShowsDto shows;
+    private ManyShowsDto shows;
 
     public void validate() {
         validateMovieId();
@@ -43,11 +43,11 @@ public class CreateShowsRequest {
         return shows.getMovieId();
     }
 
-    public ShowsDto getShows() {
+    public ManyShowsDto getShows() {
         return shows;
     }
 
-    public void setShows(ShowsDto shows) {
+    public void setShows(ManyShowsDto shows) {
         this.shows = shows;
     }
 }
