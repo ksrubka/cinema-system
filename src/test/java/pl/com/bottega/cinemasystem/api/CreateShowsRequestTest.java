@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -21,43 +20,62 @@ public class CreateShowsRequestTest {
     private ShowsRepository showsRepository;
 
     @Mock
-    private ManyShowsDto showsDto;
-
-    private CalendarDto calendar;
+    private ManyShowsDto manyShowsDto;
 
     private CreateShowsRequest createShowsRequest;
 
-    private Long movieId = 15L;
-    private Collection<String> dates = new ArrayList<>();
+    private Long anyMovieId = 15L;
+    private CalendarDto anyCalendar;
+//    private Collection<String> anyDates = new ArrayList<>();
 
     @Before
     public void setUp() {
         createShowsRequest = new CreateShowsRequest();
-        dates.add("2017/09/01 14:00");
+//        anyDates.add("2017/09/01 14:00");
     }
 
     @Test
-    public void shouldValidateShow() {
+    public void shouldValidateShowWithCorrectShowDto() {
         //given
-        when(showsDto.getCalendar()).thenReturn(calendar);
-        when(showsDto.getDates()).thenReturn(dates);
-        when(showsDto.getMovieId()).thenReturn(movieId);
-        createShowsRequest.setShows(showsDto);
+        createShow();
         //when
         createShowsRequest.validate();
         //then
-        assertEquals(showsDto, createShowsRequest.getShows());
+        assertShowTest();
 
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void shouldNotCreateShowWithInvalidMovieId() {
+    public void shouldNotValidateShowWithMovieIdAsNull() {
         //given
-        when(showsDto.getCalendar()).thenReturn(calendar);
-        when(showsDto.getDates()).thenReturn(dates);
-        when(showsDto.getMovieId()).thenReturn(null);
-        createShowsRequest.setShows(showsDto);
+//        createShowsRequestInstance(null, anyDates, anyCalendar);
         //when
         createShowsRequest.validate();
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotValidateShowWithDateAsNull() {
+        //given
+        createShowsRequestInstance(anyMovieId, null, anyCalendar);
+        //when
+        createShowsRequest.validate();
+    }
+
+    private void createShow() {
+//        createShowsRequestInstance(anyMovieId, anyDates, anyCalendar);
+    }
+
+    private void assertShowTest() {
+        assertEquals(manyShowsDto.getMovieId(), createShowsRequest.getMovieId());
+        assertEquals(manyShowsDto.getDates(), createShowsRequest.getDates());
+        assertEquals(manyShowsDto.getCalendar(), createShowsRequest.getCalendar());
+    }
+
+    private void createShowsRequestInstance(Long movieId, Collection<String> dates, CalendarDto calendar) {
+        manyShowsDto = new ManyShowsDto();
+        createShowsRequest.setShows(manyShowsDto);
+        manyShowsDto.setMovieId(movieId);
+//        manyShowsDto.setDates(dates); //// TODO: 18.09.2016  
+        manyShowsDto.setCalendar(calendar);
     }
 }

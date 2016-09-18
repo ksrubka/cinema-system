@@ -1,9 +1,9 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.time.LocalDateTime;
 
 @Entity
 public class Show {
@@ -16,15 +16,13 @@ public class Show {
     private Cinema cinema;
     @ManyToOne(cascade = CascadeType.ALL)
     private Movie movie;
-    @Temporal(value = TemporalType.TIMESTAMP)
-    private Date date;
-    @OneToMany
-    private Set<TicketPrice> ticketPrice;
+
+    private LocalDateTime date;
 
     public Show() {
     }
 
-    public Show(Cinema cinema, Movie movie, Date date) {
+    public Show(Cinema cinema, Movie movie, LocalDateTime date) {
         this.cinema = cinema;
         this.movie = movie;
         this.date = date;
@@ -54,11 +52,11 @@ public class Show {
         this.movie = movie;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

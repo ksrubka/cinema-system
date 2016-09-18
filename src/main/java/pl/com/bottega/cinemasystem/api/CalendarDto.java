@@ -1,43 +1,51 @@
 package pl.com.bottega.cinemasystem.api;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collection;
 
 public class CalendarDto {
 
-    private String fromDate;
-    private String untilDate;
-    private Collection<String> weekDays;
-    private Collection<String> hours;
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    private LocalDate fromDate, untilDate;
 
-    public String getFromDate() {
+    private Collection<DayOfWeek> weekDays;
+
+    @JsonFormat(pattern = "HH:mm")
+    private Collection<LocalTime> hours;
+
+    public LocalDate getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(String fromDate) {
+    public void setFromDate(LocalDate fromDate) {
         this.fromDate = fromDate;
     }
 
-    public String getUntilDate() {
+    public LocalDate getUntilDate() {
         return untilDate;
     }
 
-    public void setUntilDate(String untilDate) {
+    public void setUntilDate(LocalDate untilDate) {
         this.untilDate = untilDate;
     }
 
-    public Collection<String> getWeekDays() {
+    public Collection<DayOfWeek> getWeekDays() {
         return weekDays;
     }
 
-    public void setWeekDays(Collection<String> weekDays) {
+    public void setWeekDays(Collection<DayOfWeek> weekDays) {
         this.weekDays = weekDays;
     }
 
-    public Collection<String> getHours() {
+    public Collection<LocalTime> getHours() {
         return hours;
     }
 
-    public void setHours(Collection<String> hours) {
+    public void setHours(Collection<LocalTime> hours) {
         this.hours = hours;
     }
 }

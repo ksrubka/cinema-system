@@ -12,7 +12,6 @@ public class MovieDto {
     private List<String> genres;
     private Integer length;
 
-
     public String getTitle() {
         return title;
     }

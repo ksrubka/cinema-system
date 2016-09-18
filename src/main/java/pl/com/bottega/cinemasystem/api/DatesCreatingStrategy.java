@@ -1,10 +1,9 @@
 package pl.com.bottega.cinemasystem.api;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.Collection;
 
 public interface DatesCreatingStrategy {
 
-    Set<Date> generateShowDates();
+    Collection<LocalDateTime> generateShowDates();
 }
