@@ -48,7 +48,7 @@ public class CreateShowsRequest {
         return shows.getCalendar();
     }
 
-    public Collection<String> getDates() {
+    public Collection<LocalDateTime> getDates() {
         return shows.getDates();
     }
 
