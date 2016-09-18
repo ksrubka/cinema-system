@@ -15,10 +15,6 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-/**
- * Created by paulina.pislewicz on 2016-09-17.
- */
-
 @Repository
 public class JPAMovieCatalog implements MovieCatalog {
 

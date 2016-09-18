@@ -1,32 +1,27 @@
 package pl.com.bottega.cinemasystem.api;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemasystem.domain.Cinema;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CreateCinemaRequestTest {
 
-    public static final String EMPTY_STRING = "  ";
+    @Mock
+    private CinemaDto cinemaDto;
+
+    @Mock
+    private CinemaFactory factory;
 
     private CreateCinemaRequest createCinemaRequest;
 
+    private String emptyString = " ";
     private String anyName = "any name";
     private String anyCity = "any city";
-
-    @Mock
-    private CinemaDto cinemaDto;
-    @Mock
-    private CinemaFactory factory;
 
     @Before
     public void setUp() {
@@ -36,26 +31,18 @@ public class CreateCinemaRequestTest {
     @Test
     public void shouldValidateCinemaWithCorrectCinemaDto() {
         //given
-        when(cinemaDto.getName()).thenReturn(anyName);
-        when(cinemaDto.getCity()).thenReturn(anyCity);
-        createCinemaRequest.setCinema(cinemaDto);
+        createCinema();
         //when
         createCinemaRequest.validate();
         //then
-        assertEquals(cinemaDto.getName(), createCinemaRequest.getName());
-        assertNotNull(createCinemaRequest.getCity());
-        assertNotNull(createCinemaRequest.getName());
-        assertEquals(cinemaDto.getCity(), createCinemaRequest.getCity());
-        assertEquals(cinemaDto, createCinemaRequest.getCinema());
+        assertCinemaTest();
     }
-
 
     @Test(expected = InvalidRequestException.class)
     public void shouldNotValidateCinemaWithNameAsNull() {
         //given
-        when(cinemaDto.getName()).thenReturn(null);
-        when(cinemaDto.getCity()).thenReturn(anyCity);
-        createCinemaRequest.setCinema(cinemaDto);
+        createCinemaRequestInstance(null, anyCity);
+
         //when
         createCinemaRequest.validate();
     }
@@ -63,9 +50,17 @@ public class CreateCinemaRequestTest {
     @Test(expected = InvalidRequestException.class)
     public void shouldNotValidateCinemaWithCityAsNull() {
         //given
-        when(cinemaDto.getName()).thenReturn(anyName);
-        when(cinemaDto.getCity()).thenReturn(null);
-        createCinemaRequest.setCinema(cinemaDto);
+        createCinemaRequestInstance(anyName, null);
+
+        //when
+        createCinemaRequest.validate();
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotValidateCinemaWithEmptyName() {
+        //given
+        createCinemaRequestInstance(emptyString, anyCity);
+
         //when
         createCinemaRequest.validate();
     }
@@ -73,10 +68,27 @@ public class CreateCinemaRequestTest {
     @Test(expected = InvalidRequestException.class)
     public void shouldNotValidateCinemaWithEmptyCity() {
         //given
-        when(cinemaDto.getName()).thenReturn(anyName);
-        when(cinemaDto.getCity()).thenReturn(EMPTY_STRING);
-        createCinemaRequest.setCinema(cinemaDto);
+        createCinemaRequestInstance(anyName, emptyString);
+
         //when
         createCinemaRequest.validate();
+    }
+
+    private void createCinema() {
+        createCinemaRequestInstance(anyName, anyCity);
+    }
+
+    private void assertCinemaTest() {
+        assertEquals(cinemaDto.getName(), createCinemaRequest.getName());
+        assertEquals(cinemaDto.getCity(), createCinemaRequest.getCity());
+        assertEquals(cinemaDto, createCinemaRequest.getCinema());
+    }
+
+    private void createCinemaRequestInstance(String name, String city) {
+        cinemaDto = new CinemaDto();
+        createCinemaRequest.setCinema(cinemaDto);
+        cinemaDto.setName(name);
+        cinemaDto.setCity(city);
+
     }
 }

@@ -1,9 +1,6 @@
 package pl.com.bottega.cinemasystem.ui;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemasystem.api.AdminPanel;
 import pl.com.bottega.cinemasystem.api.CreateMovieRequest;
 import pl.com.bottega.cinemasystem.api.UpdatePricesRequest;
@@ -22,6 +19,8 @@ public class MoviesController {
     public void create(@RequestBody CreateMovieRequest request) {
         adminPanel.createMovie(request);
     }
-
-    public void updatePrices(Long movieId, UpdatePricesRequest request){}
+    @PostMapping
+    public void updatePrices(Long movieId,@RequestBody UpdatePricesRequest request){
+        adminPanel.updatePrices(request);
+    }
 }

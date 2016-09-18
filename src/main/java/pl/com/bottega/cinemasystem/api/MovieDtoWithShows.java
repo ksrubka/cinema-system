@@ -7,9 +7,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-/**
- * Created by paulina.pislewicz on 2016-09-17.
- */
 public class MovieDtoWithShows {
 
     public String title;

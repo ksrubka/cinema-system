@@ -1,8 +1,5 @@
 package pl.com.bottega.cinemasystem.api;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class MovieDto {
@@ -14,7 +11,6 @@ public class MovieDto {
     private List<String> actors;
     private List<String> genres;
     private Integer length;
-
 
     public String getTitle() {
         return title;

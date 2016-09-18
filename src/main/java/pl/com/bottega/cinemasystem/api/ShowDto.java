@@ -5,11 +5,10 @@ import pl.com.bottega.cinemasystem.domain.Show;
 
 import java.time.LocalTime;
 
-/**
- * Created by paulina.pislewicz on 2016-09-17.
- */
+
 public class ShowDto {
     private Long id;
+
     @JsonFormat (pattern = "HH:mm")
     private LocalTime time;
 

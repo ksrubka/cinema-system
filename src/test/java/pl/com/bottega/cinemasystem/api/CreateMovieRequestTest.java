@@ -11,78 +11,89 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-import static org.mockito.Mockito.when;
-
 @RunWith(MockitoJUnitRunner.class)
 public class CreateMovieRequestTest {
 
-    private CreateMovieRequest createMovieRequest;
     @Mock
     private MovieDto movieDto;
+
     @Mock
     private MovieFactory movieFactory;
-    private List<String> anyActors = new ArrayList<>();
-    private String emptyString = "";
+
+    private CreateMovieRequest createMovieRequest;
+
+    private String emptyString = " ";
     private String anyTitle = "any title";
     private String anyDescription = "any desc";
     private Integer anyMinAge = 1;
+    private List<String> anyActors = new ArrayList<>();
     private List<String> anyGenres = new ArrayList<>();
-
     private Integer anyLength = 1;
 
     @Before
-    public void setUp(){
-       createMovieRequest = new CreateMovieRequest();
+    public void setUp() {
+        createMovieRequest = new CreateMovieRequest();
         anyActors.add("Andrzej Grabowski");
         anyGenres.add("horror");
     }
+
     @Test
     public void shouldValidateMovieWithCorrectMovieDto() {
         //given
         createMovie();
-       //when
+        //when
         createMovieRequest.validate();
-       //then
+        //then
         assertMovieTest();
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void shouldNotValidateMovieWithNameAsNull() {
+    public void shouldNotValidateMovieWithTitleAsNull() {
         //given
-        when(movieDto.getActors()).thenReturn(null);
-        when(movieDto.getDescription()).thenReturn(anyDescription);
-        when(movieDto.getGenres()).thenReturn(anyGenres);
-        when(movieDto.getLength()).thenReturn(anyLength);
-        when(movieDto.getTitle()).thenReturn(anyTitle);
-        when(movieDto.getMinAge()).thenReturn(anyMinAge);
-        createMovieRequest.setMovie(movieDto);
+        createMovieRequestInstance(null, anyDescription, anyMinAge, anyActors, anyGenres, anyLength);
 
         //when
         createMovieRequest.validate();
     }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotValidateMovieWithDescriptionAsNull() {
+        //given
+        createMovieRequestInstance(anyTitle, null, anyMinAge, anyActors, anyGenres, anyLength);
+
+        //when
+        createMovieRequest.validate();
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotValidateMovieWithActorsAsNull() {
+        //given
+        createMovieRequestInstance(anyTitle, anyDescription, anyMinAge, null, anyGenres, anyLength);
+
+        //when
+        createMovieRequest.validate();
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotValidateMovieWithEmptyTitle() {
+        //given
+        createMovieRequestInstance(emptyString, anyDescription, anyMinAge, anyActors, anyGenres, anyLength);
+
+        //when
+        createMovieRequest.validate();
+    }
+
     @Test(expected = InvalidRequestException.class)
     public void shouldNotValidateMovieWithEmptyDescription() {
         //given
-        when(movieDto.getActors()).thenReturn(anyActors);
-        when(movieDto.getDescription()).thenReturn(emptyString);
-        when(movieDto.getGenres()).thenReturn(anyGenres);
-        when(movieDto.getLength()).thenReturn(anyLength);
-        when(movieDto.getTitle()).thenReturn(anyTitle);
-        when(movieDto.getMinAge()).thenReturn(anyMinAge);
-        createMovieRequest.setMovie(movieDto);
+        createMovieRequestInstance(anyTitle, emptyString, anyMinAge, anyActors, anyGenres, anyLength);
 
         //when
         createMovieRequest.validate();
     }
 
-    private void createMovie(){
-        when(movieDto.getActors()).thenReturn(anyActors);
-        when(movieDto.getDescription()).thenReturn(anyDescription);
-        when(movieDto.getGenres()).thenReturn(anyGenres);
-        when(movieDto.getLength()).thenReturn(anyLength);
-        when(movieDto.getTitle()).thenReturn(anyTitle);
-        when(movieDto.getMinAge()).thenReturn(anyMinAge);
-        createMovieRequest.setMovie(movieDto);
+    private void createMovie() {
+        createMovieRequestInstance(anyTitle, anyDescription, anyMinAge, anyActors, anyGenres, anyLength);
     }
 
     private void assertMovieTest() {
@@ -93,5 +104,17 @@ public class CreateMovieRequestTest {
         assertEquals(movieDto.getTitle(), createMovieRequest.getTitle());
         assertEquals(movieDto.getMinAge(), createMovieRequest.getMinAge());
         assertEquals(movieDto, createMovieRequest.getMovie());
+    }
+
+    private void createMovieRequestInstance(String title, String description, Integer minAge, List<String> actors, List<String> genres, Integer length) {
+        movieDto = new MovieDto();
+        createMovieRequest.setMovie(movieDto);
+        movieDto.setTitle(title);
+        movieDto.setDescription(description);
+        movieDto.setMinAge(minAge);
+        movieDto.setActors(actors);
+        movieDto.setGenres(genres);
+        movieDto.setLength(length);
+
     }
 }

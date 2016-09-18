@@ -5,9 +5,6 @@ import pl.com.bottega.cinemasystem.domain.Movie;
 import java.util.Collection;
 import java.util.HashSet;
 
-/**
- * Created by paulina.pislewicz on 2016-09-17.
- */
 public class ListMoviesInCinemaResponse {
     public ListMoviesInCinemaResponse(Collection<Movie> moviesCollection) {
         this.movies = new HashSet<>();

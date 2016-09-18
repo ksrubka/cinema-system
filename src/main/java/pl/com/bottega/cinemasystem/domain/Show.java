@@ -1,9 +1,6 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,8 +12,10 @@ public class Show {
 
     @ManyToOne
     private Cinema cinema;
+
     @ManyToOne
     private Movie movie;
+
     private LocalDateTime date;
 
     public Show() {

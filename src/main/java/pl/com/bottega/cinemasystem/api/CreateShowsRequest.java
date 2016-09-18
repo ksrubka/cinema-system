@@ -1,12 +1,13 @@
 package pl.com.bottega.cinemasystem.api;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collection;
 import java.util.List;
 
 public class CreateShowsRequest {
 
-    private ShowsDto shows;
+    private ManyShowsDto shows;
 
     public void validate() {
         validateMovieId();
@@ -27,7 +28,7 @@ public class CreateShowsRequest {
         }
     }
 
-    public List<Date> getShowDates() {
+    public List<LocalDateTime> getShowDates() {
         return new ArrayList<>(generateStrategyCreatingShowDates().generateShowDates());
     }
 
@@ -43,11 +44,27 @@ public class CreateShowsRequest {
         return shows.getMovieId();
     }
 
-    public ShowsDto getShows() {
+    public CalendarDto getCalendar() {
+        return shows.getCalendar();
+    }
+
+    public Collection<LocalDateTime> getDates() {
+        return shows.getDates();
+    }
+
+    public ManyShowsDto getShows() {
         return shows;
     }
 
-    public void setShows(ShowsDto shows) {
+    public void setShows(ManyShowsDto shows) {
         this.shows = shows;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        shows.setCinemaId(cinemaId);
+    }
+
+    public Long getCinemaId() {
+        return shows.getCinemaId();
     }
 }
