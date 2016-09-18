@@ -11,10 +11,12 @@ public class CinemasController {
 
     private AdminPanel adminPanel;
     private CinemaCatalog cinemaCatalog;
+    private MovieCatalog movieCatalog;
 
-    public CinemasController(AdminPanel adminPanel, CinemaCatalog cinemaCatalog) {
+    public CinemasController(AdminPanel adminPanel, CinemaCatalog cinemaCatalog, MovieCatalog movieCatalog) {
         this.adminPanel = adminPanel;
         this.cinemaCatalog = cinemaCatalog;
+        this.movieCatalog = movieCatalog;
     }
 
     @PutMapping
@@ -27,8 +29,8 @@ public class CinemasController {
        return cinemaCatalog.listAll();
     }
 
-    @GetMapping
-    public ListMoviesInCinemaResponse listMoviesInCinema (Long cinemaId, LocalTime date){
-        return null;
+    @GetMapping("/{cinemaId}")
+    public ListMoviesInCinemaResponse listMoviesInCinema (@PathVariable Long cinemaId, LocalTime date){
+        return movieCatalog.listMoviesInCinema(cinemaId, date);
     }
 }
