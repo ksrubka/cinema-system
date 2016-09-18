@@ -72,13 +72,23 @@ public class AdminPanelTest {
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void shouldThrownInvalidRequestExWhenAddedCinemaAlreadyExists() {
+    public void shouldThrowInvalidRequestExWhenAddedMovieAlreadyExists() {
         //given
         doThrow(InvalidRequestException.class).when(anyMovieRepository).save(anyMovie);
         when(anyMovieFactory.createMovie(anyCreateMovieRequest)).thenReturn(anyMovie);
         adminPanel.createMovie(anyCreateMovieRequest);
         //when
         adminPanel.createMovie(anyCreateMovieRequest);
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldThrowInvalidRequestExWhenAddedCinemaAlreadyExists() {
+        //given
+        doThrow(InvalidRequestException.class).when(anyCinemaRepository).save(anyCinema);
+        when(anyCinemaFactory.createCinema(anyCreateCinemaRequest)).thenReturn(anyCinema);
+        adminPanel.createCinema(anyCreateCinemaRequest);
+        //when
+        adminPanel.createCinema(anyCreateCinemaRequest);
     }
 
 }
