@@ -12,9 +12,10 @@ import static junit.framework.TestCase.assertNotNull;
 @RunWith(MockitoJUnitRunner.class)
 public class MovieFactoryTest {
 
-    private MovieFactory movieFactory;
     @Mock
     private CreateMovieRequest createMovieRequest;
+
+    private MovieFactory movieFactory;
 
     @Before
     public void SetUp() {
@@ -26,6 +27,5 @@ public class MovieFactoryTest {
         Movie movie = movieFactory.createMovie(createMovieRequest);
         assertNotNull(movie);
     }
-
 
 }

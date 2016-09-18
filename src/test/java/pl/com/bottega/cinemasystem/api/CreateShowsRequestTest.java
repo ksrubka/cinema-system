@@ -17,15 +17,18 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CreateShowsRequestTest {
 
-
-    private Long movieId = 15L;
-    private CalendarDto calendar;
-    private Collection<String> dates = new ArrayList<>();
-    private CreateShowsRequest createShowsRequest;
     @Mock
     private ShowsRepository showsRepository;
+
     @Mock
     private ManyShowsDto showsDto;
+
+    private CalendarDto calendar;
+
+    private CreateShowsRequest createShowsRequest;
+
+    private Long movieId = 15L;
+    private Collection<String> dates = new ArrayList<>();
 
     @Before
     public void setUp() {
