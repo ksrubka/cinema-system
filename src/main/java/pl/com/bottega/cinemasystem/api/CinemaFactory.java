@@ -1,13 +1,11 @@
 package pl.com.bottega.cinemasystem.api;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import pl.com.bottega.cinemasystem.domain.Cinema;
 
-@Service
+@Component
 public class CinemaFactory {
     public Cinema createCinema(CreateCinemaRequest createCinemaRequest) {
         return new Cinema(createCinemaRequest.getName(), createCinemaRequest.getCity());
     }
-
-    public CinemaFactory(){}
 }
