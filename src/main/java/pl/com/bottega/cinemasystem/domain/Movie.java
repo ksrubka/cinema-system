@@ -2,6 +2,7 @@ package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Movie {
@@ -18,6 +19,8 @@ public class Movie {
     @ElementCollection
     private List<String> genres;
     private Integer length;
+    @OneToMany
+    private Set<Show> shows;
 
     public Movie() {
     }

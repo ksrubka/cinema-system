@@ -29,7 +29,6 @@ public class JPACinemaCatalogTest {
     public void shouldListAllCinemas() {
         //given
         ListAllCinemasResponse listAllCinemasResponse = cinemaCatalog.listAll();
-        //when
 
         //then
         assertNotNull(listAllCinemasResponse);

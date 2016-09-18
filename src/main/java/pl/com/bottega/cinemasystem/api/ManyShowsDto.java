@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public class ShowsDto {
+public class ManyShowsDto {
 
     private Long cinemaId;
     private Long movieId;

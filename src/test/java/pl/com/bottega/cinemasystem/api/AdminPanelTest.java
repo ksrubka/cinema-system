@@ -44,10 +44,7 @@ public class AdminPanelTest {
     @Mock
     private Cinema anyCinema;
 
-
     private AdminPanel adminPanel;
-
-
 
     @Before
     public void setUp() {
@@ -75,7 +72,7 @@ public class AdminPanelTest {
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void shouldThrownInvalidRequestExWhenAddedCinemaAlreadyExists(){
+    public void shouldThrownInvalidRequestExWhenAddedCinemaAlreadyExists() {
         //given
         doThrow(InvalidRequestException.class).when(anyMovieRepository).save(anyMovie);
         when(anyMovieFactory.createMovie(anyCreateMovieRequest)).thenReturn(anyMovie);

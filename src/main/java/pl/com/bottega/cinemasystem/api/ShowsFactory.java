@@ -17,4 +17,5 @@ public class ShowsFactory {
         dates.forEach(date -> shows.add(new Show(cinema, movie, date)));
         return shows;
     }
+
 }

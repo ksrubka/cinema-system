@@ -56,4 +56,9 @@ public class AdminPanel {
     private void saveShows(Collection<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
     }
+
+    @Transactional
+    public void updatePrices(UpdatePricesRequest request){
+
+    }
 }
