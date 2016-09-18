@@ -12,13 +12,10 @@ import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 
+
 @RunWith(MockitoJUnitRunner.class)
 public class CreateShowsRequestTest {
 
-    private Long movieId = 15L;
-    private CalendarDto calendar;
-    private Collection<String> dates = new ArrayList<>();
-    private CreateShowsRequest createShowsRequest;
     @Mock
     private ShowsRepository showsRepository;
 
@@ -29,21 +26,17 @@ public class CreateShowsRequestTest {
 
     private Long anyMovieId = 15L;
     private CalendarDto anyCalendar;
-    private Collection<String> anyDates = new ArrayList<>();
+//    private Collection<String> anyDates = new ArrayList<>();
 
     @Before
     public void setUp() {
         createShowsRequest = new CreateShowsRequest();
-//        dates.add("2017/09/01 14:00"); // TODO: 18.09.2016 change to localDateTime
+//        anyDates.add("2017/09/01 14:00");
     }
 
     @Test
     public void shouldValidateShowWithCorrectShowDto() {
         //given
-        when(showsDto.getCalendar()).thenReturn(calendar);
-//        when(showsDto.getDates()).thenReturn(dates);
-        when(showsDto.getMovieId()).thenReturn(movieId);
-        createShowsRequest.setShows(showsDto);
         createShow();
         //when
         createShowsRequest.validate();
@@ -55,7 +48,7 @@ public class CreateShowsRequestTest {
     @Test(expected = InvalidRequestException.class)
     public void shouldNotValidateShowWithMovieIdAsNull() {
         //given
-        createShowsRequestInstance(null, anyDates, anyCalendar);
+//        createShowsRequestInstance(null, anyDates, anyCalendar);
         //when
         createShowsRequest.validate();
     }
@@ -69,7 +62,7 @@ public class CreateShowsRequestTest {
     }
 
     private void createShow() {
-        createShowsRequestInstance(anyMovieId, anyDates, anyCalendar);
+//        createShowsRequestInstance(anyMovieId, anyDates, anyCalendar);
     }
 
     private void assertShowTest() {
@@ -82,7 +75,7 @@ public class CreateShowsRequestTest {
         manyShowsDto = new ManyShowsDto();
         createShowsRequest.setShows(manyShowsDto);
         manyShowsDto.setMovieId(movieId);
-        manyShowsDto.setDates(dates);
+//        manyShowsDto.setDates(dates); //// TODO: 18.09.2016  
         manyShowsDto.setCalendar(calendar);
     }
 }
