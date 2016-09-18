@@ -1,12 +1,19 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemasystem.api.ListMoviesInCinemaResponse;
 import pl.com.bottega.cinemasystem.api.MovieCatalog;
+import pl.com.bottega.cinemasystem.api.MovieDtoWithShows;
+import pl.com.bottega.cinemasystem.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Repository
 public class JPAMovieCatalog implements MovieCatalog {
@@ -15,13 +22,19 @@ public class JPAMovieCatalog implements MovieCatalog {
     private EntityManager entityManager;
 
     @Override
-    public ListMoviesInCinemaResponse listMoviesInCinema(Long cinemaId, LocalTime date) {
-        /*String jpa = "select new pl.com.bottega.cinemasystem.api.MovieDtoWithShows(" +
-                "m.id, m.name, c.city) FROM Movie m";
-        Query query = entityManager.createQuery(jpa, CinemaDto.class);
-        ListMoviesInCinemaResponse moviesList = new ListMoviesInCinemaResponse(query.getResultList());
-        return moviesList;*/
-    return null;
+    public ListMoviesInCinemaResponse listMoviesInCinema(Long cinemaId, LocalDate date) {
+        checkNotNull(cinemaId);
+        checkNotNull(date);
+        String jpa = " FROM Movie m " +
+                "JOIN m.cinema c " +
+                "JOIN m.show s " +
+                "WHERE c.id = :cinemaId AND s.date= :date";
+
+        Query query = (Query) entityManager.createQuery(jpa, MovieDtoWithShows.class);
+        query.setParameter("cinemaId", cinemaId);
+        query.setParameter("date", date);
+        List<Movie> movies = query.getResultList();
+        return new ListMoviesInCinemaResponse(movies);
     }
 
 }

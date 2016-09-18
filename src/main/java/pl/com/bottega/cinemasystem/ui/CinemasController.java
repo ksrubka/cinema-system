@@ -3,7 +3,7 @@ package pl.com.bottega.cinemasystem.ui;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemasystem.api.*;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/cinemas")
@@ -29,8 +29,8 @@ public class CinemasController {
        return cinemaCatalog.listAll();
     }
 
-    @GetMapping("/{cinemaId}")
-    public ListMoviesInCinemaResponse listMoviesInCinema (@PathVariable Long cinemaId, LocalTime date){
+    @GetMapping("/{cinemaId}/movies?date=YYYY/MM/dd*")
+    public ListMoviesInCinemaResponse listMoviesInCinema (@PathVariable Long cinemaId, LocalDate date){
         return movieCatalog.listMoviesInCinema(cinemaId, date);
     }
 }
