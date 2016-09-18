@@ -12,9 +12,10 @@ public class Show {
 
     @ManyToOne
     private Cinema cinema;
+
     @ManyToOne
     private Movie movie;
-    @Temporal(value = TemporalType.TIMESTAMP)
+
     private LocalDateTime date;
 
     public Show() {
