@@ -17,9 +17,7 @@ import static org.junit.Assert.*;
 public class CreateCinemaRequestTest {
 
     public static final String EMPTY_STRING = "  ";
-
     private CreateCinemaRequest createCinemaRequest;
-
     private String anyName = "any name";
     private String anyCity = "any city";
 
@@ -48,7 +46,6 @@ public class CreateCinemaRequestTest {
         assertEquals(cinemaDto.getCity(), createCinemaRequest.getCity());
         assertEquals(cinemaDto, createCinemaRequest.getCinema());
     }
-
 
     @Test(expected = InvalidRequestException.class)
     public void shouldNotValidateCinemaWithNameAsNull() {

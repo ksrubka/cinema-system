@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.Cinema;
+
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -17,7 +18,7 @@ public class CinemaFactoryTest {
     private CreateCinemaRequest createCinemaRequest;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         cinemaFactory = new CinemaFactory();
     }
 

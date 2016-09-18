@@ -16,38 +16,25 @@ public class AdminPanelTest {
 
     @Mock
     private CinemaRepository anyCinemaRepository;
-
     @Mock
     private MovieRepository anyMovieRepository;
-
     @Mock
     private ShowsRepository anyShowsRepository;
-
     @Mock
     private MovieFactory anyMovieFactory;
-
     @Mock
     private CinemaFactory anyCinemaFactory;
-
     @Mock
     private ShowsFactory anyShowsFactory;
-
     @Mock
     private CreateMovieRequest anyCreateMovieRequest;
-
     @Mock
     private CreateCinemaRequest anyCreateCinemaRequest;
-
     @Mock
     private Movie anyMovie;
-
     @Mock
     private Cinema anyCinema;
-
-
     private AdminPanel adminPanel;
-
-
 
     @Before
     public void setUp() {
@@ -75,7 +62,7 @@ public class AdminPanelTest {
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void shouldThrownInvalidRequestExWhenAddedCinemaAlreadyExists(){
+    public void shouldThrownInvalidRequestExWhenAddedCinemaAlreadyExists() {
         //given
         doThrow(InvalidRequestException.class).when(anyMovieRepository).save(anyMovie);
         when(anyMovieFactory.createMovie(anyCreateMovieRequest)).thenReturn(anyMovie);

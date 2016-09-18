@@ -28,10 +28,11 @@ public class CreateShowsRequestTest {
     private ManyShowsDto showsDto;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         createShowsRequest = new CreateShowsRequest();
         dates.add("2017/09/01 14:00");
     }
+
     @Test
     public void shouldValidateShow() {
         //given
@@ -45,8 +46,10 @@ public class CreateShowsRequestTest {
         assertEquals(showsDto, createShowsRequest.getShows());
 
     }
+
     @Test(expected = InvalidRequestException.class)
-    public void shouldNotCreateShowWithInvalidMovieId(){
+    public void shouldNotCreateShowWithInvalidMovieId() {
+        //given
         when(showsDto.getCalendar()).thenReturn(calendar);
         when(showsDto.getDates()).thenReturn(dates);
         when(showsDto.getMovieId()).thenReturn(null);
