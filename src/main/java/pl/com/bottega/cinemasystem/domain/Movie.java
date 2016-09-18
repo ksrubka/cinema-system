@@ -19,6 +19,11 @@ public class Movie {
     @ElementCollection
     private List<String> genres;
     private Integer length;
+
+    public Set<Show> getShows() {
+        return shows;
+    }
+
     @OneToMany
     private Set<Show> shows;
 
