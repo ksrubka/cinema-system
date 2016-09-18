@@ -21,6 +21,8 @@ public class Movie {
     private Integer length;
     @OneToMany
     private Set<Show> shows;
+    @OneToMany
+    private Set<TicketPrice> ticketPrice;
 
     public Movie() {
     }

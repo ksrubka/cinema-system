@@ -56,7 +56,12 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void updatePrices(UpdatePricesRequest request){
+    public void updatePrices(UpdatePricesRequest request) {
 
+    }
+
+    @Transactional
+    public CalculatePriceResponse calculatePrice(CalculatePriceRequest request) {
+        return null;
     }
 }
