@@ -30,6 +30,9 @@ public class AdminPanelTest {
     private CinemaFactory anyCinemaFactory;
 
     @Mock
+    private ShowsFactory anyShowsFactory;
+
+    @Mock
     private CreateMovieRequest anyCreateMovieRequest;
 
     @Mock
@@ -48,7 +51,7 @@ public class AdminPanelTest {
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory, anyCinemaFactory);
+        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory, anyCinemaFactory, anyShowsFactory);
     }
 
     @Test
