@@ -18,17 +18,21 @@ import static junit.framework.TestCase.assertNotNull;
 @RunWith(MockitoJUnitRunner.class)
 public class ShowFactoryTest {
 
-    private ShowsFactory showsFactory;
     @Mock
     private CreateShowsRequest createShowsRequest;
+
     @Mock
     private CinemaRepository cinemaRepository;
+
     @Mock
     private MovieRepository movieRepository;
-    private Long anyId = 1L;
+
     @Mock
     private ManyShowsDto showsDto;
 
+    private ShowsFactory showsFactory;
+
+    private Long anyId = 1L;
 
     @Before
     public void setUp() {

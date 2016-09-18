@@ -16,24 +16,34 @@ public class AdminPanelTest {
 
     @Mock
     private CinemaRepository anyCinemaRepository;
+
     @Mock
     private MovieRepository anyMovieRepository;
+
     @Mock
     private ShowsRepository anyShowsRepository;
+
     @Mock
     private MovieFactory anyMovieFactory;
+
     @Mock
     private CinemaFactory anyCinemaFactory;
+
     @Mock
     private ShowsFactory anyShowsFactory;
+
     @Mock
     private CreateMovieRequest anyCreateMovieRequest;
+
     @Mock
     private CreateCinemaRequest anyCreateCinemaRequest;
+
     @Mock
     private Movie anyMovie;
+
     @Mock
     private Cinema anyCinema;
+
     private AdminPanel adminPanel;
 
     @Before
