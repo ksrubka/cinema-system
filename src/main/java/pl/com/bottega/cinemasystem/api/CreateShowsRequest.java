@@ -43,6 +43,10 @@ public class CreateShowsRequest {
         return shows.getMovieId();
     }
 
+    public CalendarDto getCalendar() {
+        return shows.getCalendar();
+    }
+
     public ManyShowsDto getShows() {
         return shows;
     }
@@ -50,4 +54,6 @@ public class CreateShowsRequest {
     public void setShows(ManyShowsDto shows) {
         this.shows = shows;
     }
+
+
 }
