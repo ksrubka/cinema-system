@@ -97,4 +97,8 @@ public class Movie {
     public void setLength(Integer length) {
         this.length = length;
     }
+
+    public void updatePrices(Set<TicketPrice> ticketPricesSet){
+        this.ticketPrice = ticketPricesSet;
+    }
 }

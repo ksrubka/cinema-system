@@ -59,4 +59,6 @@ public class Show {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+
 }
