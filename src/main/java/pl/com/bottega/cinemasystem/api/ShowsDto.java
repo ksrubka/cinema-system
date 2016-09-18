@@ -1,14 +1,17 @@
 package pl.com.bottega.cinemasystem.api;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Collection;
 
 public class ShowsDto {
 
     private Long movieId;
     private CalendarDto calendar;
-    @ElementCollection(fetch = FetchType.EAGER)
+
+    /*@JsonFormat(pattern="yyyy/MM/dd HH:mm")
+    private Collection<Date> dates;*/
+
     private Collection<String> dates;
 
     public Long getMovieId() {
