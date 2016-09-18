@@ -2,49 +2,40 @@ package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.api.utils.DateUtil;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Date;
 
 class DatesBasedValidationStrategy implements ValidationStrategy {
 
-    private Collection<String> stringDates;
+    private Collection<LocalDateTime> dates;
 
-    DatesBasedValidationStrategy(Collection<String> dates) {
-        this.stringDates = dates;
+    DatesBasedValidationStrategy(Collection<LocalDateTime> dates) {
+        this.dates = dates;
     }
 
     @Override
     public void validate() {
         checkIfDatesAreSpecified();
         checkIfDatesAreCorrect();
-        checkIfDatesHasNotPassed();
+        DateUtil.checkIfDatesHasNotPassed(dates);
     }
 
     private void checkIfDatesAreSpecified() {
-        if (stringDates == null) {
+        if (dates == null) {
             throw new InvalidRequestException("Dates not specified");
         }
     }
 
     private void checkIfDatesAreCorrect() {
-        stringDates.forEach(date -> DateUtil.validate(date));
+        dates.forEach(date -> validate(date));
     }
 
-    private void checkIfDatesHasNotPassed() {
-        stringDates.forEach(stringDate -> {
-            Date date = DateUtil.parseDate(stringDate);
-            checkIfDatePassed(date);
-        });
-    }
-
-    private void checkIfDatePassed(Date date) {
-        if (dateHasPassed(date)) {
-            throw new InvalidRequestException("Given date has already passed: " + date);
-        }
-    }
-
-    private boolean dateHasPassed(Date date) {
-        Date now = new Date();
-        return now.compareTo(date) >= 0;
+    private void validate(LocalDateTime dateAndTime) {
+        LocalDate date = dateAndTime.toLocalDate();
+        LocalTime time = dateAndTime.toLocalTime();
+        DateUtil.validateDate(date);
+        DateUtil.validateTime(time);
     }
 }

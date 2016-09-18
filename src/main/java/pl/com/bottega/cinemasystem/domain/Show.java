@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 public class Show {
@@ -15,12 +15,12 @@ public class Show {
     @ManyToOne
     private Movie movie;
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date date;
+    private LocalDateTime date;
 
     public Show() {
     }
 
-    public Show(Cinema cinema, Movie movie, Date date) {
+    public Show(Cinema cinema, Movie movie, LocalDateTime date) {
         this.cinema = cinema;
         this.movie = movie;
         this.date = date;
@@ -50,11 +50,11 @@ public class Show {
         this.movie = movie;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

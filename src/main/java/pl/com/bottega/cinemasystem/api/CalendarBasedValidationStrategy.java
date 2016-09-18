@@ -2,6 +2,7 @@ package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.api.utils.DateUtil;
 
+import java.time.LocalTime;
 import java.util.Collection;
 
 class CalendarBasedValidationStrategy implements ValidationStrategy {
@@ -14,26 +15,17 @@ class CalendarBasedValidationStrategy implements ValidationStrategy {
 
     @Override
     public void validate() {
-        checkDates();
-        checkHours();
-        checkWeekdays();
+        validateDates();
+        validateHours();
     }
 
-    private void checkDates() {
-        DateUtil.validate(calendar.getFromDate());
-        DateUtil.validate(calendar.getUntilDate());
+    private void validateDates() {
+        DateUtil.validateDate(calendar.getFromDate());
+        DateUtil.validateDate(calendar.getUntilDate());
     }
 
-    private void checkHours() {
-        Collection<String> hours = calendar.getHours();
-        hours.forEach(hour -> DateUtil.checkHourAndMinuteInTime(hour));
-    }
-
-    private void checkWeekdays() {
-        try {
-            calendar.getWeekDays().forEach(day -> Weekday.valueOf(day));
-        } catch (Exception ex) {
-            throw new InvalidRequestException("Incorrect weekday");
-        }
+    private void validateHours() {
+        Collection<LocalTime> hours = calendar.getHours();
+        hours.forEach(hour -> DateUtil.validateTime(hour));
     }
 }

@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CreateShowsRequest {
@@ -27,7 +27,7 @@ public class CreateShowsRequest {
         }
     }
 
-    public List<Date> getShowDates() {
+    public List<LocalDateTime> getShowDates() {
         return new ArrayList<>(generateStrategyCreatingShowDates().generateShowDates());
     }
 
@@ -49,5 +49,13 @@ public class CreateShowsRequest {
 
     public void setShows(ShowsDto shows) {
         this.shows = shows;
+    }
+
+    public void setCinemaId(Long cinemaId) {
+        shows.setCinemaId(cinemaId);
+    }
+
+    public Long getCinemaId() {
+        return shows.getCinemaId();
     }
 }
