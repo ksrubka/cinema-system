@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -55,5 +53,10 @@ public class AdminPanel {
 
     private void saveShows(List<Show> shows) {
         shows.forEach(show -> showsRepository.save(show));
+    }
+
+    @Transactional
+    public void updatePrices(UpdatePricesRequest request){
+
     }
 }
