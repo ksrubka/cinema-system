@@ -45,4 +45,14 @@ public class CreateShowsRequestTest {
         assertEquals(showsDto, createShowsRequest.getShows());
 
     }
+//    @Test(expected = InvalidRequestException.class)
+//    public void shouldNotCreateShowWithInvalidMovieId(){
+//        when(showsDto.getCalendar()).thenReturn(calendar);
+//        when(showsDto.getDates()).thenReturn(dates);
+//        when(showsDto.getMovieId()).thenReturn(null);
+//        createShowsRequest.setShows(showsDto);
+//        //when
+//        createShowsRequest.validate();
+//    }
+
 }

@@ -2,16 +2,16 @@ package pl.com.bottega.cinemasystem.api;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.FetchType;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 public class MovieDto {
 
+    private Long id;
     private String title;
     private String description;
     private Integer minAge;
-    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> actors;
-    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> genres;
     private Integer length;
 
@@ -63,4 +63,13 @@ public class MovieDto {
     public void setLength(Integer length) {
         this.length = length;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }
