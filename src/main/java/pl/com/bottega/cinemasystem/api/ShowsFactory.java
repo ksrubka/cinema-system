@@ -10,8 +10,15 @@ import java.util.List;
 @Component
 public class ShowsFactory {
 
+
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
+
+    public ShowsFactory(CinemaRepository cinemaRepository, MovieRepository movieRepository) {
+        this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
+    }
+
 
     public List<Show> getShows(Long cinemaId, CreateShowsRequest createShowsRequest) {
         Cinema cinema = cinemaRepository.load(cinemaId);
