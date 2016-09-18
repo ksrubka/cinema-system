@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.com.bottega.cinemasystem.api.AdminPanel;
 import pl.com.bottega.cinemasystem.api.CreateMovieRequest;
+import pl.com.bottega.cinemasystem.api.UpdatePricesRequest;
 
 @RestController
 @RequestMapping("/movies")
@@ -21,4 +22,6 @@ public class MoviesController {
     public void create(@RequestBody CreateMovieRequest request) {
         adminPanel.createMovie(request);
     }
+
+    public void updatePrices(Long movieId, UpdatePricesRequest request){}
 }
