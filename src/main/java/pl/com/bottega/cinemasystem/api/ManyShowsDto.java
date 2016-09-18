@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemasystem.api;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Collection;
 
 public class ManyShowsDto {

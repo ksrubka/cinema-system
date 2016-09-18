@@ -2,9 +2,6 @@ package pl.com.bottega.cinemasystem.api;
 
 import java.util.Collection;
 
-/**
- * Created by paulina.pislewicz on 2016-09-17.
- */
 public class ListMoviesInCinemaResponse {
     public Collection<MovieDtoWithShows> getMovies() {
         return movies;
