@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +46,10 @@ public class CreateShowsRequest {
 
     public CalendarDto getCalendar() {
         return shows.getCalendar();
+    }
+
+    public Collection<String> getDates() {
+        return shows.getDates();
     }
 
     public ManyShowsDto getShows() {
