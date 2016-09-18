@@ -62,8 +62,4 @@ public class AdminPanel {
 
     }
 
-    @Transactional
-    public CalculatePriceResponse calculatePrice(CalculatePriceRequest request) {
-        return null;
-    }
 }

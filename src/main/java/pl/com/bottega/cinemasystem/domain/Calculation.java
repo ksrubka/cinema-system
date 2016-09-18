@@ -5,11 +5,11 @@ import java.util.Set;
 
 
 public class Calculation {
-    private BigDecimal total;
+    private BigDecimal totalPrice;
     private Set<TicketOrder> ticketOrder;
 
-    public Calculation(BigDecimal total, Set<TicketOrder> ticketOrder) {
-        this.total = total;
+    public Calculation(BigDecimal totalPrice, Set<TicketOrder> ticketOrder) {
+        this.totalPrice = totalPrice;
         this.ticketOrder = ticketOrder;
     }
 
@@ -18,11 +18,11 @@ public class Calculation {
     }
 
     public BigDecimal getTotal() {
-        return total;
+        return totalPrice;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setTotal(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
 

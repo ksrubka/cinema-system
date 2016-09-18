@@ -1,24 +1,13 @@
 package pl.com.bottega.cinemasystem.api;
 
-import pl.com.bottega.cinemasystem.domain.Show;
-import pl.com.bottega.cinemasystem.domain.ShowsRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public class PriceCalculator implements ShowsRepository {
+@Service
+public class PriceCalculator {
 
-    private Show show;
-
-    @Override
-    public void save(Show show) {
-
+    @Transactional
+    public CalculatePriceResponse calculatePrice(CalculatePriceRequest request) {
+        return null;
     }
-
-    public Show getShow() {
-        return show;
-    }
-
-    public void setShow(Show show) {
-        this.show = show;
-    }
-
-
 }

@@ -1,14 +1,21 @@
 package pl.com.bottega.cinemasystem.domain;
 
+
 import java.math.BigDecimal;
 
 public class TicketOrder {
 
+
     private String kind;
     private Integer count;
+
+    public TicketOrder(String kind, Integer count) {
+        this.kind = kind;
+        this.count = count;
+    }
+
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
-
 
     public TicketOrder(String kind, Integer count, BigDecimal unitPrice, BigDecimal totalPrice) {
         this.kind = kind;
