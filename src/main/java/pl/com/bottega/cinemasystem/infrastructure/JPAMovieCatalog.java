@@ -26,11 +26,11 @@ public class JPAMovieCatalog implements MovieCatalog {
         checkNotNull(cinemaId);
         checkNotNull(date);
         String jpa = " FROM Movie m " +
-                "JOIN FETCH m.cinema c " +
                 "JOIN  FETCH m.show s " +
+                "JOIN FETCH s.cinema c " +
                 "WHERE c.id = :cinemaId AND s.date= :date ";
 
-        Query query = (Query) entityManager.createQuery(jpa, MovieDtoWithShows.class);
+        Query query = (Query) entityManager.createQuery(jpa, Movie.class);
         query.setParameter("cinemaId", cinemaId);
         query.setParameter("date", date);
         List<Movie> movies = query.getResultList();
