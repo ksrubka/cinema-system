@@ -30,7 +30,7 @@ public class CinemasController {
     }
 
     @GetMapping("/{cinemaId}/movies?date=YYYY/MM/dd*")
-    public ListMoviesInCinemaResponse listMoviesInCinema (@PathVariable Long cinemaId, LocalDate date){
-        return movieCatalog.listMoviesInCinema(cinemaId, date);
+    public ListMoviesInCinemaResponse listMoviesInCinema (@PathVariable ("cinemaId") Long id, @RequestBody LocalDate date){
+        return movieCatalog.listMoviesInCinema(id, date);
     }
 }
