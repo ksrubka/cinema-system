@@ -59,7 +59,8 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void updatePrices(UpdatePricesRequest request){
+    public void updatePrices(UpdatePricesRequest request) {
 
     }
+
 }

@@ -26,6 +26,8 @@ public class Movie {
 
     @OneToMany
     private Set<Show> shows;
+    @OneToMany
+    private Set<TicketPrice> ticketPrice;
 
     public Movie() {
     }
@@ -94,5 +96,9 @@ public class Movie {
 
     public void setLength(Integer length) {
         this.length = length;
+    }
+
+    public void updatePrices(Set<TicketPrice> ticketPricesSet){
+        this.ticketPrice = ticketPricesSet;
     }
 }
