@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Service
 public class AdminPanel {
@@ -12,35 +13,26 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
     private ShowsRepository showsRepository;
-    private MovieFactory movieFactory;
-    private CinemaFactory cinemaFactory;
-    private ShowsFactory showsFactory;
 
     public AdminPanel(CinemaRepository cinemaRepository,
                       MovieRepository movieRepository,
-                      ShowsRepository showsRepository,
-                      MovieFactory movieFactory,
-                      CinemaFactory cinemaFactory,
-                      ShowsFactory showsFactory) {
+                      ShowsRepository showsRepository) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.showsRepository = showsRepository;
-        this.movieFactory = movieFactory;
-        this.cinemaFactory = cinemaFactory;
-        this.showsFactory = showsFactory;
     }
 
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
         createCinemaRequest.validate();
-        Cinema cinema = cinemaFactory.createCinema(createCinemaRequest);
+        Cinema cinema = CinemaFactory.createCinema(createCinemaRequest);
         cinemaRepository.save(cinema);
     }
 
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
         createMovieRequest.validate();
-        Movie movie = movieFactory.createMovie(createMovieRequest);
+        Movie movie = MovieFactory.createMovie(createMovieRequest);
         movieRepository.save(movie);
     }
 
@@ -49,8 +41,10 @@ public class AdminPanel {
         request.validate();
         Cinema cinema = cinemaRepository.load(request.getCinemaId());
         Movie movie = movieRepository.load(request.getMovieId());
-        Collection<Show> shows = showsFactory.getShows(cinema, movie, request);
+        Collection<Show> shows = ShowsFactory.createShows(cinema, movie, request);
         saveShows(shows);
+        movie.addShows(shows);
+        movieRepository.save(movie);
     }
 
     private void saveShows(Collection<Show> shows) {
@@ -58,7 +52,11 @@ public class AdminPanel {
     }
 
     @Transactional
-    public void updatePrices(UpdatePricesRequest request){
-
+    public void updatePrices(UpdatePricesRequest request) {
+        request.validateMovieId();
+        Movie movie = movieRepository.load(request.getMovieId());
+        request.validate(movie);
+        Set<TicketPrice> ticketPrices = TicketPricesFactory.createTickets(request);
+        movie.updatePrices(ticketPrices);
     }
 }
