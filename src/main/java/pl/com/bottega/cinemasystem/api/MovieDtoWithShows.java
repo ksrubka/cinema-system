@@ -28,9 +28,7 @@ public class MovieDtoWithShows {
         this.shows = new HashSet<>();
         for (Show show : movie.getShows()){
             shows.add(new ShowDto(show));
-
         }
-
     }
 
     public String getTitle() {
@@ -52,5 +50,4 @@ public class MovieDtoWithShows {
     public List<String> getActors() {
         return actors;
     }
-
 }

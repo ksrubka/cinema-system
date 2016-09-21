@@ -1,7 +1,10 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Show {
@@ -9,20 +12,27 @@ public class Show {
     @Id
     @GeneratedValue
     private Long id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Cinema cinema;
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     private Movie movie;
 
-    private LocalDateTime date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    private LocalTime time;
 
     public Show() {
     }
 
-    public Show(Cinema cinema, Movie movie, LocalDateTime date) {
+    public Show(Cinema cinema, Movie movie, LocalDate date, LocalTime time) {
         this.cinema = cinema;
         this.movie = movie;
         this.date = date;
+        this.time = time;
     }
 
     public Long getId() {
@@ -49,11 +59,19 @@ public class Show {
         this.movie = movie;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 }

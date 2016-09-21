@@ -4,13 +4,11 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemasystem.api.ListMoviesInCinemaResponse;
 import pl.com.bottega.cinemasystem.api.MovieCatalog;
-import pl.com.bottega.cinemasystem.api.MovieDtoWithShows;
 import pl.com.bottega.cinemasystem.domain.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -25,10 +23,10 @@ public class JPAMovieCatalog implements MovieCatalog {
     public ListMoviesInCinemaResponse listMoviesInCinema(Long cinemaId, LocalDate date) {
         checkNotNull(cinemaId);
         checkNotNull(date);
-        String jpa = " FROM Movie m " +
-                "JOIN  FETCH m.show s " +
+        String jpa = "FROM Movie m " +
+                "JOIN FETCH m.shows s " +
                 "JOIN FETCH s.cinema c " +
-                "WHERE c.id = :cinemaId AND s.date= :date ";
+                "WHERE c.id = :cinemaId AND s.date= :date";
 
         Query query = (Query) entityManager.createQuery(jpa, Movie.class);
         query.setParameter("cinemaId", cinemaId);
@@ -36,5 +34,4 @@ public class JPAMovieCatalog implements MovieCatalog {
         List<Movie> movies = query.getResultList();
         return new ListMoviesInCinemaResponse(movies);
     }
-
 }
