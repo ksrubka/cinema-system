@@ -1,7 +1,8 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Movie {
@@ -27,20 +28,17 @@ public class Movie {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Show> shows;
 
-    public Set<Show> getShows() {
-        return shows;
-    }
-
     public Movie() {
     }
 
-    public Movie(String title, String description, Integer minAge, List<String> actors, List<String> genres,  Integer length) {
+    public Movie(String title, String description, Integer minAge,
+                 List<String> actors, List<String> genres, Integer length) {
         this.title = title;
         this.description = description;
         this.minAge = minAge;
-        this.length = length;
         this.actors = actors;
         this.genres = genres;
+        this.length = length;
     }
 
     public Movie(String title, String description, Integer minAge,
@@ -56,13 +54,12 @@ public class Movie {
         this.shows = shows;
     }
 
-    public void updatePrices(Set<TicketPrice> ticketPrices) {
-        this.ticketPrices = ticketPrices;
-        //change movie shows??
-    }
-
     public void addShows(Collection<Show> shows) {
         this.shows.addAll(shows);
+    }
+
+    public void updatePrices(Set<TicketPrice> ticketPricesSet){
+        this.ticketPrice = ticketPricesSet;
     }
 
     public Long getId() {
@@ -119,5 +116,9 @@ public class Movie {
 
     public void setLength(Integer length) {
         this.length = length;
+    }
+
+    public Set<Show> getShows() {
+        return shows;
     }
 }

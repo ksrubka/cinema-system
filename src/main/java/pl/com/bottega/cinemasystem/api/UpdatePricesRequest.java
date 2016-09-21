@@ -6,6 +6,7 @@ import pl.com.bottega.cinemasystem.domain.Movie;
 import java.math.BigDecimal;
 import java.util.Map;
 
+
 public class UpdatePricesRequest {
 
     private Long movieId;
