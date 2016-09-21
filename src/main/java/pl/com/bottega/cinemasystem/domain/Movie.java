@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -14,20 +15,19 @@ public class Movie {
     private String title;
     private String description;
     private Integer minAge;
-    @ElementCollection
-    private List<String> actors;
-    @ElementCollection
-    private List<String> genres;
     private Integer length;
 
-    public Set<Show> getShows() {
-        return shows;
-    }
+    @ElementCollection
+    private List<String> actors;
 
-    @OneToMany
+    @ElementCollection
+    private List<String> genres;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<TicketPrice> ticketPrices;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Show> shows;
-    @OneToMany
-    private Set<TicketPrice> ticketPrice;
 
     public Movie() {
     }
@@ -40,6 +40,27 @@ public class Movie {
         this.actors = actors;
         this.genres = genres;
         this.length = length;
+    }
+
+    public Movie(String title, String description, Integer minAge,
+                 List<String> actors, List<String> genres, Integer length,
+                 Set<TicketPrice> ticketPrices, Set<Show> shows) {
+        this.title = title;
+        this.description = description;
+        this.minAge = minAge;
+        this.actors = actors;
+        this.genres = genres;
+        this.length = length;
+        this.ticketPrices = ticketPrices;
+        this.shows = shows;
+    }
+
+    public void addShows(Collection<Show> shows) {
+        this.shows.addAll(shows);
+    }
+
+    public void updatePrices(Set<TicketPrice> ticketPricesSet) {
+        this.ticketPrices = ticketPricesSet;
     }
 
     public Long getId() {
@@ -98,7 +119,7 @@ public class Movie {
         this.length = length;
     }
 
-    public void updatePrices(Set<TicketPrice> ticketPricesSet){
-        this.ticketPrice = ticketPricesSet;
+    public Set<Show> getShows() {
+        return shows;
     }
 }

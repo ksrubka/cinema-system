@@ -48,7 +48,7 @@ public class AdminPanelTest {
 
     @Before
     public void setUp() {
-        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository, anyMovieFactory, anyCinemaFactory, anyShowsFactory);
+        adminPanel = new AdminPanel(anyCinemaRepository, anyMovieRepository, anyShowsRepository);
     }
 
     @Test

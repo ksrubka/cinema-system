@@ -9,10 +9,11 @@ import java.util.stream.Collectors;
 public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy {
 
     private CalendarDto calendar;
-    private Set<Integer> weekdayCodes = generateWeekdayCodes();
+    private Set<Integer> weekdayCodes;
 
     public CalendarBasedDatesCreatingStrategy(CalendarDto calendar) {
         this.calendar = calendar;
+        weekdayCodes = generateWeekdayCodes();
     }
 
     private Set<Integer> generateWeekdayCodes() {
@@ -28,14 +29,14 @@ public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy
 
         Set<LocalDateTime> dates = new TreeSet<>();
         LocalDateTime currentShowDate;
-        while (startDate.isBefore(endDate)) {
+        while (startDate.isBefore(endDate.plusDays(1L))) {
             if (currentDayIsShowDay(startDate)) {
                 for (LocalTime time : calendar.getHours()) {
                     currentShowDate = startDate.atTime(time);
                     dates.add(currentShowDate);
                 }
             }
-            startDate.plusDays(1L);
+            startDate = startDate.plusDays(1L);
         }
         return dates;
     }

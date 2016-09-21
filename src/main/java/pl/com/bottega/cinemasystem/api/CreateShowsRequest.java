@@ -1,17 +1,46 @@
 package pl.com.bottega.cinemasystem.api;
 
+import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class CreateShowsRequest {
 
     private ManyShowsDto shows;
 
     public void validate() {
+        validateShows();
+        validateCinemaId();
         validateMovieId();
         generateValidationStrategy().validate();
+    }
+
+    private void validateShows() {
+        if (shows == null) {
+            throw new InvalidRequestException("Shows dto is null");
+        }
+        if (bothWaysOfCreatingShowsAreDefined() || noWayOfCreatingShowsIsDefined()) {
+            throw new InvalidRequestException("Wrong request: user should define one way of creating shows");
+        }
+    }
+
+    private boolean bothWaysOfCreatingShowsAreDefined() {
+        return shows.getDates() == null && shows.getCalendar() == null;
+    }
+
+    private boolean noWayOfCreatingShowsIsDefined() {
+        return shows.getDates() != null && shows.getCalendar() != null;
+    }
+
+    private void validateCinemaId() {
+        ValidationUtils.validateId(shows.getCinemaId(),
+                "Incorrect cinema id: " + shows.getCinemaId());
+    }
+
+    private void validateMovieId() {
+        ValidationUtils.validateId(shows.getMovieId(),
+                "Incorrect movie id: " + shows.getMovieId());
     }
 
     private ValidationStrategy generateValidationStrategy() {
@@ -22,21 +51,11 @@ public class CreateShowsRequest {
         }
     }
 
-    private void validateMovieId() {
-        if (shows.getMovieId() == null || shows.getMovieId() <= 0) {
-            throw new InvalidRequestException("Incorrect movie id");
-        }
-    }
-
-    public List<LocalDateTime> getShowDates() {
-        return new ArrayList<>(generateStrategyCreatingShowDates().generateShowDates());
-    }
-
-    private DatesCreatingStrategy generateStrategyCreatingShowDates() {
+    public Collection<LocalDateTime> getShowDates() {
         if (shows.getCalendar() == null) {
-            return new StringsBasedDatesCreatingStrategy(shows.getDates());
+            return shows.getDates();
         } else {
-            return new CalendarBasedDatesCreatingStrategy(shows.getCalendar());
+            return new CalendarBasedDatesCreatingStrategy(shows.getCalendar()).generateShowDates();
         }
     }
 

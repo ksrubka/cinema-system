@@ -35,7 +35,7 @@ public class ShowFactoryTest {
 
     @Test
     public void shouldGetShow() {
-        Collection<Show> show = showsFactory.getShows(cinema, movie, createShowsRequest);
+        Collection<Show> show = showsFactory.createShows(cinema, movie, createShowsRequest);
         assertNotNull(show);
     }
 }

@@ -19,8 +19,10 @@ public class MoviesController {
     public void create(@RequestBody CreateMovieRequest request) {
         adminPanel.createMovie(request);
     }
-    @PostMapping
-    public void updatePrices(@PathVariable Long movieId,@RequestBody UpdatePricesRequest request){
+
+    @PutMapping("/{movieId}/prices")
+    public void updatePrices(@PathVariable Long movieId, @RequestBody UpdatePricesRequest request) {
+        request.setMovieId(movieId);
         adminPanel.updatePrices(request);
     }
 }

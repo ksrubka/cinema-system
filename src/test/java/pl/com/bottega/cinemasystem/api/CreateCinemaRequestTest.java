@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemasystem.domain.CinemaFactory;
 
 import static org.junit.Assert.assertEquals;
 
@@ -89,6 +90,5 @@ public class CreateCinemaRequestTest {
         createCinemaRequest.setCinema(cinemaDto);
         cinemaDto.setName(name);
         cinemaDto.setCity(city);
-
     }
 }

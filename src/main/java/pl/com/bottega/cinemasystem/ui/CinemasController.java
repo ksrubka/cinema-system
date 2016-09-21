@@ -1,5 +1,6 @@
 package pl.com.bottega.cinemasystem.ui;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.cinemasystem.api.*;
 
@@ -26,11 +27,13 @@ public class CinemasController {
 
     @GetMapping
     public ListAllCinemasResponse listAll() {
-       return cinemaCatalog.listAll();
+        return cinemaCatalog.listAll();
     }
 
-    @GetMapping("/{cinemaId}/movies?date=YYYY/MM/dd*")
-    public ListMoviesInCinemaResponse listMoviesInCinema (@PathVariable ("cinemaId") Long id, @RequestBody LocalDate date){
-        return movieCatalog.listMoviesInCinema(id, date);
+    @GetMapping("/{cinemaId}/movies")
+    public ListMoviesInCinemaResponse listMoviesInCinema(
+            @PathVariable Long cinemaId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy/MM/dd") LocalDate date) {
+        return movieCatalog.listMoviesInCinema(cinemaId, date);
     }
 }

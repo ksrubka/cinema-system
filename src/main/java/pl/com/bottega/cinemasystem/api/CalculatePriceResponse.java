@@ -4,13 +4,20 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.domain.Calculation;
 import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Collection;
 
 public class CalculatePriceResponse {
 
     private Calculation calculation;
     private Collection<TicketOrder> tickets;
+
+    public CalculatePriceResponse() {
+    }
+
+    public CalculatePriceResponse(Calculation calculation, Collection<TicketOrder> tickets) {
+        this.calculation = calculation;
+        this.tickets = tickets;
+    }
 
     public Calculation getCalculation() {
         return calculation;
