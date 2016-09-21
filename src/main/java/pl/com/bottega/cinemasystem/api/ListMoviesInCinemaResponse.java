@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class ListMoviesInCinemaResponse {
+
+    Collection <MovieDtoWithShows> movies;
+
     public ListMoviesInCinemaResponse(Collection<Movie> moviesCollection) {
         this.movies = new HashSet<>();
         for (Movie movie: moviesCollection){
@@ -16,7 +19,4 @@ public class ListMoviesInCinemaResponse {
     public Collection<MovieDtoWithShows> getMovies() {
         return movies;
     }
-
-    Collection <MovieDtoWithShows> movies;
-
 }
