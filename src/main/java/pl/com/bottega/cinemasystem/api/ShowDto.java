@@ -19,7 +19,7 @@ public class ShowDto {
 
     public ShowDto(Show show) {
         this.id = show.getId();
-        this.time = show.getDate().toLocalTime();
+        this.time = show.getTime();
     }
 
     public Long getId() {
