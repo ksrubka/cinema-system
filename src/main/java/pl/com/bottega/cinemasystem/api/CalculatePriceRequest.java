@@ -26,7 +26,6 @@ public class CalculatePriceRequest {
         if (calculation.equals(null) || calculation == 0) {
             throw new InvalidRequestException("show id can not be null or zero");
         }
-
     }
 
     public Collection<TicketOrder> getTickets() {
@@ -44,5 +43,4 @@ public class CalculatePriceRequest {
     public void setShowId(Integer showId) {
         this.showId = showId;
     }
-
 }

@@ -12,7 +12,6 @@ import pl.com.bottega.cinemasystem.api.PriceCalculator;
 @RequestMapping("/price_calculator")
 public class PriceCalculatorController {
 
-
     private PriceCalculator priceCalculator;
 
     public PriceCalculatorController(PriceCalculator priceCalculator) {

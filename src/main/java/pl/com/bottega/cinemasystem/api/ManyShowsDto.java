@@ -10,7 +10,7 @@ public class ManyShowsDto {
     private Long cinemaId;
     private Long movieId;
     private CalendarDto calendar;
-    @JsonFormat(pattern="yyyy/MM/dd HH:mm")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private Collection<LocalDateTime> dates;
 
     public Long getMovieId() {

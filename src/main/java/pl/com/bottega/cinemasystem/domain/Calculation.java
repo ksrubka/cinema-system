@@ -3,18 +3,17 @@ package pl.com.bottega.cinemasystem.domain;
 import java.math.BigDecimal;
 import java.util.Set;
 
-
 public class Calculation {
+
     private BigDecimal totalPrice;
     private Set<TicketOrder> ticketOrder;
+
+    public Calculation() {
+    }
 
     public Calculation(BigDecimal totalPrice, Set<TicketOrder> ticketOrder) {
         this.totalPrice = totalPrice;
         this.ticketOrder = ticketOrder;
-    }
-
-    public Calculation() {
-
     }
 
     public BigDecimal getTotal() {
@@ -24,7 +23,6 @@ public class Calculation {
     public void setTotal(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
-
 
     public Set<TicketOrder> getTicketOrder() {
         return ticketOrder;

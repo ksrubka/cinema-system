@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -58,8 +59,8 @@ public class Movie {
         this.shows.addAll(shows);
     }
 
-    public void updatePrices(Set<TicketPrice> ticketPricesSet){
-        this.ticketPrice = ticketPricesSet;
+    public void updatePrices(Set<TicketPrice> ticketPricesSet) {
+        this.ticketPrices = ticketPricesSet;
     }
 
     public Long getId() {

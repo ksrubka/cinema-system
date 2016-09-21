@@ -1,10 +1,6 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import pl.com.bottega.cinemasystem.api.PriceCalculator;
-
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 import java.time.LocalDateTime;
 
 @Entity
@@ -60,6 +56,4 @@ public class Show {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-
-
 }

@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.Movie;
+import pl.com.bottega.cinemasystem.domain.MovieFactory;
 
 import static junit.framework.TestCase.assertNotNull;
 
