@@ -1,8 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Movie {
@@ -14,30 +13,56 @@ public class Movie {
     private String title;
     private String description;
     private Integer minAge;
+    private Integer length;
+
     @ElementCollection
     private List<String> actors;
+
     @ElementCollection
     private List<String> genres;
-    private Integer length;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<TicketPrice> ticketPrices;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Show> shows;
 
     public Set<Show> getShows() {
         return shows;
     }
 
-    @OneToMany
-    private Set<Show> shows;
-
     public Movie() {
     }
 
+    public Movie(String title, String description, Integer minAge, List<String> actors, List<String> genres,  Integer length) {
+        this.title = title;
+        this.description = description;
+        this.minAge = minAge;
+        this.length = length;
+        this.actors = actors;
+        this.genres = genres;
+    }
+
     public Movie(String title, String description, Integer minAge,
-                 List<String> actors, List<String> genres, Integer length) {
+                 List<String> actors, List<String> genres, Integer length,
+                 Set<TicketPrice> ticketPrices, Set<Show> shows) {
         this.title = title;
         this.description = description;
         this.minAge = minAge;
         this.actors = actors;
         this.genres = genres;
         this.length = length;
+        this.ticketPrices = ticketPrices;
+        this.shows = shows;
+    }
+
+    public void updatePrices(Set<TicketPrice> ticketPrices) {
+        this.ticketPrices = ticketPrices;
+        //change movie shows??
+    }
+
+    public void addShows(Collection<Show> shows) {
+        this.shows.addAll(shows);
     }
 
     public Long getId() {
