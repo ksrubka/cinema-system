@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class Cinema {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String name;
