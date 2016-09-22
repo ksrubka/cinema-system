@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import pl.com.bottega.cinemasystem.api.CreateMovieRequest;
 import pl.com.bottega.cinemasystem.domain.Movie;
 
-@Component
+
 public class MovieFactory {
     public MovieFactory() {
     }

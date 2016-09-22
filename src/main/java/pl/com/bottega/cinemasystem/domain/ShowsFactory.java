@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Component
+
 public class ShowsFactory {
 
     public static Collection<Show> createShows(Cinema cinema, Movie movie, CreateShowsRequest request) {
