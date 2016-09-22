@@ -26,8 +26,8 @@ public class AdminPanel {
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
         createCinemaRequest.validate();
-        cinemaRepository.validateIfExists(createCinemaRequest.getName(), createCinemaRequest.getCity());
-        Cinema cinema = cinemaFactory.createCinema(createCinemaRequest);
+       cinemaRepository.validateIfExists(createCinemaRequest.getName(), createCinemaRequest.getCity());
+        Cinema cinema = CinemaFactory.createCinema(createCinemaRequest);
         cinemaRepository.save(cinema);
     }
 
