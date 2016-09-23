@@ -20,7 +20,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration({"/application.xml","/mock-auth-context.xml"})
-@TestPropertySource({"jdbc-test.properties", "hibernate-test.properties"})
+@TestPropertySource({"/jdbc-test.properties", "/hibernate-test.properties"})
 @WebAppConfiguration
 @Sql("/fixtures/moviesInCinema.sql")
 public class JPAMovieCatalogTest {
@@ -37,7 +37,7 @@ public class JPAMovieCatalogTest {
 
     @Test
     @Transactional
-    @Sql("fixtures/moviesInCinema.sql")
+    @Sql("/fixtures/moviesInCinema.sql")
     public void listAllMoviesInCinema(){
         ListMoviesInCinemaResponse response = jpaMovieCatalog.listMoviesInCinema(testId, testDate);
 
