@@ -3,7 +3,6 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
 import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
-import java.util.Collection;
 import java.util.Set;
 
 public class CalculatePriceRequest {
@@ -11,9 +10,10 @@ public class CalculatePriceRequest {
     private Long showId;
     private Set<TicketOrder> tickets;
 
-    public CalculatePriceRequest(){}
+    public CalculatePriceRequest() {
+    }
 
-    public CalculatePriceRequest(Long showId, Set<TicketOrder> tickets){
+    public CalculatePriceRequest(Long showId, Set<TicketOrder> tickets) {
         this.showId = showId;
         this.tickets = tickets;
     }
@@ -24,7 +24,7 @@ public class CalculatePriceRequest {
     }
 
     private void validateTickets() {
-        if (ticketOrders == null || tickets.isEmpty()) {
+        if (tickets == null || tickets.isEmpty()) {
             throw new InvalidRequestException("ticket list can not be empty");
         }
         tickets.forEach(ticketOrder -> {

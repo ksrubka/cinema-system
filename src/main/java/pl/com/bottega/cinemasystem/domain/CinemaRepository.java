@@ -3,7 +3,6 @@ package pl.com.bottega.cinemasystem.domain;
 public interface CinemaRepository {
 
     void save(Cinema cinema);
-    Cinema load(Long id);
-    void validateIfExists(String name, String city);
 
-    }
+    Cinema load(Long id);
+}

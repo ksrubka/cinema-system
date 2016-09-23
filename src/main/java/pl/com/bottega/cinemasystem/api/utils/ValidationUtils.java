@@ -23,12 +23,12 @@ public class ValidationUtils {
             throw new InvalidRequestException(errorMessage);
     }
 
-    public static void validateCollectionOfStrings(Collection<String> validations, String msg){
+    public static void validateCollectionOfStrings(Collection<String> validations, String msg) {
         if (validations == null || validations.isEmpty()) {
             throw new InvalidRequestException(msg);
         }
         validations.forEach(actor -> {
-            if(actor.trim().isEmpty() || actor == null){
+            if (actor.trim().isEmpty() || actor == null) {
                 throw new InvalidRequestException(msg);
             }
         });

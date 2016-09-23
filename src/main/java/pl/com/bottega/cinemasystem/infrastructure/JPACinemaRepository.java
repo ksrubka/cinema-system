@@ -32,7 +32,7 @@ public class JPACinemaRepository implements CinemaRepository {
                 .getResultList();
         if (!cinemas.isEmpty()) {
             throw new InvalidRequestException("Can not persist, cinema already exists: " +
-            name + " " + city);
+                    name + " " + city);
         }
     }
 

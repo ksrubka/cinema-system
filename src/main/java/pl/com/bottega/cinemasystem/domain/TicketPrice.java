@@ -2,7 +2,6 @@ package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
@@ -22,7 +21,8 @@ public class TicketPrice {
         this.type = type;
         this.price = price;
     }
-    public TicketPrice(Long id, String type, BigDecimal price){
+
+    public TicketPrice(Long id, String type, BigDecimal price) {
         this.id = id;
         this.type = type;
         this.price = price;

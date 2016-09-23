@@ -3,7 +3,6 @@ package pl.com.bottega.cinemasystem.api.utils;
 import pl.com.bottega.cinemasystem.api.InvalidRequestException;
 
 import java.time.LocalDate;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -21,7 +20,7 @@ public class DateUtil {
 
     private static void validateDateNumbers(LocalDate date, int year, int month, int day) {
         if (year < 0) {
-            throw new InvalidRequestException("Incorrect year: " + year );
+            throw new InvalidRequestException("Incorrect year: " + year);
         }
         if (month > 12 || month <= 0) {
             throw new InvalidRequestException("Incorrect month: " + month + " in date: " + date);

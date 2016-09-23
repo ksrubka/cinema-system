@@ -7,11 +7,11 @@ import java.util.HashSet;
 
 public class ListMoviesInCinemaResponse {
 
-    Collection <MovieDtoWithShows> movies;
+    private Collection<MovieDtoWithShows> movies;
 
     public ListMoviesInCinemaResponse(Collection<Movie> moviesCollection) {
         this.movies = new HashSet<>();
-        for (Movie movie: moviesCollection){
+        for (Movie movie : moviesCollection) {
             this.movies.add(new MovieDtoWithShows(movie));
         }
     }

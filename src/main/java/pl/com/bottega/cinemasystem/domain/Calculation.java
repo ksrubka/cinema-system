@@ -6,7 +6,6 @@ import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-
 public class Calculation {
 
     private BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
@@ -18,8 +17,6 @@ public class Calculation {
     public Calculation(Set<TicketOrder> ticketOrder) {
         this.ticketOrder = ticketOrder;
     }
-
-
 
     public BigDecimal getTotal() {
         return totalPrice;
@@ -39,9 +36,9 @@ public class Calculation {
 
     public void calculatePrice(Set<TicketPrice> ticketPrices) {
         checkNotNull(ticketPrices);
-        for (TicketOrder ticket: ticketOrder){
-            for(TicketPrice price: ticketPrices){
-                if(ticket.getKind().equals(price.getType())){
+        for (TicketOrder ticket : ticketOrder) {
+            for (TicketPrice price : ticketPrices) {
+                if (ticket.getKind().equals(price.getType())) {
                     BigDecimal unitPrice = ticket.setUnitPrice(price.getPrice());
                     ticket.setTotalPrice(unitPrice);
                 }

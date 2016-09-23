@@ -4,7 +4,6 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.domain.Calculation;
 import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
-import java.util.Collection;
 import java.util.Set;
 
 public class CalculatePriceResponse {

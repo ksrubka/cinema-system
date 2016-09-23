@@ -3,7 +3,9 @@ package pl.com.bottega.cinemasystem.api;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class CalendarBasedDatesCreatingStrategy implements DatesCreatingStrategy {

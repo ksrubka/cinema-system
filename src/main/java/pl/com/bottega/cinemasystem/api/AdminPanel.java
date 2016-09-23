@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
 
-
 import java.util.Collection;
 import java.util.Set;
 
@@ -26,7 +25,6 @@ public class AdminPanel {
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
         createCinemaRequest.validate();
-       cinemaRepository.validateIfExists(createCinemaRequest.getName(), createCinemaRequest.getCity());
         Cinema cinema = CinemaFactory.createCinema(createCinemaRequest);
         cinemaRepository.save(cinema);
     }
