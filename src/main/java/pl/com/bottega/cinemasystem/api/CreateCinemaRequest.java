@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
+import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
+
 public class CreateCinemaRequest {
 
     private CinemaDto cinema;
@@ -10,13 +12,11 @@ public class CreateCinemaRequest {
     }
 
     private void validateName() {
-        if (cinema.getName() == null || cinema.getName().trim().isEmpty())
-            throw new InvalidRequestException("cinema name is required");
+        ValidationUtils.validateString(getName(), "cinema name is required");
     }
 
     private void validateCity() {
-        if (cinema.getCity() == null || cinema.getCity().trim().isEmpty())
-            throw new InvalidRequestException("cinema city location is required");
+        ValidationUtils.validateString(getCity(), "cinema city location is required");
     }
 
     public String getName() {

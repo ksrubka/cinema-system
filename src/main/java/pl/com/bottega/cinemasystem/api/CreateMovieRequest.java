@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
-import java.util.Collection;
+import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
+
 import java.util.List;
 
 public class CreateMovieRequest {
@@ -17,42 +18,27 @@ public class CreateMovieRequest {
     }
 
     private void validateTitle() {
-        if (movie.getTitle() == null || movie.getTitle().trim().isEmpty())
-            throw new InvalidRequestException("movie title is required");
+        ValidationUtils.validateString(getTitle(), "movie title is required");
     }
 
     private void validateDescription() {
-        if (movie.getDescription() == null || movie.getDescription().trim().isEmpty())
-            throw new InvalidRequestException("movie description is required");
+        ValidationUtils.validateString(getDescription(), "movie description is required");
     }
 
     private void validateMinAge() {
-        if (movie.getMinAge() == null)
-            throw new InvalidRequestException("minimal age is required");
+        ValidationUtils.validateInteger(getMinAge(), "minimal age is required");
     }
 
     private void validateActors() {
-        validateString(movie.getActors(), "actor list invalid");
+        ValidationUtils.validateCollectionOfStrings(movie.getActors(), "actor list invalid");
     }
 
     private void validateGenres() {
-        validateString(movie.getGenres(), "genres list invalid");
-    }
-
-    private void validateString(Collection<String> validations, String msg){
-        if (validations == null || validations.isEmpty()) {
-            throw new InvalidRequestException(msg);
-        }
-        validations.forEach(actor -> {
-            if(actor.trim().isEmpty() || actor == null){
-                throw new InvalidRequestException(msg);
-            }
-        });
+        ValidationUtils.validateCollectionOfStrings(movie.getGenres(), "genres list invalid");
     }
 
     private void validateLength() {
-        if (movie.getLength() == null || movie.getLength() <= 0)
-            throw new InvalidRequestException("movie length is required");
+        ValidationUtils.validateInteger(getLength(), "movie length is required");
     }
 
     public MovieDto getMovie() {
