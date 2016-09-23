@@ -7,6 +7,7 @@ import pl.com.bottega.cinemasystem.domain.MovieRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class JPAMoviesRepository implements MovieRepository {
@@ -16,8 +17,21 @@ public class JPAMoviesRepository implements MovieRepository {
 
     @Override
     public void save(Movie movie) {
+        checkIfMovieAlreadyExist(movie);
         entityManager.persist(movie);
     }
+
+    private void checkIfMovieAlreadyExist(Movie movie) {
+        String title = movie.getTitle();
+        List<Movie> movies = entityManager.createQuery(
+                "FROM Movie m WHERE m.title=:title", Movie.class)
+                .setParameter("title", title)
+                .getResultList();
+        if (!movies.isEmpty()) {
+            throw new InvalidRequestException("Can not persist, movie already exists: " + title);
+        }
+    }
+
     @Override
     public Movie load(Long movieId) {
         try {
@@ -26,8 +40,7 @@ public class JPAMoviesRepository implements MovieRepository {
                     Movie.class)
                     .setParameter("movieId", movieId)
                     .getSingleResult();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new InvalidRequestException("No such movie in repository: id " + movieId);
         }
     }
