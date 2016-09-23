@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class TicketPrice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
     private String type;
     private BigDecimal price;
@@ -19,6 +19,11 @@ public class TicketPrice {
     }
 
     public TicketPrice(String type, BigDecimal price) {
+        this.type = type;
+        this.price = price;
+    }
+    public TicketPrice(Long id, String type, BigDecimal price){
+        this.id = id;
         this.type = type;
         this.price = price;
     }

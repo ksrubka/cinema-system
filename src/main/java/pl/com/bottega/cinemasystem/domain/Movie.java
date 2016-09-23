@@ -9,7 +9,7 @@ import java.util.Set;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private String title;
@@ -121,5 +121,9 @@ public class Movie {
 
     public Set<Show> getShows() {
         return shows;
+    }
+
+    public Set<TicketPrice> getTicketPrices() {
+        return ticketPrices;
     }
 }

@@ -1,4 +1,4 @@
-package pl.com.bottega.cinemasystem.api;
+package pl.com.bottega.cinemasystem.domain;
 
 
 import org.junit.Before;
@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemasystem.api.CreateShowsRequest;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import java.util.Collection;

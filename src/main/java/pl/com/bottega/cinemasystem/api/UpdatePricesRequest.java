@@ -52,7 +52,7 @@ public class UpdatePricesRequest {
             requestShouldContainAllTicketTypes();
         }
         if (minAgeIs16()) {
-            requestShouldContainShoolStudentAndRegularTicketTypes();
+            requestShouldContainSchoolStudentAndRegularTicketTypes();
         }
         if (minAgeIs18()) {
             requestShouldContainStudentAndRegularTicketTypes();
@@ -80,7 +80,7 @@ public class UpdatePricesRequest {
         }
     }
 
-    private void requestShouldContainShoolStudentAndRegularTicketTypes() {
+    private void requestShouldContainSchoolStudentAndRegularTicketTypes() {
         if (!(prices.containsKey("school") &&
                 prices.containsKey("student") &&
                 prices.containsKey("regular"))) {

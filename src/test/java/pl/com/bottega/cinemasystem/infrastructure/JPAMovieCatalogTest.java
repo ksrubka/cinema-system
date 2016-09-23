@@ -9,37 +9,40 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.domain.Cinema;
-import pl.com.bottega.cinemasystem.domain.CinemaRepository;
+import pl.com.bottega.cinemasystem.api.ListMoviesInCinemaResponse;
+import pl.com.bottega.cinemasystem.api.MovieCatalog;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration("/application.xml")
+@ContextConfiguration({"/application.xml","/mock-auth-context.xml"})
 @TestPropertySource({"/jdbc-test.properties", "/hibernate-test.properties"})
 @WebAppConfiguration
-@Sql("/fixtures/cinemas.sql")
-public class JPACinemaRepositoryTest {
+@Sql("/fixtures/moviesInCinema.sql")
+public class JPAMovieCatalogTest {
+
     @Autowired
-    private CinemaRepository jpaCinemaRepository;
+    private MovieCatalog jpaMovieCatalog;
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Transactional
+    private Long testId = 3L;
+    private LocalDate testDate = LocalDate.of(2916, 9, 20);
+
+
     @Test
-    public void shouldAddCinema(){
-        Cinema cinema = new Cinema ("CinemaCity", "Warszawa");
+    @Transactional
+    @Sql("/fixtures/moviesInCinema.sql")
+    public void listAllMoviesInCinema(){
+        ListMoviesInCinemaResponse response = jpaMovieCatalog.listMoviesInCinema(testId, testDate);
 
-        jpaCinemaRepository.save(cinema);
+        assertTrue(response.getMovies().size() ==1);
 
-        Cinema loadedCinema = jpaCinemaRepository.load(cinema.getId());
-        assertEquals("CinemaCity", loadedCinema.getName());
-        assertEquals("Warszawa", loadedCinema.getCity());
     }
 
 }
-

@@ -4,11 +4,19 @@ import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
 import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
 import java.util.Collection;
+import java.util.Set;
 
 public class CalculatePriceRequest {
 
     private Long showId;
-    private Collection<TicketOrder> tickets;
+    private Set<TicketOrder> tickets;
+
+    public CalculatePriceRequest(){}
+
+    public CalculatePriceRequest(Long showId, Set<TicketOrder> tickets){
+        this.showId = showId;
+        this.tickets = tickets;
+    }
 
     public void validate() {
         validateShowId();
@@ -16,7 +24,7 @@ public class CalculatePriceRequest {
     }
 
     private void validateTickets() {
-        if (tickets.isEmpty()) {
+        if (ticketOrders == null || tickets.isEmpty()) {
             throw new InvalidRequestException("ticket list can not be empty");
         }
         tickets.forEach(ticketOrder -> {
@@ -28,11 +36,11 @@ public class CalculatePriceRequest {
         ValidationUtils.validateId(showId, "show id can not be null or zero");
     }
 
-    public Collection<TicketOrder> getTickets() {
+    public Set<TicketOrder> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Collection<TicketOrder> tickets) {
+    public void setTickets(Set<TicketOrder> tickets) {
         this.tickets = tickets;
     }
 
