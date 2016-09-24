@@ -3,6 +3,7 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
 
 import java.util.List;
+import java.util.Set;
 
 public class CreateMovieRequest {
 
@@ -63,11 +64,11 @@ public class CreateMovieRequest {
         return movie.getMinAge();
     }
 
-    public List<String> getActors() {
+    public Set<String> getActors() {
         return movie.getActors();
     }
 
-    public List<String> getGenres() {
+    public Set<String> getGenres() {
         return movie.getGenres();
     }
 

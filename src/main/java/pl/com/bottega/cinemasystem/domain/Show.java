@@ -13,10 +13,10 @@ public class Show {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Cinema cinema;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Movie movie;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
