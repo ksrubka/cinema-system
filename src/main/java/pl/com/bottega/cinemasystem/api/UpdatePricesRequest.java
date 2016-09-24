@@ -24,8 +24,8 @@ public class UpdatePricesRequest {
         ValidationUtils.validateId(movieId, "Movie id is incorrect: " + movieId);
     }
 
-    public void validate(Movie movie) {
-        setMinAge(movie.getMinAge());
+    public void validate(Integer minAge) {
+        setMinAge(minAge);
         validatePrices();
         validatePricesKinds();
     }
@@ -87,7 +87,7 @@ public class UpdatePricesRequest {
             throw new InvalidRequestException("More ticket kinds required to declare");
         }
         if (prices.containsKey("children")) {
-            throw new InvalidRequestException("Children ticket kind is not required " +
+            throw new InvalidRequestException("Children ticket kind is not allowed " +
                     "when minimum age for movie is: " + minAge);
         }
     }
