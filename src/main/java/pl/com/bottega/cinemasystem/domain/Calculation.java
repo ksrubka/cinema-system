@@ -8,8 +8,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Calculation {
 
-    private BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
     private Set<TicketOrder> tickets;
+    private BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
 
     public Calculation() {
     }
@@ -18,11 +18,11 @@ public class Calculation {
         this.tickets = tickets;
     }
 
-    public BigDecimal getTotal() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotal(BigDecimal totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -34,18 +34,19 @@ public class Calculation {
         this.tickets = tickets;
     }
 
-    public BigDecimal calculatePrice(Set<TicketPrice> ticketPrices) {
+    public void calculatePrice(Set<TicketPrice> ticketPrices) {
         checkNotNull(ticketPrices);
-        BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
-        BigDecimal unitPrice = new BigDecimal(BigInteger.ZERO);
+        TicketPrice price = new TicketPrice();
         for (TicketOrder ticket : tickets) {
             for (TicketPrice ticketPrice : ticketPrices) {
                 if (ticket.getKind().equals(ticketPrice.getType())) {
-                    unitPrice = ticket.setUnitPrice(ticketPrice.getPrice());
+                    price = ticketPrice;
+                    ticket.setUnitPrice(ticketPrice.getPrice());
                 }
             }
-            totalPrice = totalPrice.add(unitPrice.multiply(new BigDecimal(ticket.getCount())));
+            ticket.setTotalPrice(price.getPrice().multiply(new BigDecimal(ticket.getCount())));
+            totalPrice = totalPrice.add(ticket.getUnitPrice().multiply(new BigDecimal(ticket.getCount())));
         }
-        return totalPrice;
     }
 }
+

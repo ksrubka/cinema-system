@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
+import pl.com.bottega.cinemasystem.domain.ShowsRepository;
 
 import java.time.LocalDateTime;
 import java.util.Collection;

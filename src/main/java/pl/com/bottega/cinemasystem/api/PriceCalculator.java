@@ -26,7 +26,7 @@ public class PriceCalculator {
         Set<TicketPrice> ticketPrices = show.getMovie().getTicketPrices();
         Set<TicketOrder> ticketOrders = request.getTickets();
         Calculation calculation = new Calculation(ticketOrders);
-        BigDecimal totalPrice = calculation.calculatePrice(ticketPrices);
-        return new CalculatePriceResponse(calculation, ticketOrders, totalPrice);
+        calculation.calculatePrice(ticketPrices);
+        return new CalculatePriceResponse(calculation);
     }
 }

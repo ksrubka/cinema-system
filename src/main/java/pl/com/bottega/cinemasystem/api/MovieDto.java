@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
 import java.util.List;
+import java.util.Set;
 
 public class MovieDto {
 
@@ -8,15 +9,15 @@ public class MovieDto {
     private String title;
     private String description;
     private Integer minAge;
-    private List<String> actors;
-    private List<String> genres;
+    private Set<String> actors;
+    private Set<String> genres;
     private Integer length;
 
     public MovieDto() {
     }
 
     public MovieDto(String title, String description, Integer minAge,
-                    List<String> actors, List<String> genres, Integer length) {
+                    Set<String> actors, Set<String> genres, Integer length) {
         this.title = title;
         this.description = description;
         this.minAge = minAge;
@@ -49,19 +50,19 @@ public class MovieDto {
         this.minAge = minAge;
     }
 
-    public List<String> getActors() {
+    public Set<String> getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(Set<String> actors) {
         this.actors = actors;
     }
 
-    public List<String> getGenres() {
+    public Set<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
     }
 

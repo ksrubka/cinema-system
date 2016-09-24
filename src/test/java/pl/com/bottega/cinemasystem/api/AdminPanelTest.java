@@ -14,9 +14,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.DayOfWeek.WEDNESDAY;
@@ -34,8 +32,8 @@ public class AdminPanelTest {
     private String anyMovieDescription = "any movie description";
     private Integer anyMovieMinAge = 0;
     private Integer anyMovieLength = 120;
-    private List<String> anyMovieActors = new ArrayList<>();
-    private List<String> anyMovieGenres = new ArrayList<>();
+    private Set<String> anyMovieActors = new HashSet<>();
+    private Set<String> anyMovieGenres = new HashSet<>();
 
     @Mock
     private CinemaRepository anyCinemaRepository;
@@ -190,14 +188,14 @@ public class AdminPanelTest {
                 prepareMovieActors(), prepareMovieGenres(), anyMovieLength);
     }
 
-    private List<String> prepareMovieActors() {
+    private Set<String> prepareMovieActors() {
         anyMovieActors.add("Jenifer Aniston");
         anyMovieActors.add("Lily James");
         anyMovieActors.add("Nicolas Cage");
         return anyMovieActors;
     }
 
-    private List<String> prepareMovieGenres() {
+    private Set<String> prepareMovieGenres() {
         anyMovieGenres.add("Fantasy");
         anyMovieGenres.add("Comedy");
         anyMovieGenres.add("Sci-Fi");
