@@ -8,6 +8,7 @@ import pl.com.bottega.cinemasystem.domain.ShowsRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+
 @Repository
 public class JPAShowsRepository implements ShowsRepository {
 
