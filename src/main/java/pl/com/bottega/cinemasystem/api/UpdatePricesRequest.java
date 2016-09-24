@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
-import pl.com.bottega.cinemasystem.domain.Movie;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -24,8 +23,8 @@ public class UpdatePricesRequest {
         ValidationUtils.validateId(movieId, "Movie id is incorrect: " + movieId);
     }
 
-    public void validate(Movie movie) {
-        setMinAge(movie.getMinAge());
+    public void validate(Integer minAge) {
+        setMinAge(minAge);
         validatePrices();
         validatePricesKinds();
     }

@@ -66,7 +66,7 @@ public class AdminPanel {
     public void updatePrices(UpdatePricesRequest request) {
         request.validateMovieId();
         Movie movie = movieRepository.load(request.getMovieId());
-        request.validate(movie);
+        request.validate(movie.getMinAge());
         Set<TicketPrice> ticketPrices = ticketPricesFactory.createTickets(request);
         movie.updatePrices(ticketPrices);
     }
