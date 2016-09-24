@@ -36,14 +36,17 @@ public class Calculation {
 
     public void calculatePrice(Set<TicketPrice> ticketPrices) {
         checkNotNull(ticketPrices);
+        TicketPrice price = new TicketPrice();
         for (TicketOrder ticket : tickets) {
             for (TicketPrice ticketPrice : ticketPrices) {
                 if (ticket.getKind().equals(ticketPrice.getType())) {
+                    price = ticketPrice;
                     ticket.setUnitPrice(ticketPrice.getPrice());
                 }
-                ticket.setTotalPrice(ticketPrice.getPrice().multiply(new BigDecimal(ticket.getCount())));
-                totalPrice = totalPrice.add(ticket.getUnitPrice().multiply(new BigDecimal(ticket.getCount())));
             }
+            ticket.setTotalPrice(price.getPrice().multiply(new BigDecimal(ticket.getCount())));
+            totalPrice = totalPrice.add(ticket.getUnitPrice().multiply(new BigDecimal(ticket.getCount())));
         }
     }
 }
+
