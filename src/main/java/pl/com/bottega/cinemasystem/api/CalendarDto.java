@@ -17,6 +17,17 @@ public class CalendarDto {
     @JsonFormat(pattern = "HH:mm")
     private Collection<LocalTime> hours;
 
+    public CalendarDto() {
+    }
+
+    public CalendarDto(LocalDate fromDate, LocalDate untilDate,
+                       Collection<DayOfWeek> weekDays, Collection<LocalTime> hours) {
+        this.fromDate = fromDate;
+        this.untilDate = untilDate;
+        this.weekDays = weekDays;
+        this.hours = hours;
+    }
+
     public LocalDate getFromDate() {
         return fromDate;
     }

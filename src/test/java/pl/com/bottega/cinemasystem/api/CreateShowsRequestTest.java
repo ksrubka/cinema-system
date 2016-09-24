@@ -11,7 +11,6 @@ import pl.com.bottega.cinemasystem.domain.ShowsRepository;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,13 +26,13 @@ public class CreateShowsRequestTest {
 
     private CreateShowsRequest createShowsRequest;
 
-    @JsonFormat(pattern="yyyy/MM/dd HH:mm")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private Collection<LocalDateTime> anyDatesList = new HashSet<>();
 
     private Long anyMovieId = 15L;
     private Long anyCinemaId = 16L;
     private CalendarDto anyCalendar;
-    private LocalDateTime anyDate = LocalDateTime.of(2016, 9, 21, 20, 50);
+    private LocalDateTime anyDate = LocalDateTime.of(2016, 10, 22, 20, 50);
 
 
     @Before

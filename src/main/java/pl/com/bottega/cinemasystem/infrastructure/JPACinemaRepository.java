@@ -19,7 +19,6 @@ public class JPACinemaRepository implements CinemaRepository {
     public void save(Cinema cinema) {
         checkIfCinemaAlreadyExist(cinema);
         entityManager.persist(cinema);
-
     }
 
     private void checkIfCinemaAlreadyExist(Cinema cinema) {

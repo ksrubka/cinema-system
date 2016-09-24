@@ -26,11 +26,13 @@ public class CreateMovieRequest {
     }
 
     private void validateMinAge() {
-        ValidationUtils.validateInteger(getMinAge(), "minimal age is required");
+        if (getMinAge() == null || getMinAge() < 0) {
+            throw new InvalidRequestException("minimal age is required");
+        }
     }
 
     private void validateActors() {
-        ValidationUtils.validateCollectionOfStrings(movie.getActors(), "actor list invalid");
+        ValidationUtils.validateCollectionOfStrings(movie.getActors(), "actors list invalid");
     }
 
     private void validateGenres() {
