@@ -9,13 +9,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class Calculation {
 
     private BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
-    private Set<TicketOrder> ticketOrder;
+    private Set<TicketOrder> tickets;
 
     public Calculation() {
     }
 
-    public Calculation(Set<TicketOrder> ticketOrder) {
-        this.ticketOrder = ticketOrder;
+    public Calculation(Set<TicketOrder> tickets) {
+        this.tickets = tickets;
     }
 
     public BigDecimal getTotal() {
@@ -26,23 +26,26 @@ public class Calculation {
         this.totalPrice = totalPrice;
     }
 
-    public Set<TicketOrder> getTicketOrder() {
-        return ticketOrder;
+    public Set<TicketOrder> getTickets() {
+        return tickets;
     }
 
-    public void setTicketOrder(Set<TicketOrder> ticketOrder) {
-        this.ticketOrder = ticketOrder;
+    public void setTickets(Set<TicketOrder> tickets) {
+        this.tickets = tickets;
     }
 
-    public void calculatePrice(Set<TicketPrice> ticketPrices) {
+    public BigDecimal calculatePrice(Set<TicketPrice> ticketPrices) {
         checkNotNull(ticketPrices);
-        for (TicketOrder ticket : ticketOrder) {
-            for (TicketPrice price : ticketPrices) {
-                if (ticket.getKind().equals(price.getType())) {
-                    BigDecimal unitPrice = ticket.setUnitPrice(price.getPrice());
-                    unitPrice.multiply(new BigDecimal(ticket.getCount()));
+        BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
+        BigDecimal unitPrice = new BigDecimal(BigInteger.ZERO);
+        for (TicketOrder ticket : tickets) {
+            for (TicketPrice ticketPrice : ticketPrices) {
+                if (ticket.getKind().equals(ticketPrice.getType())) {
+                    unitPrice = ticket.setUnitPrice(ticketPrice.getPrice());
                 }
             }
+            totalPrice = totalPrice.add(unitPrice.multiply(new BigDecimal(ticket.getCount())));
         }
+        return totalPrice;
     }
 }

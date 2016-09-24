@@ -3,6 +3,8 @@ package pl.com.bottega.cinemasystem.api;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
+
+import java.math.BigDecimal;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -24,7 +26,7 @@ public class PriceCalculator {
         Set<TicketPrice> ticketPrices = show.getMovie().getTicketPrices();
         Set<TicketOrder> ticketOrders = request.getTickets();
         Calculation calculation = new Calculation(ticketOrders);
-        calculation.calculatePrice(ticketPrices);
-        return new CalculatePriceResponse(calculation, ticketOrders, null);
+        BigDecimal totalPrice = calculation.calculatePrice(ticketPrices);
+        return new CalculatePriceResponse(calculation, ticketOrders, totalPrice);
     }
 }
