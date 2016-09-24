@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Set;
@@ -36,17 +38,21 @@ public class Calculation {
 
     public void calculatePrice(Set<TicketPrice> ticketPrices) {
         checkNotNull(ticketPrices);
-        TicketPrice price = new TicketPrice();
-        for (TicketOrder ticket : tickets) {
-            for (TicketPrice ticketPrice : ticketPrices) {
-                if (ticket.getKind().equals(ticketPrice.getType())) {
-                    price = ticketPrice;
-                    ticket.setUnitPrice(ticketPrice.getPrice());
-                }
-            }
-            ticket.setTotalPrice(price.getPrice().multiply(new BigDecimal(ticket.getCount())));
-            totalPrice = totalPrice.add(ticket.getUnitPrice().multiply(new BigDecimal(ticket.getCount())));
+        for (TicketOrder ticketOrder : tickets) {
+            BigDecimal ticketPrice = getTicketPrice(ticketPrices, ticketOrder.getKind());
+            ticketOrder.setUnitPrice(ticketPrice);
+            ticketOrder.setTotalPrice(ticketOrder.getUnitPrice().multiply(new BigDecimal(ticketOrder.getCount())));
+            totalPrice = totalPrice.add(ticketOrder.getTotalPrice());
         }
+    }
+
+    private BigDecimal getTicketPrice(Set<TicketPrice> ticketPrices, String ticketType) {
+        for (TicketPrice ticketPrice : ticketPrices) {
+            if (ticketType.equals(ticketPrice.getType())) {
+                return ticketPrice.getPrice();
+            }
+        }
+        throw new InvalidRequestException("Ticket type: "+ ticketType + " does not exists");
     }
 }
 
