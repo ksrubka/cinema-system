@@ -74,4 +74,9 @@ public class Show {
     public void setTime(LocalTime time) {
         this.time = time;
     }
+
+    public void calculatePrices(Calculation calculation) {
+        calculation.calculatePrice(movie.getTicketPrices());
+
+    }
 }
