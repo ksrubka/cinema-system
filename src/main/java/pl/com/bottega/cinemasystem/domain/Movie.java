@@ -1,6 +1,9 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import javax.enterprise.inject.spi.SessionBeanType;
 import javax.persistence.*;
+import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -18,10 +21,10 @@ public class Movie {
     private Integer length;
 
     @ElementCollection
-    private List<String> actors;
+    private Set<String> actors;
 
     @ElementCollection
-    private List<String> genres;
+    private Set<String> genres;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TicketPrice> ticketPrices;
@@ -33,7 +36,7 @@ public class Movie {
     }
 
     public Movie(String title, String description, Integer minAge,
-                 List<String> actors, List<String> genres, Integer length) {
+                 Set<String> actors, Set<String> genres, Integer length) {
         this.title = title;
         this.description = description;
         this.minAge = minAge;
@@ -42,18 +45,6 @@ public class Movie {
         this.length = length;
     }
 
-    public Movie(String title, String description, Integer minAge,
-                 List<String> actors, List<String> genres, Integer length,
-                 Set<TicketPrice> ticketPrices, Set<Show> shows) {
-        this.title = title;
-        this.description = description;
-        this.minAge = minAge;
-        this.actors = actors;
-        this.genres = genres;
-        this.length = length;
-        this.ticketPrices = ticketPrices;
-        this.shows = shows;
-    }
 
     public void addShows(Collection<Show> shows) {
         this.shows.addAll(shows);
@@ -96,19 +87,19 @@ public class Movie {
         this.minAge = minAge;
     }
 
-    public List<String> getActors() {
+    public Set<String> getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(Set<String> actors) {
         this.actors = actors;
     }
 
-    public List<String> getGenres() {
+    public Set<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
     }
 

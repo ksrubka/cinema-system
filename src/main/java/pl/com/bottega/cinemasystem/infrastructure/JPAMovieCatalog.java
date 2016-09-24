@@ -26,6 +26,8 @@ public class JPAMovieCatalog implements MovieCatalog {
         String jpa = "SELECT DISTINCT m FROM Movie m " +
                 "JOIN FETCH m.shows s " +
                 "JOIN FETCH s.cinema c " +
+                "JOIN FETCH m.actors a " +
+                "JOIN FETCH m.genres g " +
                 "WHERE c.id = :cinemaId AND s.date= :date " +
                 "ORDER BY m.title, s.time";
 
