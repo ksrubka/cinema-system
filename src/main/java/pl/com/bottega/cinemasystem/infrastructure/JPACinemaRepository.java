@@ -5,10 +5,9 @@ import pl.com.bottega.cinemasystem.api.InvalidRequestException;
 import pl.com.bottega.cinemasystem.domain.Cinema;
 import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 
-
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class JPACinemaRepository implements CinemaRepository {
@@ -18,12 +17,21 @@ public class JPACinemaRepository implements CinemaRepository {
 
     @Override
     public void save(Cinema cinema) {
-        try {
-            entityManager.persist(cinema);
-        }
-        catch (EntityExistsException ex) {
-            throw new InvalidRequestException("Can not persist, entity already exists: id " +
-                    cinema.getId());
+        checkIfCinemaAlreadyExist(cinema);
+        entityManager.persist(cinema);
+    }
+
+    private void checkIfCinemaAlreadyExist(Cinema cinema) {
+        String name = cinema.getName();
+        String city = cinema.getCity();
+        List<Cinema> cinemas = entityManager.createQuery(
+                "FROM Cinema c WHERE c.name=:name AND c.city=:city", Cinema.class)
+                .setParameter("name", name)
+                .setParameter("city", city)
+                .getResultList();
+        if (!cinemas.isEmpty()) {
+            throw new InvalidRequestException("Can not persist, cinema already exists: " +
+                    name + " " + city);
         }
     }
 

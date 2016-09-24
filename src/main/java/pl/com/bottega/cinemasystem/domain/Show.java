@@ -16,7 +16,7 @@ public class Show {
     @ManyToOne(cascade = CascadeType.ALL)
     private Cinema cinema;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Movie movie;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

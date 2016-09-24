@@ -12,6 +12,19 @@ public class MovieDto {
     private List<String> genres;
     private Integer length;
 
+    public MovieDto() {
+    }
+
+    public MovieDto(String title, String description, Integer minAge,
+                    List<String> actors, List<String> genres, Integer length) {
+        this.title = title;
+        this.description = description;
+        this.minAge = minAge;
+        this.actors = actors;
+        this.genres = genres;
+        this.length = length;
+    }
+
     public String getTitle() {
         return title;
     }

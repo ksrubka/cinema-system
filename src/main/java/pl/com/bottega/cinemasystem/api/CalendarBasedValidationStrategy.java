@@ -5,7 +5,7 @@ import pl.com.bottega.cinemasystem.api.utils.DateUtil;
 import java.time.LocalTime;
 import java.util.Collection;
 
-class CalendarBasedValidationStrategy implements ValidationStrategy {
+public class CalendarBasedValidationStrategy implements ValidationStrategy {
 
     private CalendarDto calendar;
 

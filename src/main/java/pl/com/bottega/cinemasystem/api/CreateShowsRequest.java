@@ -34,28 +34,28 @@ public class CreateShowsRequest {
     }
 
     private void validateCinemaId() {
-        ValidationUtils.validateId(shows.getCinemaId(),
-                "Incorrect cinema id: " + shows.getCinemaId());
+        ValidationUtils.validateId(getCinemaId(),
+                "Incorrect cinema id: " + getCinemaId());
     }
 
     private void validateMovieId() {
-        ValidationUtils.validateId(shows.getMovieId(),
-                "Incorrect movie id: " + shows.getMovieId());
+        ValidationUtils.validateId(getMovieId(),
+                "Incorrect movie id: " + getMovieId());
     }
 
     private ValidationStrategy generateValidationStrategy() {
-        if (shows.getCalendar() == null) {
-            return new DatesBasedValidationStrategy(shows.getDates());
+        if (getCalendar() == null) {
+            return new DatesBasedValidationStrategy(getDates());
         } else {
-            return new CalendarBasedValidationStrategy(shows.getCalendar());
+            return new CalendarBasedValidationStrategy(getCalendar());
         }
     }
 
     public Collection<LocalDateTime> getShowDates() {
-        if (shows.getCalendar() == null) {
-            return shows.getDates();
+        if (getCalendar() == null) {
+            return getDates();
         } else {
-            return new CalendarBasedDatesCreatingStrategy(shows.getCalendar()).generateShowDates();
+            return new CalendarBasedDatesCreatingStrategy(getCalendar()).generateShowDates();
         }
     }
 

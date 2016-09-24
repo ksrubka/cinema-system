@@ -9,14 +9,13 @@ import java.util.List;
 
 public class MovieDtoWithShows {
 
-    public String title;
-    public String description;
-    public List <String> actors;
-    public List<String> genres;
-    public int minAge;
-    public int length;
-    Collection<ShowDto> shows;
-
+    private String title;
+    private String description;
+    private List<String> actors;
+    private List<String> genres;
+    private int minAge;
+    private int length;
+    private Collection<ShowDto> shows;
 
     public MovieDtoWithShows(Movie movie) {
         this.title = movie.getTitle();
@@ -26,7 +25,7 @@ public class MovieDtoWithShows {
         this.minAge = movie.getMinAge();
         this.length = movie.getLength();
         this.shows = new HashSet<>();
-        for (Show show : movie.getShows()){
+        for (Show show : movie.getShows()) {
             shows.add(new ShowDto(show));
         }
     }
@@ -35,19 +34,55 @@ public class MovieDtoWithShows {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public Collection<ShowDto> getShows() {
-        return shows;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<String> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<String> actors) {
+        this.actors = actors;
     }
 
     public List<String> getGenres() {
         return genres;
     }
 
-    public List<String> getActors() {
-        return actors;
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public int getMinAge() {
+        return minAge;
+    }
+
+    public void setMinAge(int minAge) {
+        this.minAge = minAge;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public Collection<ShowDto> getShows() {
+        return shows;
+    }
+
+    public void setShows(Collection<ShowDto> shows) {
+        this.shows = shows;
     }
 }

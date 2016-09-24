@@ -13,6 +13,16 @@ public class ManyShowsDto {
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private Collection<LocalDateTime> dates;
 
+    public ManyShowsDto() {
+    }
+
+    public ManyShowsDto(Long cinemaId, Long movieId, CalendarDto calendar, Collection<LocalDateTime> dates) {
+        this.cinemaId = cinemaId;
+        this.movieId = movieId;
+        this.calendar = calendar;
+        this.dates = dates;
+    }
+
     public Long getMovieId() {
         return movieId;
     }
