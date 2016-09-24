@@ -5,7 +5,7 @@ import pl.com.bottega.cinemasystem.api.AdminPanel;
 import pl.com.bottega.cinemasystem.api.CreateShowsRequest;
 
 @RestController
-@RequestMapping("cinemas/{cinemaId}/shows")
+@RequestMapping("/cinemas/{cinemaId}/shows")
 public class ShowsController {
 
     private AdminPanel adminPanel;
