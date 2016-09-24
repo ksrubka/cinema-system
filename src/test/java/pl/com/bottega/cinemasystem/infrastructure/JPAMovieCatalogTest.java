@@ -16,7 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration({"/application.xml","/mock-auth-context.xml"})
@@ -31,8 +31,8 @@ public class JPAMovieCatalogTest {
     @PersistenceContext
     private EntityManager entityManager;
 
-    private Long testId = 3L;
-    private LocalDate testDate = LocalDate.of(2916, 9, 20);
+    private Long testId = 4L;
+    private LocalDate testDate = LocalDate.of(2316, 2, 23);
 
 
     @Test
@@ -40,8 +40,7 @@ public class JPAMovieCatalogTest {
     @Sql("/fixtures/moviesInCinema.sql")
     public void listAllMoviesInCinema(){
         ListMoviesInCinemaResponse response = jpaMovieCatalog.listMoviesInCinema(testId, testDate);
-
-        assertTrue(response.getMovies().size() ==1);
+        assertNotNull(response.getMovies());
 
     }
 

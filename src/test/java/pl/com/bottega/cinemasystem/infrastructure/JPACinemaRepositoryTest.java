@@ -32,13 +32,13 @@ public class JPACinemaRepositoryTest {
     @Transactional
     @Test
     public void shouldAddCinema(){
-        Cinema cinema = new Cinema ("CinemaCity", "Warszawa");
+        Cinema cinema = new Cinema ("Imax", "Wrocław");
 
         jpaCinemaRepository.save(cinema);
 
         Cinema loadedCinema = jpaCinemaRepository.load(cinema.getId());
-        assertEquals("CinemaCity", loadedCinema.getName());
-        assertEquals("Warszawa", loadedCinema.getCity());
+        assertEquals("Imax", loadedCinema.getName());
+        assertEquals("Wrocław", loadedCinema.getCity());
     }
 
 }
