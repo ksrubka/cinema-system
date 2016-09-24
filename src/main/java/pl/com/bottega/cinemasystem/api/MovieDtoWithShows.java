@@ -3,10 +3,7 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.domain.Movie;
 import pl.com.bottega.cinemasystem.domain.Show;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class MovieDtoWithShows {
 
@@ -25,7 +22,7 @@ public class MovieDtoWithShows {
         this.genres = movie.getGenres();
         this.minAge = movie.getMinAge();
         this.length = movie.getLength();
-        this.shows = new HashSet<>();
+        this.shows = new ArrayList<>();
         for (Show show : movie.getShows()) {
             shows.add(new ShowDto(show));
         }

@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
-import pl.com.bottega.cinemasystem.domain.Movie;
 
 import java.math.BigDecimal;
 import java.util.Map;

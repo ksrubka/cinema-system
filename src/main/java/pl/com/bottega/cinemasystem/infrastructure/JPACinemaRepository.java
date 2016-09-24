@@ -39,12 +39,13 @@ public class JPACinemaRepository implements CinemaRepository {
     public Cinema load(Long id) {
         try {
             return entityManager.createQuery(
+                    "SELECT DISTINCT c "+
                     "FROM Cinema c WHERE c.id = :id",
                     Cinema.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (Exception ex) {
-            throw new InvalidRequestException("No such cinema in repository: id " + id);
+            throw new InvalidRequestException("No such cinema in repository: id= " + id);
         }
     }
 }
