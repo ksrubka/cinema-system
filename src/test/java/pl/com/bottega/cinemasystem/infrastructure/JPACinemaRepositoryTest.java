@@ -2,6 +2,7 @@ package pl.com.bottega.cinemasystem.infrastructure;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
@@ -13,6 +14,7 @@ import pl.com.bottega.cinemasystem.domain.Cinema;
 import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 
 import static junit.framework.TestCase.assertEquals;
@@ -25,9 +27,6 @@ import static junit.framework.TestCase.assertEquals;
 public class JPACinemaRepositoryTest {
     @Autowired
     private CinemaRepository jpaCinemaRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Transactional
     @Test
