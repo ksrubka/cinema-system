@@ -21,17 +21,17 @@ public class JPACinemaRepository implements CinemaRepository {
         entityManager.persist(cinema);
     }
 
-    private void checkIfCinemaAlreadyExist(Cinema cinema) {
-        String name = cinema.getName();
-        String city = cinema.getCity();
-        List<Cinema> cinemas = entityManager.createQuery(
-                "FROM Cinema c WHERE c.name=:name AND c.city=:city", Cinema.class)
-                .setParameter("name", name)
-                .setParameter("city", city)
-                .getResultList();
-        if (!cinemas.isEmpty()) {
-            throw new InvalidRequestException("Can not persist, cinema already exists: " +
-                    name + " " + city);
+      private void checkIfCinemaAlreadyExist(Cinema cinema) {
+            String name = cinema.getName();
+            String city = cinema.getCity();
+            List<Cinema> cinemas = entityManager.createQuery(
+                    "FROM Cinema c WHERE c.name=:name AND c.city=:city", Cinema.class)
+                    .setParameter("name", name)
+                    .setParameter("city", city)
+                    .getResultList();
+            if (!cinemas.isEmpty()) {
+                throw new InvalidRequestException("Can not persist, cinema already exists: " +
+                        name + " " + city);
         }
     }
 

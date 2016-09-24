@@ -15,6 +15,7 @@ import pl.com.bottega.cinemasystem.domain.Cinema;
 import pl.com.bottega.cinemasystem.domain.CinemaRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 
 import static junit.framework.TestCase.assertEquals;

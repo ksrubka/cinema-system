@@ -2,9 +2,11 @@ package pl.com.bottega.cinemasystem.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.domain.*;
+import pl.com.bottega.cinemasystem.domain.Calculation;
+import pl.com.bottega.cinemasystem.domain.Show;
+import pl.com.bottega.cinemasystem.domain.ShowsRepository;
+import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -23,10 +25,9 @@ public class PriceCalculator {
         checkArgument(request != null);
         request.validate();
         Show show = showsRepository.load(request.getShowId());
-        Set<TicketPrice> ticketPrices = show.getMovie().getTicketPrices();
         Set<TicketOrder> ticketOrders = request.getTickets();
         Calculation calculation = new Calculation(ticketOrders);
-        calculation.calculatePrice(ticketPrices);
+        show.calculatePrices(calculation);
         return new CalculatePriceResponse(calculation);
     }
 }
