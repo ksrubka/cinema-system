@@ -30,12 +30,4 @@ public class CalculatePriceResponse {
     public void setCalculation(Calculation calculation) {
         this.calculation = calculation;
     }
-
-    public Set<TicketOrder> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<TicketOrder> tickets) {
-        this.tickets = tickets;
-    }
 }
