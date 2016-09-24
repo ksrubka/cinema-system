@@ -43,7 +43,7 @@ public class Calculation {
             for(TicketPrice price: ticketPrices){
                 if(ticket.getKind().equals(price.getType())){
                     BigDecimal unitPrice = ticket.setUnitPrice(price.getPrice());
-                    ticket.setTotalPrice(unitPrice);
+                    unitPrice.multiply(new BigDecimal(ticket.getCount()));
                 }
             }
         }

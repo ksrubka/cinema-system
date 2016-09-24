@@ -19,6 +19,7 @@ public class CreateCinemaRequest {
             throw new InvalidRequestException("cinema city location is required");
     }
 
+
     public String getName() {
         return cinema.getName();
     }

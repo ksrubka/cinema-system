@@ -4,20 +4,23 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.domain.Calculation;
 import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Set;
 
 public class CalculatePriceResponse {
 
     private Calculation calculation;
-    private Set<TicketOrder> tickets;
+    private BigDecimal totalPrice = new BigDecimal(BigInteger.ZERO);
 
     public CalculatePriceResponse() {
     }
 
-    public CalculatePriceResponse(Calculation calculation, Set<TicketOrder> tickets) {
+    public CalculatePriceResponse(Calculation calculation, Set<TicketOrder> tickets, BigDecimal totalPrice) {
         this.calculation = calculation;
-        this.tickets = tickets;
+        this.calculation.setTicketOrder(tickets);
+        this.totalPrice = totalPrice;
     }
 
     public Calculation getCalculation() {
@@ -28,11 +31,4 @@ public class CalculatePriceResponse {
         this.calculation = calculation;
     }
 
-    public Set<TicketOrder> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<TicketOrder> tickets) {
-        this.tickets = tickets;
-    }
 }

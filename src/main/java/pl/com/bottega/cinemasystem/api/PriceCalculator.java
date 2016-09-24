@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemasystem.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.domain.*;
@@ -26,6 +25,6 @@ public class PriceCalculator {
         Set<TicketOrder> ticketOrders = request.getTickets();
         Calculation calculation = new Calculation(ticketOrders);
         calculation.calculatePrice(ticketPrices);
-        return new CalculatePriceResponse(calculation, ticketOrders);
+        return new CalculatePriceResponse(calculation, ticketOrders, null);
     }
 }
