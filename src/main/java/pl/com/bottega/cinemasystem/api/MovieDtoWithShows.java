@@ -6,13 +6,14 @@ import pl.com.bottega.cinemasystem.domain.Show;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MovieDtoWithShows {
 
     private String title;
     private String description;
-    private List<String> actors;
-    private List<String> genres;
+    private Set<String> actors;
+    private Set<String> genres;
     private int minAge;
     private int length;
     private Collection<ShowDto> shows;
@@ -46,19 +47,19 @@ public class MovieDtoWithShows {
         this.description = description;
     }
 
-    public List<String> getActors() {
+    public Set<String> getActors() {
         return actors;
     }
 
-    public void setActors(List<String> actors) {
+    public void setActors(Set<String> actors) {
         this.actors = actors;
     }
 
-    public List<String> getGenres() {
+    public Set<String> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(Set<String> genres) {
         this.genres = genres;
     }
 

@@ -8,7 +8,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.MovieFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,8 +29,8 @@ public class CreateMovieRequestTest {
     private String anyTitle = "any title";
     private String anyDescription = "any desc";
     private Integer anyMinAge = 1;
-    private List<String> anyActors = new ArrayList<>();
-    private List<String> anyGenres = new ArrayList<>();
+    private Set<String> anyActors = new HashSet<>();
+    private Set<String> anyGenres = new HashSet<>();
     private Integer anyLength = 1;
 
     @Before
@@ -107,7 +109,7 @@ public class CreateMovieRequestTest {
         assertEquals(movieDto, createMovieRequest.getMovie());
     }
 
-    private void createMovieRequestInstance(String title, String description, Integer minAge, List<String> actors, List<String> genres, Integer length) {
+    private void createMovieRequestInstance(String title, String description, Integer minAge, Set<String> actors, Set<String> genres, Integer length) {
         movieDto = new MovieDto();
         createMovieRequest.setMovie(movieDto);
         movieDto.setTitle(title);
