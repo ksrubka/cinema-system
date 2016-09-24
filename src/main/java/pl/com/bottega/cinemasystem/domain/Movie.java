@@ -1,11 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import javax.enterprise.inject.spi.SessionBeanType;
 import javax.persistence.*;
-import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,10 +22,11 @@ public class Movie {
     @ElementCollection
     private Set<String> genres;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<TicketPrice> ticketPrices;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OrderBy("time")
     private Set<Show> shows;
 
     public Movie() {
