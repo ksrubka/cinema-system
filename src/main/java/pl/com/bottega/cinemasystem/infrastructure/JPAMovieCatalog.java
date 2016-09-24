@@ -23,12 +23,11 @@ public class JPAMovieCatalog implements MovieCatalog {
     public ListMoviesInCinemaResponse listMoviesInCinema(Long cinemaId, LocalDate date) {
         checkNotNull(cinemaId);
         checkNotNull(date);
-        String jpa = "FROM DISTINCT Movie m " +
+        String jpa = "SELECT DISTINCT m FROM Movie m " +
                 "JOIN FETCH m.shows s " +
                 "JOIN FETCH s.cinema c " +
-                "JOIN FETCH m.actors " +
-                "JOIN FETCH m.genres " +
-                "WHERE c.id = :cinemaId AND s.date= :date";
+                "WHERE c.id = :cinemaId AND s.date= :date " +
+                "ORDER BY m.title, s.time";
 
         Query query = (Query) entityManager.createQuery(jpa, Movie.class);
         query.setParameter("cinemaId", cinemaId);
