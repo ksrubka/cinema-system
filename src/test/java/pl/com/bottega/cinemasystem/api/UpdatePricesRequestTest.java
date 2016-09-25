@@ -17,12 +17,23 @@ public class UpdatePricesRequestTest {
     @Mock
     Movie anyMovie;
 
+    private Integer anyMinAge = 1;
+    private Integer anyMinAge2 = 18;
+
     private UpdatePricesRequest updatePricesRequest;
 
     @Test
     public void shouldValidatePrices(){
         updatePricesRequest = anyUpdatePriceRequest();
-        //// TODO: 25.09.2016  
+
+        updatePricesRequest.validate(anyMinAge);
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotValidatePricesBecauseAgeRequiredIsTooHigh(){
+        updatePricesRequest = anyUpdatePriceRequest();
+
+        updatePricesRequest.validate(anyMinAge2);
     }
 
     private UpdatePricesRequest anyUpdatePriceRequest() {
