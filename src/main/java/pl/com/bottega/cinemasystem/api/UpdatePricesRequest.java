@@ -3,12 +3,13 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class UpdatePricesRequest {
 
     private Long movieId;
-    private int minAge;
 
     private Map<String, BigDecimal> prices;
 
@@ -24,9 +25,9 @@ public class UpdatePricesRequest {
     }
 
     public void validate(Integer minAge) {
-        setMinAge(minAge);
         validatePrices();
-        validatePricesKinds();
+        Set<String> ticketKinds = prepareTicketKindsForValidation();
+        validatePricesKinds(ticketKinds, minAge);
     }
 
     private void validatePrices() {
@@ -35,69 +36,20 @@ public class UpdatePricesRequest {
         }
     }
 
-    private void validatePricesKinds() {
+    private Set<String> prepareTicketKindsForValidation() {
+        Set<String> ticketKinds = new HashSet<>();
+        prices.forEach((kind, price) -> ticketKinds.add(kind));
+        return ticketKinds;
+    }
+
+    private void validatePricesKinds(Set<String> ticketKinds, Integer minAge) {
         validateIfNotEmpty();
-        validateAvailability();
+        ValidationUtils.validateTicketKinds(ticketKinds, minAge);
     }
 
     private void validateIfNotEmpty() {
         for (String priceKind : prices.keySet()) {
             ValidationUtils.validateString(priceKind, "Ticket kind is empty");
-        }
-    }
-
-    private void validateAvailability() {
-        if (filmIsAvailableForEveryone()) {
-            requestShouldContainAllTicketTypes();
-        }
-        if (minAgeIs16()) {
-            requestShouldContainSchoolStudentAndRegularTicketTypes();
-        }
-        if (minAgeIs18()) {
-            requestShouldContainStudentAndRegularTicketTypes();
-        }
-    }
-
-    private boolean filmIsAvailableForEveryone() {
-        return minAge == 0;
-    }
-
-    private boolean minAgeIs16() {
-        return minAge >= 16;
-    }
-
-    private boolean minAgeIs18() {
-        return minAge == 18;
-    }
-
-    private void requestShouldContainAllTicketTypes() {
-        if (!(prices.containsKey("children") &&
-                prices.containsKey("school") &&
-                prices.containsKey("student") &&
-                prices.containsKey("regular"))) {
-            throw new InvalidRequestException("More ticket kinds required to declare");
-        }
-    }
-
-    private void requestShouldContainSchoolStudentAndRegularTicketTypes() {
-        if (!(prices.containsKey("school") &&
-                prices.containsKey("student") &&
-                prices.containsKey("regular"))) {
-            throw new InvalidRequestException("More ticket kinds required to declare");
-        }
-        if (prices.containsKey("children")) {
-            throw new InvalidRequestException("Children ticket kind is not allowed " +
-                    "when minimum age for movie is: " + minAge);
-        }
-    }
-
-    private void requestShouldContainStudentAndRegularTicketTypes() {
-        if (!(prices.containsKey("student") &&
-                prices.containsKey("regular"))) {
-            throw new InvalidRequestException("More price types required to declare");
-        }
-        if (prices.containsKey("children") || prices.containsKey("school")) {
-            throw new InvalidRequestException("Incorrect price types were declared");
         }
     }
 
@@ -107,10 +59,6 @@ public class UpdatePricesRequest {
 
     public void setPrices(Map<String, BigDecimal> prices) {
         this.prices = prices;
-    }
-
-    public void setMinAge(int minAge) {
-        this.minAge = minAge;
     }
 
     public Long getMovieId() {
