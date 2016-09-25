@@ -25,6 +25,9 @@ public class Show {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Reservation> reservation;
+
     public Show() {
     }
 

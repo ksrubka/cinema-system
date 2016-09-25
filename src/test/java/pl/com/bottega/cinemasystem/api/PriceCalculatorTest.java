@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PriceCalculatorTest {
 
-    /**@Mock
+    @Mock
     private Show show;
 
     @Mock
@@ -56,10 +56,10 @@ public class PriceCalculatorTest {
         calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrder1, ticketOrder2, ticketOrder3));
         //when
         when(showsRepository.load(showId)).thenReturn(show);
-        when(showsRepository.load(calculatePriceRequest.getShowId()));
+        when(showsRepository.loadListOfTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice1, ticketPrice2, ticketPrice3));
         //then
         priceCalculator.calculatePrice(calculatePriceRequest);
 
-    }*/
+    }
 
 }
