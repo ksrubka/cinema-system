@@ -56,7 +56,7 @@ public class PriceCalculatorTest {
         calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrder1, ticketOrder2, ticketOrder3));
         //when
         when(showsRepository.load(showId)).thenReturn(show);
-        when(showsRepository.loadListOfTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice1, ticketPrice2, ticketPrice3));
+        when(showsRepository);
         //then
         priceCalculator.calculatePrice(calculatePriceRequest);
 
