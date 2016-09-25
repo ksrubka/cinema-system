@@ -27,7 +27,7 @@ public class Show {
     private LocalTime time;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<Reservation> reservation;
+    private Set<Reservation> reservations;
 
     public Show() {
     }
@@ -37,6 +37,10 @@ public class Show {
         this.movie = movie;
         this.date = date;
         this.time = time;
+    }
+
+    public void calculatePrices(Calculation calculation) {
+        calculation.calculatePrice(movie.getTicketPrices());
     }
 
     public Long getId() {
@@ -79,8 +83,11 @@ public class Show {
         this.time = time;
     }
 
-    public void calculatePrices(Calculation calculation) {
-        calculation.calculatePrice(movie.getTicketPrices());
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
 
+    public void addReservation(Reservation reservation) {
+        this.reservations.add(reservation);
     }
 }

@@ -1,11 +1,11 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 public class Reservation {
-
 
     @EmbeddedId
     private ReservationNumber number;
@@ -22,16 +22,19 @@ public class Reservation {
     @OneToOne
     private Customer customer;
 
+    private BigDecimal totalPrice;
+
     public Reservation() {
     }
 
-    public Reservation(ReservationStatus status, Set<TicketOrder> tickets, Set<Seat> bookedSeats,
-                       Customer customer) {
-        this.number = new ReservationNumber();
+    public Reservation(Set<TicketOrder> tickets, Set<Seat> bookedSeats,
+                       Customer customer, BigDecimal totalPrice) {
+        this.number = ReservationNumber.generateNumber();
         this.tickets = tickets;
         this.bookedSeats = bookedSeats;
         this.customer = customer;
-        this.status = status;
+        this.totalPrice = totalPrice;
+        this.status = ReservationStatus.PENDING;
     }
 
     public ReservationStatus getStatus() {
@@ -64,5 +67,9 @@ public class Reservation {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public ReservationNumber getNumber() {
+        return number;
     }
 }

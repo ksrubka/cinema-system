@@ -14,7 +14,7 @@ public class CinemaHall {
         return null; //TODO
     }
 
-    public boolean checkIfSeatsCanBeReserved(Set<Seat> seats) {
+    public boolean canReserve(Set<Seat> seats) {
         return false; //TODO
     }
 

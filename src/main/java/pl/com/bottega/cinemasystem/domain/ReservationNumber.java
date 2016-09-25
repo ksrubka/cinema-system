@@ -10,7 +10,21 @@ public class ReservationNumber implements Serializable {
     private String number;
 
     public ReservationNumber() {
-        this.number = UUID.randomUUID().toString();
     }
 
+    private ReservationNumber(String number) {
+        this.number = number;
+    }
+
+    static ReservationNumber generateNumber() {
+        return new ReservationNumber(UUID.randomUUID().toString());
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }
