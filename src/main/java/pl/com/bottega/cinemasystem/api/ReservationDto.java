@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Set;
 
 public class ReservationDto {
+
     private String number;
     private ShowDto show;
     private MovieDto movie;
@@ -84,4 +85,6 @@ public class ReservationDto {
     public void setStatus(ReservationStatus status) {
         this.status = status;
     }
+
+
 }
