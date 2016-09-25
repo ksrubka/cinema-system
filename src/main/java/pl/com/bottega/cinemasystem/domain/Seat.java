@@ -1,9 +1,22 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Seat {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private Integer row;
     private Integer number;
+
+    public Seat() {
+
+    }
 
     public Seat(Integer row, Integer number) {
         this.row = row;
@@ -24,5 +37,13 @@ public class Seat {
 
     public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "seats{" +
+                "row ='" + row + '\'' +
+                ", number ='" + number + '\'' +
+                '}';
     }
 }

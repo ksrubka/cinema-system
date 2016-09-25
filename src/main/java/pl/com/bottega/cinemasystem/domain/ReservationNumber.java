@@ -1,17 +1,16 @@
 package pl.com.bottega.cinemasystem.domain;
 
-public class ReservationNumber {
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+import java.util.UUID;
 
+@Embeddable
+public class ReservationNumber implements Serializable {
 
     private String number;
 
-    public String getNumber() {
-        return number;
+    public ReservationNumber() {
+        this.number = UUID.randomUUID().toString();
     }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
 
 }

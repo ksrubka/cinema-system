@@ -1,8 +1,16 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class TicketOrder {
+
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private String kind;
     private Integer count;

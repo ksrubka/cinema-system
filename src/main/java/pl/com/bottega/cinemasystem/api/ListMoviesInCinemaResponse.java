@@ -4,7 +4,6 @@ import pl.com.bottega.cinemasystem.domain.Movie;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 
 public class ListMoviesInCinemaResponse {
 
