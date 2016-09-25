@@ -1,12 +1,19 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemasystem.api.InvalidRequestException;
 import pl.com.bottega.cinemasystem.domain.Show;
 import pl.com.bottega.cinemasystem.domain.ShowsRepository;
+import pl.com.bottega.cinemasystem.domain.TicketPrice;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 @Repository
@@ -50,5 +57,21 @@ public class JPAShowsRepository implements ShowsRepository {
         } catch (Exception ex) {
             throw new InvalidRequestException("No show in repository: id " + id);
         }
+    }
+
+    @Override
+    public Set<TicketPrice> loadListOfTicketPrices(Long showId) {
+        checkNotNull(showId);
+        String jpa = "SELECT DISTINCT S FROM Show S " +
+                "JOIN FETCH s.movie m " +
+                "JOIN FETCH m.ticketPrices t " +
+                "WHERE S.id = :showId";
+        TypedQuery<Show> query = entityManager.createQuery(jpa, Show.class);
+        query.setParameter("showId", showId);
+        Show show = query.getResultList().get(0);
+        Set<TicketPrice> price;
+        price = show.getMovie().getTicketPrices();
+        return price;
+
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Entity
 public class Show {
@@ -24,6 +25,9 @@ public class Show {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Reservation> reservation;
 
     public Show() {
     }
