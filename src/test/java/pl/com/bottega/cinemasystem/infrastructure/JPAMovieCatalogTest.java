@@ -28,17 +28,13 @@ public class JPAMovieCatalogTest {
     @Autowired
     private MovieCatalog jpaMovieCatalog;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     private Long testId = 4L;
-    private LocalDate testDate = LocalDate.of(2316, 2, 23);
+    private LocalDate testDate = LocalDate.of(2016, 9, 20);
 
-
-    @Test
     @Transactional
+    @Test
     @Sql("/fixtures/moviesInCinema.sql")
-    public void listAllMoviesInCinema(){
+    public void shouldListAllMoviesInCinema(){
         ListMoviesInCinemaResponse response = jpaMovieCatalog.listMoviesInCinema(testId, testDate);
         assertNotNull(response.getMovies());
 

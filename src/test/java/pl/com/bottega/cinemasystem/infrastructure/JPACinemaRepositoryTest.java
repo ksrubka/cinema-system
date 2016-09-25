@@ -19,7 +19,6 @@ import static junit.framework.TestCase.assertEquals;
 @ContextConfiguration("/application.xml")
 @TestPropertySource({"/jdbc-test.properties", "/hibernate-test.properties"})
 @WebAppConfiguration
-@Sql("/fixtures/cinemas.sql")
 public class JPACinemaRepositoryTest {
 
     @Autowired
@@ -37,19 +36,5 @@ public class JPACinemaRepositoryTest {
         assertEquals("Imax", loadedCinema.getName());
         assertEquals("Wrocław", loadedCinema.getCity());
     }
-
-    @Transactional
-    @Test(expected = InvalidRequestException.class)
-    public void shouldNotAddAndLoadCinemaBecauseItAlreadyExists() {
-        //given
-        Cinema cinema = new Cinema ("CinemaCity", "Warszawa");
-        //when
-        jpaCinemaRepository.save(cinema);
-        //then
-        Cinema loadedCinema = jpaCinemaRepository.load(cinema.getId());
-        assertEquals("CinemaCity", loadedCinema.getName());
-        assertEquals("Warszawa", loadedCinema.getCity());
-    }
-
 }
 

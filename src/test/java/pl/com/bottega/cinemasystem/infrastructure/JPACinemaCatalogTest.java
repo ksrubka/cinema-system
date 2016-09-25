@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 @ContextConfiguration({"/application.xml", "/mock-auth-context.xml"})
 @TestPropertySource({"/jdbc-test.properties", "/hibernate-test.properties"})
 @WebAppConfiguration
-
 public class JPACinemaCatalogTest {
 
     @Autowired
