@@ -1,6 +1,5 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemasystem.api.InvalidRequestException;
 import pl.com.bottega.cinemasystem.domain.Show;
@@ -10,11 +9,9 @@ import pl.com.bottega.cinemasystem.domain.TicketPrice;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.List;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-
 
 @Repository
 public class JPAShowsRepository implements ShowsRepository {
@@ -24,27 +21,8 @@ public class JPAShowsRepository implements ShowsRepository {
 
     @Override
     public void save(Show show) {
-//      checkIfShowAlreadyExists(show);
         entityManager.persist(show);
     }
-/*
-    private void checkIfShowAlreadyExists(Show show) {
-        Long cinemaId = show.getCinema().getId();
-        Long movieId = show.getMovie().getId();
-        LocalDateTime date = show.getDate().atTime(show.getTime());
-        List<Show> shows = entityManager.createQuery(
-                "FROM Show s " +
-                        "WHERE s.cinema=:cinemaId AND " +
-                        "s.movie=:movieId AND s.date=:date", Show.class)
-                .setParameter("cinemaId", cinemaId)
-                .setParameter("movieId", movieId)
-                .setParameter("date", date)
-                .getResultList();
-        if (!shows.isEmpty()) {
-            throw new InvalidRequestException("Can not persist, show already exists: " +
-                    "cinemaId: " + cinemaId + ", movieId: " + movieId + ", date: " + date);
-        }
-    }*/
 
     @Override
     public Show load(Long id) {
@@ -60,16 +38,6 @@ public class JPAShowsRepository implements ShowsRepository {
     }
 
     @Override
-    public void findShowById(Long showId) {
-
-    }
-
-    @Override
-    public void findShowWithReservation(Long showId) {
-
-    }
-
-    /**@Override
     public Set<TicketPrice> loadListOfTicketPrices(Long showId) {
         checkNotNull(showId);
         String jpa = "SELECT DISTINCT S FROM Show S " +
@@ -83,5 +51,15 @@ public class JPAShowsRepository implements ShowsRepository {
         price = show.getMovie().getTicketPrices();
         return price;
 
-    }*/
+    }
+
+    @Override
+    public void findShowById(Long showId) {
+
+    }
+
+    @Override
+    public void findShowWithReservation(Long showId) {
+
+    }
 }

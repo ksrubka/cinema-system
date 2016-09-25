@@ -13,9 +13,11 @@ import pl.com.bottega.cinemasystem.api.*;
 public class ReservationsController {
 
     private ReservationManager reservationManager;
+    private ReservationCatalog reservationCatalog;
 
-    public ReservationsController(ReservationManager reservationManager) {
+    public ReservationsController(ReservationManager reservationManager, ReservationCatalog reservationCatalog) {
         this.reservationManager = reservationManager;
+        this.reservationCatalog = reservationCatalog;
     }
 
     public CreateReservationResponse create(CreateReservationRequest reservationRequest){

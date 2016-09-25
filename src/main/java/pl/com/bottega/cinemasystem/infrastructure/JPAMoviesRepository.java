@@ -17,19 +17,7 @@ public class JPAMoviesRepository implements MovieRepository {
 
     @Override
     public void save(Movie movie) {
-        checkIfMovieAlreadyExist(movie);
         entityManager.persist(movie);
-    }
-
-    private void checkIfMovieAlreadyExist(Movie movie) {
-        String title = movie.getTitle();
-        List<Movie> movies = entityManager.createQuery(
-                "FROM Movie m WHERE m.title=:title", Movie.class)
-                .setParameter("title", title)
-                .getResultList();
-        if (!movies.isEmpty()) {
-            throw new InvalidRequestException("Can not persist, movie already exists: " + title);
-        }
     }
 
     @Override

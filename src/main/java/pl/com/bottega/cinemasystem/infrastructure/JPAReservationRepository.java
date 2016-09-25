@@ -11,5 +11,4 @@ public class JPAReservationRepository implements ReservationRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-
 }
