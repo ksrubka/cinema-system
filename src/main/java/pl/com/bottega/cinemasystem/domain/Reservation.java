@@ -7,21 +7,17 @@ import java.util.Set;
 @Entity
 public class Reservation {
 
+
     @EmbeddedId
     private ReservationNumber number;
-
     @Enumerated(value = EnumType.STRING)
     private ReservationStatus status;
-
     @OneToMany(cascade = CascadeType.ALL)
     private Set<TicketOrder> tickets;
-
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Seat> bookedSeats;
-
     @OneToOne
     private Customer customer;
-
     private BigDecimal totalPrice;
 
     public Reservation() {
@@ -29,12 +25,12 @@ public class Reservation {
 
     public Reservation(Set<TicketOrder> tickets, Set<Seat> bookedSeats,
                        Customer customer, BigDecimal totalPrice) {
-        this.number = ReservationNumber.generateNumber();
+        this.number = new ReservationNumber();
         this.tickets = tickets;
         this.bookedSeats = bookedSeats;
         this.customer = customer;
-        this.totalPrice = totalPrice;
         this.status = ReservationStatus.PENDING;
+        this.totalPrice = totalPrice;
     }
 
     public ReservationStatus getStatus() {

@@ -54,4 +54,11 @@ public class BrowseReservationRequest {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public boolean isStatusDefine(){
+        return status != null;
+    }
+    public boolean isLastNameDefine(){
+        return lastName != null;
+    }
 }
