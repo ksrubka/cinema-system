@@ -6,28 +6,39 @@ import java.util.Set;
 @Entity
 public class Reservation {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    @OneToMany
-    private Set<TicketOrder> tickets;
-    @OneToMany
-    private Set<Seat> bookedSeats;
-    private Customer customer;
-    @Embedded
+
+    @EmbeddedId
     private ReservationNumber number;
+
     @Enumerated(value = EnumType.STRING)
     private ReservationStatus status;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<TicketOrder> tickets;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Seat> bookedSeats;
+
+    @OneToOne
+    private Customer customer;
 
     public Reservation() {
     }
 
-    public Reservation(Set<TicketOrder> tickets, Set<Seat> bookedSeats,
-                       Customer customer, ReservationNumber number, ReservationStatus status) {
+    public Reservation(ReservationStatus status, Set<TicketOrder> tickets, Set<Seat> bookedSeats,
+                       Customer customer) {
+        this.number = new ReservationNumber();
         this.tickets = tickets;
         this.bookedSeats = bookedSeats;
         this.customer = customer;
-        this.number = number;
+        this.status = status;
+    }
+
+    public ReservationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReservationStatus status) {
         this.status = status;
     }
 
@@ -54,21 +65,4 @@ public class Reservation {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    public ReservationNumber getNumber() {
-        return number;
-    }
-
-    public void setNumber(ReservationNumber number) {
-        this.number = number;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ReservationStatus status) {
-        this.status = status;
-    }
-
 }
