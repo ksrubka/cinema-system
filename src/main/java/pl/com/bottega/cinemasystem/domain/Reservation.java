@@ -68,4 +68,16 @@ public class Reservation {
     public ReservationNumber getNumber() {
         return number;
     }
+
+    public void setNumber(ReservationNumber number) {
+        this.number = number;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

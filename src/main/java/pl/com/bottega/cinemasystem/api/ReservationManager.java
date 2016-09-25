@@ -21,15 +21,14 @@ public class ReservationManager {
     }
 
     public CreateReservationResponse createReservation(CreateReservationRequest reservationRequest){
-        //ticketOrders bookedSeats customer reservationNumber status
         reservationRequest.validateShowId();
         Show show = showsRepository.load(reservationRequest.getShowId());
         Movie movie = show.getMovie();
         reservationRequest.validate(movie.getMinAge());
-        checkSeatsCanBeReserved(reservationRequest.getSeats(), show);
         Set<TicketOrder> ticketOrders = DtoMapper.getTicketOrders(reservationRequest.getTickets());
         Set<Seat> seats = DtoMapper.getSeats(reservationRequest.getSeats());
         Customer customer = DtoMapper.getCustomer(reservationRequest.getCustomer());
+//        checkIfSeatsCanBeReserved(seats, show);
         CalculatePriceRequest priceRequest =
                 new CalculatePriceRequest(reservationRequest.getShowId(), ticketOrders);
         CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
@@ -40,20 +39,11 @@ public class ReservationManager {
         return new CreateReservationResponse(reservation.getNumber());
     }
 
-    private void checkSeatsCanBeReserved(Set<SeatDto> seatDtos, Show show) {
+    private void checkIfSeatsCanBeReserved(Set<Seat> seats, Show show) {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
-        Set<Seat> seats = mapSeatDtosToSeats(seatDtos);
          if (!cinemaHall.canReserve(seats)) {
              throw new InvalidRequestException("Seats can not be reserved");
          }
-    }
-
-    private Set<Seat> mapSeatDtosToSeats(Set<SeatDto> seatDtos) {
-        Set<Seat> seats = new HashSet<>();
-        seatDtos.forEach((seatDto -> {
-            seats.add(new Seat(seatDto.getRow(), seatDto.getSeat()));
-        }));
-        return seats;
     }
 }
