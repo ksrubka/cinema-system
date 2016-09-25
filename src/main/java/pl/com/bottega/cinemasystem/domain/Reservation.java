@@ -9,9 +9,9 @@ public class Reservation {
     @Id
     @GeneratedValue
     private Long id;
-    @ElementCollection
+    @OneToMany
     private Set<TicketOrder> tickets;
-    @ElementCollection
+    @OneToMany
     private Set<Seat> bookedSeats;
     private Customer customer;
     @Embedded
