@@ -24,6 +24,7 @@ public class ReservationsController {
         return reservationManager.createReservation(reservationRequest);
     }
 
+    @GetMapping
     public BrowseReservationResponse browseReservations(@ModelAttribute BrowseReservationRequest request) {
         return reservationCatalog.browseReservation(request);
     }
