@@ -28,7 +28,8 @@ public class JPAShowsRepository implements ShowsRepository {
     public Show load(Long id) {
         try {
             return entityManager.createQuery(
-                    "FROM Show s WHERE s.id = :id",
+                    "SELECT DISTINCT s " +
+                            "FROM Show s WHERE s.id = :id",
                     Show.class)
                     .setParameter("id", id)
                     .getSingleResult();
@@ -40,10 +41,10 @@ public class JPAShowsRepository implements ShowsRepository {
     @Override
     public Set<TicketPrice> loadListOfTicketPrices(Long showId) {
         checkNotNull(showId);
-        String jpa = "SELECT DISTINCT S FROM Show S " +
+        String jpa = "SELECT DISTINCT s FROM Show s " +
                 "JOIN FETCH s.movie m " +
                 "JOIN FETCH m.ticketPrices t " +
-                "WHERE S.id = :showId";
+                "WHERE s.id = :showId";
         TypedQuery<Show> query = entityManager.createQuery(jpa, Show.class);
         query.setParameter("showId", showId);
         Show show = query.getResultList().get(0);
