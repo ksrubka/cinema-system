@@ -1,19 +1,26 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import com.sun.org.apache.regexp.internal.RE;
-
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
 public class Reservation {
 
-
+    @Id
+    @GeneratedValue
+    private Long id;
+    @ElementCollection
     private Set<TicketOrder> tickets;
+    @ElementCollection
     private Set<Seat> bookedSeats;
     private Customer customer;
+    @Embedded
     private ReservationNumber number;
+    @Enumerated(value = EnumType.STRING)
     private ReservationStatus status;
 
-    public Reservation(){}
+    public Reservation() {
+    }
 
     public Reservation(Set<TicketOrder> tickets, Set<Seat> bookedSeats,
                        Customer customer, ReservationNumber number, ReservationStatus status) {
