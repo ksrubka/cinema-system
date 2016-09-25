@@ -4,18 +4,18 @@ import java.util.Set;
 
 public class CinemaHall {
 
-    private char[][] tablic;
+    private boolean[][] occupiedSeats;
 
-    public CinemaHall(char[][] tablic) {
-        this.tablic = tablic;
+    public CinemaHall(Set<Reservation> reservations) {
+        this.occupiedSeats = generateOccupiedSeats(reservations);
+    }
+
+    private boolean[][] generateOccupiedSeats(Set<Reservation> reservations) {
+        return null; //TODO
     }
 
     public boolean checkIfSeatsCanBeReserved(Set<Seat> seats) {
         return false; //TODO
-    }
-
-    public CinemaHall(Set<Reservation> reservations) {
-
     }
 
     public Set<Seat> getFreeSeats() {
@@ -25,6 +25,5 @@ public class CinemaHall {
     public Set<Seat> getOccupiedSeats() {
         return null; //TODO
     }
-
 
 }
