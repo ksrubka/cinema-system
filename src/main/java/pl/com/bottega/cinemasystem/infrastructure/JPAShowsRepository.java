@@ -60,6 +60,16 @@ public class JPAShowsRepository implements ShowsRepository {
     }
 
     @Override
+    public void findShowById(Long showId) {
+
+    }
+
+    @Override
+    public void findShowWithReservation(Long showId) {
+
+    }
+
+    /**@Override
     public Set<TicketPrice> loadListOfTicketPrices(Long showId) {
         checkNotNull(showId);
         String jpa = "SELECT DISTINCT S FROM Show S " +
@@ -73,5 +83,5 @@ public class JPAShowsRepository implements ShowsRepository {
         price = show.getMovie().getTicketPrices();
         return price;
 
-    }
+    }*/
 }
