@@ -19,18 +19,22 @@ public class Reservation {
     @OneToOne
     private Customer customer;
     private BigDecimal totalPrice;
+    @ManyToOne
+    private Show show;
 
     public Reservation() {
     }
 
     public Reservation(Set<TicketOrder> tickets, Set<Seat> bookedSeats,
-                       Customer customer, BigDecimal totalPrice) {
+                       Customer customer, BigDecimal totalPrice, Show show) {
         this.number = new ReservationNumber();
         this.tickets = tickets;
         this.bookedSeats = bookedSeats;
         this.customer = customer;
         this.status = ReservationStatus.PENDING;
         this.totalPrice = totalPrice;
+        this.show = show;
+
     }
 
     public ReservationStatus getStatus() {
@@ -68,4 +72,25 @@ public class Reservation {
     public ReservationNumber getNumber() {
         return number;
     }
+
+    public Show getShow() {
+        return show;
+    }
+
+    public void setShow(Show show) {
+        this.show = show;
+    }
+
+    public void setNumber(ReservationNumber number) {
+        this.number = number;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
 }

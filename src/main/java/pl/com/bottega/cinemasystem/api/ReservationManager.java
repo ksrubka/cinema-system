@@ -52,7 +52,7 @@ public class ReservationManager {
     private Set<Seat> mapSeatDtosToSeats(Set<SeatDto> seatDtos) {
         Set<Seat> seats = new HashSet<>();
         seatDtos.forEach((seatDto -> {
-            seats.add(new Seat(seatDto.getRow(), seatDto.getSeat()));
+            seats.add(new Seat(seatDto.getRow(), seatDto.getNumber()));
         }));
         return seats;
     }

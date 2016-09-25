@@ -40,8 +40,8 @@ public class CreateReservationRequest {
             if (seat.getRow() <= 0 || seat.getRow() > 10) {
                 throw new InvalidRequestException("Incorrect row: " + seat.getRow());
             }
-            if (seat.getSeat() <= 0 || seat.getSeat() > 15) {
-                throw new InvalidRequestException("Incorrect seat: " + seat.getSeat());
+            if (seat.getNumber() <= 0 || seat.getNumber() > 15) {
+                throw new InvalidRequestException("Incorrect seat: " + seat.getNumber());
             }
         });
     }

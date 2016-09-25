@@ -55,7 +55,7 @@ public class BrowseReservationRequest {
         this.lastName = lastName;
     }
 
-    public boolean isStatusDefine(){
+    public boolean isStatusDefined(){
         return status != null;
     }
     public boolean isLastNameDefine(){
