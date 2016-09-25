@@ -5,22 +5,24 @@ import java.util.Set;
 
 public class CinemaHall {
 
-    private boolean[][] seats = new boolean[10][15];
+    private static final int ROWS = 10;
+    private static final int SEATS = 15;
+    private boolean[][] seats = new boolean[ROWS][SEATS];
 
     public CinemaHall(Set<Reservation> reservations) {
-        this.seats = generateOccupiedSeats(reservations);
+        generateOccupiedSeats(reservations);
     }
 
-    private boolean[][] generateOccupiedSeats(Set<Reservation> reservations) {
+    private void generateOccupiedSeats(Set<Reservation> reservations) {
         Set<Seat> occupiedSeatsSet = new HashSet<>();
         reservations.forEach(reservation -> occupiedSeatsSet.addAll(reservation.getBookedSeats()));
         for (Seat seat : occupiedSeatsSet) {
              seats[seat.getRow()][seat.getNumber()] = true;
         }
-        return seats;
     }
 
     public boolean canReserve(Set<Seat> seats) {
+//        if ()
         return false; //TODO
     }
 

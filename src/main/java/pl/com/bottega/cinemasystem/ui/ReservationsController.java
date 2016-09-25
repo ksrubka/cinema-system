@@ -20,7 +20,8 @@ public class ReservationsController {
         this.reservationCatalog = reservationCatalog;
     }
 
-    public CreateReservationResponse create(CreateReservationRequest reservationRequest){
+    @PutMapping
+    public CreateReservationResponse create(@RequestBody CreateReservationRequest reservationRequest){
         return reservationManager.createReservation(reservationRequest);
     }
 

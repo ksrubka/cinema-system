@@ -28,7 +28,7 @@ public class ReservationManager {
         Set<TicketOrder> ticketOrders = DtoMapper.getTicketOrders(reservationRequest.getTickets());
         Set<Seat> seats = DtoMapper.getSeats(reservationRequest.getSeats());
         Customer customer = DtoMapper.getCustomer(reservationRequest.getCustomer());
-        checkIfSeatsCanBeReserved(seats, show);
+//        checkIfSeatsCanBeReserved(seats, show);
         CalculatePriceRequest priceRequest =
                 new CalculatePriceRequest(reservationRequest.getShowId(), ticketOrders);
         CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
