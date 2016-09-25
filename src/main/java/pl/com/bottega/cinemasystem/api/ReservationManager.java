@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
 import org.springframework.stereotype.Service;
+import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import java.util.HashSet;
