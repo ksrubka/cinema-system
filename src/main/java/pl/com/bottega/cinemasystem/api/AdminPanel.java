@@ -37,14 +37,27 @@ public class AdminPanel {
     @Transactional
     public void createCinema(CreateCinemaRequest createCinemaRequest) {
         createCinemaRequest.validate();
-        Cinema cinema = cinemaFactory.createCinema(createCinemaRequest);
+        Cinema cinema = cinemaRepository.load(createCinemaRequest.getCity(), createCinemaRequest.getName());
+        if (cinema == null) {
+            cinema = cinemaFactory.createCinema(createCinemaRequest);
+        }
+        else {
+            throw new InvalidRequestException("Cinema already exists: "
+                    + createCinemaRequest.getCity() + " " + createCinemaRequest.getName());
+        }
         cinemaRepository.save(cinema);
     }
 
     @Transactional
     public void createMovie(CreateMovieRequest createMovieRequest) {
         createMovieRequest.validate();
-        Movie movie = movieFactory.createMovie(createMovieRequest);
+        Movie movie = movieRepository.load(createMovieRequest.getTitle());
+        if (movie == null) {
+            movie = movieFactory.createMovie(createMovieRequest);
+        }
+        else {
+            throw new InvalidRequestException("Movie already exists: " + createMovieRequest.getTitle());
+        }
         movieRepository.save(movie);
     }
 
@@ -53,9 +66,23 @@ public class AdminPanel {
         request.validate();
         Cinema cinema = cinemaRepository.load(request.getCinemaId());
         Movie movie = movieRepository.load(request.getMovieId());
+        checkIfCinemaExist(request.getCinemaId(), cinema);
+        checkIfMovieExist(request.getMovieId(), movie);
         Collection<Show> shows = showsFactory.createShows(cinema, movie, request);
         saveShows(shows);
         movie.addShows(shows);
+    }
+
+    private void checkIfCinemaExist(Long cinemaId, Cinema cinema) {
+        if (cinema == null) {
+            throw new InvalidRequestException("Cinema does not exist: id " + cinemaId);
+        }
+    }
+
+    private void checkIfMovieExist(Long movieId, Movie movie) {
+        if (movie == null) {
+            throw new InvalidRequestException("Movie does not exist: id " + movieId);
+        }
     }
 
     private void saveShows(Collection<Show> shows) {
@@ -66,6 +93,7 @@ public class AdminPanel {
     public void updatePrices(UpdatePricesRequest request) {
         request.validateMovieId();
         Movie movie = movieRepository.load(request.getMovieId());
+        checkIfMovieExist(request.getMovieId(), movie);
         request.validate(movie.getMinAge());
         Set<TicketPrice> ticketPrices = ticketPricesFactory.createTickets(request);
         movie.updatePrices(ticketPrices);
