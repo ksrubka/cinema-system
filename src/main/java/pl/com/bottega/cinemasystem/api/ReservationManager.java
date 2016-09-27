@@ -1,10 +1,10 @@
 package pl.com.bottega.cinemasystem.api;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import pl.com.bottega.cinemasystem.domain.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -20,7 +20,8 @@ public class ReservationManager {
         this.priceCalculator = priceCalculator;
     }
 
-    public CreateReservationResponse createReservation(CreateReservationRequest reservationRequest){
+    @Transactional
+    public CreateReservationResponse createReservation(CreateReservationRequest reservationRequest) {
         reservationRequest.validateShowId();
         Show show = showsRepository.load(reservationRequest.getShowId());
         Movie movie = show.getMovie();
@@ -36,14 +37,15 @@ public class ReservationManager {
         Reservation reservation =
                 new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice());
         show.addReservation(reservation);
+        reservationRepository.save(reservation);
         return new CreateReservationResponse(reservation.getNumber());
     }
 
     private void checkIfSeatsCanBeReserved(Set<Seat> seats, Show show) {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
-         if (!cinemaHall.canReserve(seats)) {
-             throw new InvalidRequestException("Seats can not be reserved");
-         }
+        if (!cinemaHall.canReserve(seats)) {
+            throw new InvalidRequestException("Seats can not be reserved");
+        }
     }
 }
