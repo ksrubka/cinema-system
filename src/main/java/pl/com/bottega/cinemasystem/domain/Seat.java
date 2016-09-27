@@ -15,7 +15,6 @@ public class Seat {
     private Integer number;
 
     public Seat() {
-
     }
 
     public Seat(Integer row, Integer number) {

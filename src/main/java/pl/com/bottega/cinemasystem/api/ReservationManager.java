@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import pl.com.bottega.cinemasystem.domain.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -35,7 +36,7 @@ public class ReservationManager {
         CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
         Calculation calculation = calculatePriceResponse.getCalculation();
         Reservation reservation =
-                new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice());
+                new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice(), show);
         show.addReservation(reservation);
         reservationRepository.save(reservation);
         return new CreateReservationResponse(reservation.getNumber());

@@ -9,7 +9,6 @@ import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +50,8 @@ public class JPAReservationCatalog implements ReservationCatalog {
         }
         String jpql = "SELECT DISTINCT r " +
                 "FROM Reservation r " +
-               "JOIN FETCH r.tickets t " +
-               "JOIN FETCH r.bookedSeats b "+
+                "JOIN FETCH r.tickets t " +
+                "JOIN FETCH r.bookedSeats b " +
                 "JOIN FETCH r.customer c " +
                 "JOIN FETCH r.show s " +
                 "JOIN FETCH s.movie m ";
