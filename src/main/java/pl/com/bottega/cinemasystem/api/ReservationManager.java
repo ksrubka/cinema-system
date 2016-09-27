@@ -48,4 +48,12 @@ public class ReservationManager {
             throw new InvalidRequestException("Seats can not be reserved");
         }
     }
+
+    private Set<Seat> mapSeatDtosToSeats(Set<SeatDto> seatDtos) {
+        Set<Seat> seats = new HashSet<>();
+        seatDtos.forEach((seatDto -> {
+            seats.add(new Seat(seatDto.getRow(), seatDto.getNumber()));
+        }));
+        return seats;
+    }
 }

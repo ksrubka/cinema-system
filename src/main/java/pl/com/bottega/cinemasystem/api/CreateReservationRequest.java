@@ -90,16 +90,15 @@ public class CreateReservationRequest {
         }
 
         private void validateSeats() {
-            seats.forEach(seat -> {
-                if (seat.getRow() <= 0 || seat.getRow() > 10) {
-                    throw new InvalidRequestException("Incorrect row: " + seat.getRow());
-                }
-                if (seat.getSeat() <= 0 || seat.getSeat() > 15) {
-                    throw new InvalidRequestException("Incorrect seat: " + seat.getSeat());
-                }
-            });
-        }
-
+        seats.forEach(seat -> {
+            if (seat.getRow() <= 0 || seat.getRow() > 10) {
+                throw new InvalidRequestException("Incorrect row: " + seat.getRow());
+            }
+            if (seat.getNumber() <= 0 || seat.getNumber() > 15) {
+                throw new InvalidRequestException("Incorrect seat: " + seat.getNumber());
+            }
+        });
+    }
         private void validateCustomer() {
             if (customer.getFirstName() == null || customer.getFirstName().trim().isEmpty()) {
                 throw new InvalidRequestException("Incorrect customer name");

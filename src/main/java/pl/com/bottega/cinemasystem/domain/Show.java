@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,7 +27,7 @@ public class Show {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalTime time;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "show")
     private Set<Reservation> reservations;
 
     public Show() {
@@ -37,6 +38,7 @@ public class Show {
         this.movie = movie;
         this.date = date;
         this.time = time;
+        this.reservations = new HashSet<>();
     }
 
     public void calculatePrices(Calculation calculation) {
