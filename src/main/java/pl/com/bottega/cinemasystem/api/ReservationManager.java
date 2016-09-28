@@ -1,6 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import pl.com.bottega.cinemasystem.domain.*;
 
@@ -20,7 +21,8 @@ public class ReservationManager {
         this.priceCalculator = priceCalculator;
     }
 
-    public CreateReservationResponse createReservation(CreateReservationRequest reservationRequest){
+    @Transactional
+    public CreateReservationResponse createReservation(CreateReservationRequest reservationRequest) {
         reservationRequest.validateShowId();
         Show show = showsRepository.load(reservationRequest.getShowId());
         Movie movie = show.getMovie();
@@ -34,16 +36,25 @@ public class ReservationManager {
         CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
         Calculation calculation = calculatePriceResponse.getCalculation();
         Reservation reservation =
-                new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice());
+                new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice(), show);
         show.addReservation(reservation);
+        reservationRepository.save(reservation);
         return new CreateReservationResponse(reservation.getNumber());
     }
 
     private void checkIfSeatsCanBeReserved(Set<Seat> seats, Show show) {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
-         if (!cinemaHall.canReserve(seats)) {
-             throw new InvalidRequestException("Seats can not be reserved");
-         }
+        if (!cinemaHall.canReserve(seats)) {
+            throw new InvalidRequestException("Seats can not be reserved");
+        }
+    }
+
+    private Set<Seat> mapSeatDtosToSeats(Set<SeatDto> seatDtos) {
+        Set<Seat> seats = new HashSet<>();
+        seatDtos.forEach((seatDto -> {
+            seats.add(new Seat(seatDto.getRow(), seatDto.getNumber()));
+        }));
+        return seats;
     }
 }

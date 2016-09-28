@@ -41,7 +41,8 @@ public class Calculation {
         for (TicketOrder ticketOrder : tickets) {
             BigDecimal ticketPrice = getTicketPrice(ticketPrices, ticketOrder.getKind());
             ticketOrder.setUnitPrice(ticketPrice);
-            ticketOrder.setTotalPrice(ticketOrder.getUnitPrice().multiply(new BigDecimal(ticketOrder.getCount())));
+            ticketOrder.setTotalPrice(ticketOrder.getUnitPrice()
+                    .multiply(new BigDecimal(ticketOrder.getCount())));
             totalPrice = totalPrice.add(ticketOrder.getTotalPrice());
         }
     }
@@ -52,7 +53,7 @@ public class Calculation {
                 return ticketPrice.getPrice();
             }
         }
-        throw new InvalidRequestException("Ticket type: "+ ticketType + " does not exists");
+        throw new InvalidRequestException("Ticket type: " + ticketType + " was not specified for a given movie");
     }
 }
 

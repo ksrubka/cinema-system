@@ -65,7 +65,7 @@ public class CreateReservationRequest {
 
         private void validateTicketOrder(Integer minAge) {
             Set<String> ticketKinds = prepareTicketKindsForValidation();
-            ValidationUtils.validateTicketKinds(ticketKinds, minAge);
+            validateTicketKinds(ticketKinds, minAge);
         }
 
         private Set<String> prepareTicketKindsForValidation() {
@@ -74,13 +74,28 @@ public class CreateReservationRequest {
             return ticketKinds;
         }
 
+        private void validateTicketKinds(Set<String> tickets, Integer minAge) {
+            if (ValidationUtils.minAgeIs18(minAge)) {
+                if (tickets.contains("children") || tickets.contains("school")) {
+                    throw new InvalidRequestException("Incorrect price types were declared, " +
+                            "minimum age for movie is: " + minAge);
+                }
+            }
+            if (ValidationUtils.minAgeIs16(minAge)) {
+                if (tickets.contains("children")) {
+                    throw new InvalidRequestException("Children ticket kind is not allowed " +
+                            "when minimum age for movie is: " + minAge);
+                }
+            }
+        }
+
         private void validateSeats() {
             seats.forEach(seat -> {
                 if (seat.getRow() <= 0 || seat.getRow() > 10) {
                     throw new InvalidRequestException("Incorrect row: " + seat.getRow());
                 }
-                if (seat.getSeat() <= 0 || seat.getSeat() > 15) {
-                    throw new InvalidRequestException("Incorrect seat: " + seat.getSeat());
+                if (seat.getNumber() <= 0 || seat.getNumber() > 15) {
+                    throw new InvalidRequestException("Incorrect seat: " + seat.getNumber());
                 }
             });
         }

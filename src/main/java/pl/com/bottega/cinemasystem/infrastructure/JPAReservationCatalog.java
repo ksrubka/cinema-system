@@ -1,15 +1,14 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import pl.com.bottega.cinemasystem.api.BrowseReservationRequest;
 import pl.com.bottega.cinemasystem.api.BrowseReservationResponse;
 import pl.com.bottega.cinemasystem.api.ReservationCatalog;
-import pl.com.bottega.cinemasystem.domain.Movie;
+import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +24,14 @@ public class JPAReservationCatalog implements ReservationCatalog {
     public BrowseReservationResponse browseReservation(BrowseReservationRequest request) {
         checkNotNull(request);
         String jpql = buildQuery(request);
-        javax.persistence.Query query = entityManager.createQuery(jpql);
+        Query query = entityManager.createQuery(jpql);
         fillStatement(request, query);
-        return new BrowseReservationResponse(query.getResultList());
+        DtoMapper.getReservationDto(query.getResultList());
+        return new BrowseReservationResponse();
     }
 
-    private void fillStatement(BrowseReservationRequest request, javax.persistence.Query query) {
-        if (request.isStatusDefine()) {
+    private void fillStatement(BrowseReservationRequest request, Query query) {
+        if (request.isStatusDefined()) {
             query.setParameter("status", request.getStatus());
         }
         if (request.isLastNameDefine()) {
@@ -41,18 +41,20 @@ public class JPAReservationCatalog implements ReservationCatalog {
 
     private String buildQuery(BrowseReservationRequest request) {
         List<String> queryList = new ArrayList<>();
-        if (request.isStatusDefine()) {
-            queryList.add(" r.status =:status ");
+        if (request.isStatusDefined()) {
+            queryList.add("r.status =:status");
 
         }
         if (request.isLastNameDefine()) {
-            queryList.add(" r.lastName = :lastName");
+            queryList.add("r.lastName = :lastName");
         }
-        String jpql = "SELECT new pl.com.bottega.cinemasystem.api.ReservationDto(" +
-                "FROM Reservation d WHERE d.deleted = false " +
-                "JOIN FETCH r.status s " +
-               "JOIN FETCH r.tickets t " +
-               "JOIN FETCH r.bookedSeats b ";
+        String jpql = "SELECT DISTINCT r " +
+                "FROM Reservation r " +
+                "JOIN FETCH r.tickets t " +
+                "JOIN FETCH r.bookedSeats b " +
+                "JOIN FETCH r.customer c " +
+                "JOIN FETCH r.show s " +
+                "JOIN FETCH s.movie m ";
 
         if (queryList.size() > 0) {
             jpql += "WHERE ";
@@ -60,7 +62,7 @@ public class JPAReservationCatalog implements ReservationCatalog {
             for (int index = 0; index < limit; index++) {
                 jpql += queryList.get(index);
                 if (index < limit - 1)
-                    jpql += "AND";
+                    jpql += " AND ";
             }
         }
         return jpql;
