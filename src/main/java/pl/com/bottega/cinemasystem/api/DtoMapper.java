@@ -14,7 +14,7 @@ public class DtoMapper {
     }
 
     public static Set<Seat> getSeats(Set<SeatDto> seats) {
-        return seats.stream().map(seat-> new Seat(seat.getRow(), seat.getSeat())).collect(Collectors.toSet());
+        return seats.stream().map(seat-> new Seat(seat.getRow(), seat.getNumber())).collect(Collectors.toSet());
     }
 
     public static Customer getCustomer(CustomerDto customer) {
