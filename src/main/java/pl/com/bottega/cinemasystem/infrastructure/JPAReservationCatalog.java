@@ -1,10 +1,13 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.api.BrowseReservationRequest;
 import pl.com.bottega.cinemasystem.api.BrowseReservationResponse;
 import pl.com.bottega.cinemasystem.api.ReservationCatalog;
+import pl.com.bottega.cinemasystem.api.ReservationDto;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
+import pl.com.bottega.cinemasystem.domain.ReservationStatus;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,20 +24,21 @@ public class JPAReservationCatalog implements ReservationCatalog {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public BrowseReservationResponse browseReservation(BrowseReservationRequest request) {
         checkNotNull(request);
         String jpql = buildQuery(request);
         Query query = entityManager.createQuery(jpql);
         fillStatement(request, query);
-        DtoMapper.getReservationDto(query.getResultList());
-        return new BrowseReservationResponse();
+        List<ReservationDto> reservationDtos = DtoMapper.getReservationDto(query.getResultList());
+        return new BrowseReservationResponse(reservationDtos);
     }
 
     private void fillStatement(BrowseReservationRequest request, Query query) {
         if (request.isStatusDefined()) {
-            query.setParameter("status", request.getStatus());
+            query.setParameter("status", ReservationStatus.valueOf(request.getStatus().toUpperCase()));
         }
-        if (request.isLastNameDefine()) {
+        if (request.isLastNameDefined()) {
             query.setParameter("lastName", request.getLastName());
         }
     }
@@ -43,10 +47,9 @@ public class JPAReservationCatalog implements ReservationCatalog {
         List<String> queryList = new ArrayList<>();
         if (request.isStatusDefined()) {
             queryList.add("r.status =:status");
-
         }
-        if (request.isLastNameDefine()) {
-            queryList.add("r.lastName = :lastName");
+        if (request.isLastNameDefined()) {
+            queryList.add("c.lastName = :lastName");
         }
         String jpql = "SELECT DISTINCT r " +
                 "FROM Reservation r " +
@@ -66,6 +69,5 @@ public class JPAReservationCatalog implements ReservationCatalog {
             }
         }
         return jpql;
-
     }
 }

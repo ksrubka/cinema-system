@@ -20,7 +20,8 @@ public class ReservationDto {
     public ReservationDto(){}
 
     public ReservationDto(String number, ShowDto show, MovieDto movie, Set<TicketOrderDto> tickets,
-                                     Set<SeatDto> seat, CustomerDto customer, ReservationStatus status) {
+                                     Set<SeatDto> seat, CustomerDto customer, ReservationStatus status,
+                          BigDecimal totalPrice) {
         this.number = number;
         this.show = show;
         this.movie = movie;
@@ -28,6 +29,7 @@ public class ReservationDto {
         this.seat = seat;
         this.customer = customer;
         this.status = status;
+        this.totalPrice = totalPrice;
     }
 
     public String getNumber() {
@@ -86,5 +88,11 @@ public class ReservationDto {
         this.status = status;
     }
 
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
 
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

@@ -20,12 +20,6 @@ public class BrowseReservationRequest {
         validateName();
     }
 
-    private void validateName() {
-        if (lastName == null || lastName.isEmpty()) {
-            throw new InvalidRequestException("last name can not be null or empty");
-        }
-    }
-
     private void validateStatus() {
         if (status == null) {
             throw new InvalidRequestException("status can not be null");
@@ -38,6 +32,11 @@ public class BrowseReservationRequest {
         }
     }
 
+    private void validateName() {
+        if (lastName == null || lastName.isEmpty()) {
+            throw new InvalidRequestException("last name can not be null or empty");
+        }
+    }
 
     public String getStatus() {
         return status;
@@ -59,7 +58,7 @@ public class BrowseReservationRequest {
         return status != null;
     }
 
-    public boolean isLastNameDefine() {
+    public boolean isLastNameDefined() {
         return lastName != null;
     }
 }

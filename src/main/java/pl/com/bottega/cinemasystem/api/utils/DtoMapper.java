@@ -26,13 +26,14 @@ public class DtoMapper {
                 customer.getEmail(), customer.getPhone());
     }
 
-    public static List<ReservationDto> getReservationDto(List<Reservation> resultList) {
-        return resultList.stream()
+    public static List<ReservationDto> getReservationDto(List<Reservation> reservationsList) {
+        return reservationsList.stream()
                 .map(reservation -> new ReservationDto(
                         reservation.getNumber().getNumber(),
                         getShowDto(reservation.getShow()), getMovieDto(reservation.getShow().getMovie()),
                         getTicketOrder(reservation.getTickets()), getSeatDto(reservation.getBookedSeats()),
-                        getCustomerDto(reservation.getCustomer()), reservation.getStatus()))
+                        getCustomerDto(reservation.getCustomer()), reservation.getStatus(),
+                        reservation.getTotalPrice()))
                 .collect(Collectors.toList());
     }
 
@@ -41,7 +42,7 @@ public class DtoMapper {
     }
 
     public static MovieDto getMovieDto(Movie movie) {
-        return new MovieDto(movie.getTitle(), movie.getDescription(),
+        return new MovieDto(movie.getId(), movie.getTitle(), movie.getDescription(),
                 movie.getMinAge(), movie.getActors(), movie.getGenres(), movie.getLength());
     }
 
