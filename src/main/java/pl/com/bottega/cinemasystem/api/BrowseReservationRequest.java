@@ -7,14 +7,6 @@ public class BrowseReservationRequest {
     private String status;
     private String lastName;
 
-    public BrowseReservationRequest() {
-    }
-
-    public BrowseReservationRequest(String status, String lastName) {
-        this.status = status;
-        this.lastName = lastName;
-    }
-
     public void validate() {
         validateStatus();
         validateName();
@@ -26,7 +18,6 @@ public class BrowseReservationRequest {
         }
         try {
             ReservationStatus.valueOf(status.toUpperCase());
-
         } catch (Exception ex) {
             throw new InvalidRequestException("Status is incorrect: " + status);
         }
