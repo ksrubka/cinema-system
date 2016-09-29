@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import pl.com.bottega.cinemasystem.domain.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -22,39 +21,35 @@ public class ReservationManager {
     }
 
     @Transactional
-    public CreateReservationResponse createReservation(CreateReservationRequest reservationRequest) {
-        reservationRequest.validateShowId();
-        Show show = showsRepository.load(reservationRequest.getShowId());
-        Movie movie = show.getMovie();
-        reservationRequest.validate(movie.getMinAge());
-        Set<TicketOrder> ticketOrders = DtoMapper.getTicketOrders(reservationRequest.getTickets());
-        Set<Seat> seats = DtoMapper.getSeats(reservationRequest.getSeats());
-        Customer customer = DtoMapper.getCustomer(reservationRequest.getCustomer());
-//        checkIfSeatsCanBeReserved(seats, show);
-        CalculatePriceRequest priceRequest =
-                new CalculatePriceRequest(reservationRequest.getShowId(), ticketOrders);
-        CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
-        Calculation calculation = calculatePriceResponse.getCalculation();
-        Reservation reservation =
-                new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice(), show);
+    public CreateReservationResponse createReservation(CreateReservationRequest request) {
+        request.validateShowId();
+        Show show = showsRepository.load(request.getShowId());
+        request.validate(show.getMovie().getMinAge());
+        Set<Seat> seats = DtoMapper.getSeats(request.getSeats());
+        checkIfSeatsCanBeReserved(seats, show);
+        Reservation reservation = create(request, seats, show);
         show.addReservation(reservation);
         reservationRepository.save(reservation);
         return new CreateReservationResponse(reservation.getNumber());
     }
 
+    private Reservation create(CreateReservationRequest request, Set<Seat> seats, Show show) {
+        Set<TicketOrder> ticketOrders = DtoMapper.getTicketOrders(request.getTickets());
+        Customer customer = DtoMapper.getCustomer(request.getCustomer());
+        CalculatePriceRequest priceRequest =
+                new CalculatePriceRequest(request.getShowId(), ticketOrders);
+        CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
+        Calculation calculation = calculatePriceResponse.getCalculation();
+        return new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice(), show);
+    }
+
     private void checkIfSeatsCanBeReserved(Set<Seat> seats, Show show) {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
-        if (!cinemaHall.canReserve(seats)) {
-            throw new InvalidRequestException("Seats can not be reserved");
+        try {
+            cinemaHall.validateReservation(seats);
+        } catch (Exception ex) {
+            throw new InvalidRequestException(ex.getMessage());
         }
-    }
-
-    private Set<Seat> mapSeatDtosToSeats(Set<SeatDto> seatDtos) {
-        Set<Seat> seats = new HashSet<>();
-        seatDtos.forEach((seatDto -> {
-            seats.add(new Seat(seatDto.getRow(), seatDto.getNumber()));
-        }));
-        return seats;
     }
 }
