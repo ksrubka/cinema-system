@@ -48,7 +48,7 @@ public class ReservationManager {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
         try {
-            cinemaHall.validateReservation(seats);
+            cinemaHall.canReserve(seats);
         } catch (Exception ex) {
             throw new InvalidRequestException(ex.getMessage());
         }

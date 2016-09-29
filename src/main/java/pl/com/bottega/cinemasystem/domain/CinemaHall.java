@@ -20,11 +20,10 @@ public class CinemaHall {
     private void generateOccupiedSeats(Set<Reservation> reservations) {
         Set<Seat> occupiedSeatsSet = new TreeSet<>();
         reservations.forEach(reservation -> occupiedSeatsSet.addAll(reservation.getBookedSeats()));
-        occupiedSeatsSet.forEach(seat -> seats[seat.getRow()-1][seat.getNumber()-1] = true);
+        occupiedSeatsSet.forEach(seat -> seats[seat.getRow() - 1][seat.getNumber() - 1] = true);
     }
 
-    public void validateReservation(Set<Seat> seats) {
-        checkIfHasEnoughSpareSeats(seats);
+    public void canReserve(Set<Seat> seats) {
         checkIfSeatsAreAlreadyReserved(seats);
         if (chosenSeatsAreInTheSameRow(seats)) {
             if (!chosenSeatsAreNextToEachOther(seats)) {
@@ -39,33 +38,6 @@ public class CinemaHall {
         }
     }
 
-    private void checkIfHasEnoughSpareSeats(Set<Seat> seats) {
-        int spareSeatsCount = countSpareSeats();
-        if (!hasEnoughSpareSeats(seats, spareSeatsCount)) {
-            throw new InvalidRequestException("there is not enough spare seats to reserve");
-        }
-    }
-
-    private int countSpareSeats() {
-        int spareSeatsCount = 0;
-        for (boolean[] row : this.seats) {
-            for (boolean seat : row) {
-                if (seatIsSpare(seat)) {
-                    spareSeatsCount++;
-                }
-            }
-        }
-        return spareSeatsCount;
-    }
-
-    private boolean seatIsSpare(boolean seat) {
-        return seat == false;
-    }
-
-    private boolean hasEnoughSpareSeats(Set<Seat> seats, int spareSeatsCount) {
-        return spareSeatsCount >= seats.size();
-    }
-
     private void checkIfSeatsAreAlreadyReserved(Set<Seat> seats) {
         seats.forEach(seat -> {
             if (seatIsReserved(seat)) {
@@ -73,6 +45,10 @@ public class CinemaHall {
                         " number: " + seat.getNumber() + " is already reserved");
             }
         });
+    }
+
+    private boolean seatIsReserved(Seat seat) {
+        return this.seats[seat.getRow() - 1][seat.getNumber() - 1];
     }
 
     private boolean chosenSeatsAreInTheSameRow(Set<Seat> seats) {
@@ -136,9 +112,5 @@ public class CinemaHall {
             }
         }
         return spareSeatsCount;
-    }
-
-    private boolean seatIsReserved(Seat seat) {
-        return this.seats[seat.getRow() - 1][seat.getNumber() - 1];
     }
 }
