@@ -14,7 +14,8 @@ public class ReservationManager {
     private ReservationRepository reservationRepository;
     private PriceCalculator priceCalculator;
 
-    public ReservationManager(ShowsRepository showsRepository, ReservationRepository reservationRepository, PriceCalculator priceCalculator) {
+    public ReservationManager(ShowsRepository showsRepository, ReservationRepository reservationRepository,
+                              PriceCalculator priceCalculator) {
         this.showsRepository = showsRepository;
         this.reservationRepository = reservationRepository;
         this.priceCalculator = priceCalculator;
