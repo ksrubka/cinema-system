@@ -97,7 +97,7 @@ public class CinemaHall {
     private boolean chosenSeatsCouldBeInTheSameRow(Set<Seat> seats) {
         Set<Integer> rows = seats.stream().map(seat -> seat.getRow()).collect(Collectors.toSet());
         for (int row : rows) {
-            if (seats.size() >= countSpareSeatsInRow(row)) {
+            if (seats.size() <= countSpareSeatsInRow(row)) {
                 return true;
             }
         }
