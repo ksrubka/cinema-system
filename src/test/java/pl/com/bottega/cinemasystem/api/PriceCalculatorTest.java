@@ -12,55 +12,55 @@ import java.math.BigDecimal;
 
 import static org.mockito.Mockito.when;
 
-//@RunWith(MockitoJUnitRunner.class)
-public class PriceCalculatorTest { //TODO test actually needs to be written properly (however calculatePrice method is awkward and hard to test because of that)
+@RunWith(MockitoJUnitRunner.class)
+public class PriceCalculatorTest {
 
-
-    /**@Mock
+    @Mock
     private Show show;
 
     @Mock
-    private TicketPricesFactory ticketPricesFactory;
+    private Movie movie;
 
     @Mock
     private ShowsRepository showsRepository;
 
-    @Mock
-    private CalculatePriceRequest calculatePriceRequest;
-
-
+    private CalculatePriceRequest calculatePriceRequest = new CalculatePriceRequest();
     private PriceCalculator priceCalculator;
 
-    private Long showId = 1L;
-    private TicketOrder ticketOrder1 = new TicketOrder();
-    private TicketOrder ticketOrder2 = new TicketOrder();
-    private TicketOrder ticketOrder3 = new TicketOrder();
+    private Long anyShowId = 1L;
+    private TicketOrderDto ticketOrderDto1 = new TicketOrderDto();
+    private TicketOrderDto ticketOrderDto2 = new TicketOrderDto();
+    private TicketOrderDto ticketOrderDto3 = new TicketOrderDto();
+    private TicketOrderDto ticketOrderDto4 = new TicketOrderDto();
     private TicketPrice ticketPrice1 = new TicketPrice("regular", new BigDecimal(20));
     private TicketPrice ticketPrice2 = new TicketPrice("children", new BigDecimal(12));
     private TicketPrice ticketPrice3 = new TicketPrice("school", new BigDecimal(10));
+    private TicketPrice ticketPrice4 = new TicketPrice("student", new BigDecimal(15));
 
     @Before
     public void setUp() {
         priceCalculator = new PriceCalculator(showsRepository);
-        ticketOrder1.setKind("regular");
-        ticketOrder1.setCount(3);
-        ticketOrder2.setKind("children");
-        ticketOrder2.setCount(3);
-        ticketOrder3.setKind("school");
-        ticketOrder3.setCount(3);
+        ticketOrderDto1.setKind("regular");
+        ticketOrderDto1.setCount(4);
+        ticketOrderDto2.setKind("children");
+        ticketOrderDto2.setCount(4);
+        ticketOrderDto3.setKind("school");
+        ticketOrderDto3.setCount(4);
+        ticketOrderDto4.setKind("student");
+        ticketOrderDto4.setCount(4);
+
     }
 
-//    @Test
-//    public void shouldCalculatePrice() {
-//        //given
-//        calculatePriceRequest.setShowId(showId);
-//        calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrder1, ticketOrder2, ticketOrder3));
-//        //when
-//        when(showsRepository.load(showId)).thenReturn(show);
-//        when(showsRepository.loadListOfTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice1, ticketPrice2, ticketPrice3));
-//        //then
-//        priceCalculator.calculatePrice(calculatePriceRequest);
-//
-//    }*/
+    @Test
+    public void shouldCalculatePrice() {
+        //given
+        calculatePriceRequest.setShowId(anyShowId);
+        calculatePriceRequest.setTickets(Sets.newHashSet(ticketOrderDto1, ticketOrderDto2, ticketOrderDto3, ticketOrderDto4));
+        //when
+        when(showsRepository.load(anyShowId)).thenReturn(show);
+        when(showsRepository.loadListOfTicketPrices(calculatePriceRequest.getShowId())).thenReturn(Sets.newHashSet(ticketPrice1, ticketPrice2, ticketPrice3, ticketPrice4));
+        //then
+        priceCalculator.calculatePrice(calculatePriceRequest);
+    }
 
 }
