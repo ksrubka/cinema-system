@@ -53,19 +53,47 @@ public class CreateReservationRequest {
         private Set<SeatDto> seats;
         private CustomerDto customer;
 
+        void validateShowId() {
+            ValidationUtils.validateId(showId, "Incorrect show id: " + showId);
+        }
+
         public void validate(Integer minAge) {
             validateTicketOrder(minAge);
             validateSeats();
             validateCustomer();
+            checkIfNumberOfSeatsCorrespondsToNumberOfTickets();
         }
 
-        void validateShowId() {
-            ValidationUtils.validateId(showId, "Incorrect show id: " + showId);
+        private void checkIfNumberOfSeatsCorrespondsToNumberOfTickets() {
+            int ticketsQuantity = countTickets();
+            if (seats.size() != ticketsQuantity) {
+                throw new InvalidRequestException("Tickets quantity does not correspond to number of reserved seats");
+            }
+        }
+
+        private int countTickets() {
+            int ticketsQuantity = 0;
+            for (TicketOrderDto ticket : tickets) {
+                ticketsQuantity += ticket.getCount();
+            }
+            return ticketsQuantity;
         }
 
         private void validateTicketOrder(Integer minAge) {
             Set<String> ticketKinds = prepareTicketKindsForValidation();
             validateTicketKinds(ticketKinds, minAge);
+            validateTicketsQuantity();
+        }
+
+        private void validateTicketsQuantity() {
+            tickets.forEach(ticket -> {
+                if (ticket.getCount() <= 0) {
+                    throw new InvalidRequestException("Tickets quantity is too small");
+                }
+                if (countTickets() >= 150) {
+                    throw new InvalidRequestException("Tickets quantity is too big");
+                }
+            });
         }
 
         private Set<String> prepareTicketKindsForValidation() {
