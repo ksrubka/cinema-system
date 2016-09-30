@@ -8,6 +8,7 @@ import pl.com.bottega.cinemasystem.domain.ShowsRepository;
 import pl.com.bottega.cinemasystem.domain.TicketOrder;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -25,9 +26,13 @@ public class PriceCalculator {
         checkArgument(request != null);
         request.validate();
         Show show = showsRepository.load(request.getShowId());
-        Set<TicketOrder> ticketOrders = request.getTickets();
-        Calculation calculation = new Calculation(ticketOrders);
+        Set<TicketOrder> ticketOrder = createSetOfTicketOrders(request.getTickets());
+        Calculation calculation = new Calculation(ticketOrder);
         show.calculatePrices(calculation);
         return new CalculatePriceResponse(calculation);
+    }
+
+    private Set<TicketOrder> createSetOfTicketOrders(Set<TicketOrderDto> tickets) {
+        return tickets.stream().map(dto -> new TicketOrder(dto.getKind(), dto.getCount())).collect(Collectors.toSet());
     }
 }

@@ -8,12 +8,12 @@ import java.util.Set;
 public class CalculatePriceRequest {
 
     private Long showId;
-    private Set<TicketOrder> tickets;
+    private Set<TicketOrderDto> tickets;
 
     public CalculatePriceRequest() {
     }
 
-    public CalculatePriceRequest(Long showId, Set<TicketOrder> tickets) {
+    public CalculatePriceRequest(Long showId, Set<TicketOrderDto> tickets) {
         this.showId = showId;
         this.tickets = tickets;
     }
@@ -36,11 +36,11 @@ public class CalculatePriceRequest {
         ValidationUtils.validateId(showId, "show id can not be null or zero");
     }
 
-    public Set<TicketOrder> getTickets() {
+    public Set<TicketOrderDto> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Set<TicketOrder> tickets) {
+    public void setTickets(Set<TicketOrderDto> tickets) {
         this.tickets = tickets;
     }
 

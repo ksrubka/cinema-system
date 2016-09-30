@@ -35,7 +35,7 @@ public class ReservationManager {
     }
 
     private Reservation create(CreateReservationRequest request, Set<Seat> seats, Show show) {
-        Set<TicketOrder> ticketOrders = DtoMapper.getTicketOrders(request.getTickets());
+        Set<TicketOrderDto> ticketOrders = request.getTickets();
         Customer customer = DtoMapper.getCustomer(request.getCustomer());
         CalculatePriceRequest priceRequest =
                 new CalculatePriceRequest(request.getShowId(), ticketOrders);
