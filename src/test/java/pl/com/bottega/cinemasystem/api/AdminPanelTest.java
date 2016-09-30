@@ -10,11 +10,13 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.com.bottega.cinemasystem.domain.*;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -146,6 +148,39 @@ public class AdminPanelTest {
         verify(anyShowsFactory).createShows(anyCinema, anyMovie, anyCreateShowsRequest);
     }
 
+    @Test
+    public void shouldUpdatePrices() {
+        //given
+        when(anyMovieRepository.load(anyMovieId)).thenReturn(anyMovie);
+        //when
+        UpdatePricesRequest updatePricesRequest = anyUpdatePricesRequest();
+        //then
+        adminPanel.updatePrices(updatePricesRequest);
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotUpdatePricesBecauseMovieDoesNotExists() {
+        //given
+        when(anyMovieRepository.load(anyMovieId)).thenReturn(anyMovie);
+        //when
+        UpdatePricesRequest updatePricesRequest = anyUpdatePricesRequest();
+        updatePricesRequest.setMovieId(8343453L);
+        //then
+        adminPanel.updatePrices(updatePricesRequest);
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void shouldNotUpdatePricesBecauseTicketListIsIncompleted() {
+        //given
+        when(anyMovieRepository.load(anyMovieId)).thenReturn(anyMovie);
+        //when
+        UpdatePricesRequest updatePricesRequest = anyUpdatePricesRequestIncompletedTicketList();
+        //then
+        adminPanel.updatePrices(updatePricesRequest);
+    }
+
+
+
     private void prepareCreateShowsRequestInstanceWithDates() {
         anyCreateShowsRequest = new CreateShowsRequest();
         anyCreateShowsRequest.setShows(prepareManyShowsDtoWithDates());
@@ -200,5 +235,27 @@ public class AdminPanelTest {
         anyMovieGenres.add("Comedy");
         anyMovieGenres.add("Sci-Fi");
         return anyMovieGenres;
+    }
+
+    private UpdatePricesRequest anyUpdatePricesRequest() {
+        UpdatePricesRequest updatePricesRequest = new UpdatePricesRequest();
+        updatePricesRequest.setMovieId(anyMovieId);
+        HashMap<String, BigDecimal> anyMap = new HashMap<>();
+        anyMap.put("children", new BigDecimal(10.00));
+        anyMap.put("school", new BigDecimal(12.00));
+        anyMap.put("student", new BigDecimal(15.00));
+        anyMap.put("regular", new BigDecimal(20.00));
+        updatePricesRequest.setPrices(anyMap);
+        return updatePricesRequest;
+    }
+
+    private UpdatePricesRequest anyUpdatePricesRequestIncompletedTicketList() {
+        UpdatePricesRequest updatePriceRequest = new UpdatePricesRequest();
+        updatePriceRequest.setMovieId(anyMovieId);
+        HashMap<String, BigDecimal> map = new HashMap<>();
+        map.put("children", new BigDecimal(10.00));
+        map.put("student", new BigDecimal(15.00));
+        updatePriceRequest.setPrices(map);
+        return updatePriceRequest;
     }
 }

@@ -43,6 +43,8 @@ public class CalendarDtoTest {
 
 
 
+
+
     private CalendarDto newCalendarDtoInstance(LocalDate fromDate, LocalDate untilDate,
                                             Collection<DayOfWeek> weekDays, Collection<LocalTime> hours) {
         calendarDto.setFromDate(fromDate);
