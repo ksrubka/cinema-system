@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Seat {
+public class Seat implements Comparable {
 
     @Id
     @GeneratedValue
@@ -15,7 +15,6 @@ public class Seat {
     private Integer number;
 
     public Seat() {
-
     }
 
     public Seat(Integer row, Integer number) {
@@ -45,5 +44,23 @@ public class Seat {
                 "row ='" + row + '\'' +
                 ", number ='" + number + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o2) {
+        if (this == o2) {
+            return 0;
+        }
+        Seat seat2 = (Seat) o2;
+        if ((this.getRow() == seat2.getRow() && this.getNumber() < seat2.getNumber()) ||
+                this.getRow() < seat2.getRow()) {
+            return -1;
+        }
+        if ((this.getRow() == seat2.getRow() && this.getNumber() > seat2.getNumber()) ||
+                this.getRow() > seat2.getRow()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

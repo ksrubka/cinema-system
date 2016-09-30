@@ -3,14 +3,14 @@ package pl.com.bottega.cinemasystem.api;
 public class SeatDto {
 
     private Integer row;
-    private Integer seat;
+    private Integer number;
 
     public SeatDto() {
     }
 
-    public SeatDto(Integer row, Integer seat) {
+    public SeatDto(Integer row, Integer number) {
         this.row = row;
-        this.seat = seat;
+        this.number = number;
     }
 
     public Integer getRow() {
@@ -21,11 +21,11 @@ public class SeatDto {
         this.row = row;
     }
 
-    public Integer getSeat() {
-        return seat;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setSeat(Integer seat) {
-        this.seat = seat;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

@@ -51,11 +51,11 @@ public class ValidationUtils {
         return minAge == 0;
     }
 
-    private static boolean minAgeIs16(Integer minAge) {
+    public static boolean minAgeIs16(Integer minAge) {
         return minAge >= 16;
     }
 
-    private static boolean minAgeIs18(Integer minAge) {
+    public static boolean minAgeIs18(Integer minAge) {
         return minAge == 18;
     }
 

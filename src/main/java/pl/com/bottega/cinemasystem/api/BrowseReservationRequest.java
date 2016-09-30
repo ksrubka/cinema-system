@@ -7,23 +7,9 @@ public class BrowseReservationRequest {
     private String status;
     private String lastName;
 
-    public BrowseReservationRequest() {
-    }
-
-    public BrowseReservationRequest(String status, String lastName) {
-        this.status = status;
-        this.lastName = lastName;
-    }
-
     public void validate() {
         validateStatus();
         validateName();
-    }
-
-    private void validateName() {
-        if (lastName == null || lastName.isEmpty()) {
-            throw new InvalidRequestException("last name can not be null or empty");
-        }
     }
 
     private void validateStatus() {
@@ -32,12 +18,16 @@ public class BrowseReservationRequest {
         }
         try {
             ReservationStatus.valueOf(status.toUpperCase());
-
         } catch (Exception ex) {
             throw new InvalidRequestException("Status is incorrect: " + status);
         }
     }
 
+    private void validateName() {
+        if (lastName == null || lastName.isEmpty()) {
+            throw new InvalidRequestException("last name can not be null or empty");
+        }
+    }
 
     public String getStatus() {
         return status;
@@ -53,5 +43,13 @@ public class BrowseReservationRequest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public boolean isStatusDefined() {
+        return status != null;
+    }
+
+    public boolean isLastNameDefined() {
+        return lastName != null;
     }
 }

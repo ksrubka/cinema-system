@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+import static javax.persistence.FetchType.EAGER;
+
 @Entity
 public class Movie {
 
@@ -16,10 +18,10 @@ public class Movie {
     private Integer minAge;
     private Integer length;
 
-    @ElementCollection
+    @ElementCollection(fetch = EAGER)
     private Set<String> actors;
 
-    @ElementCollection
+    @ElementCollection(fetch = EAGER)
     private Set<String> genres;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -41,7 +43,6 @@ public class Movie {
         this.genres = genres;
         this.length = length;
     }
-
 
     public void addShows(Collection<Show> shows) {
         this.shows.addAll(shows);

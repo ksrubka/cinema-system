@@ -26,6 +26,17 @@ public class MovieDto {
         this.length = length;
     }
 
+    public MovieDto(Long id, String title, String description, Integer minAge,
+                    Set<String> actors, Set<String> genres, Integer length) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.minAge = minAge;
+        this.actors = actors;
+        this.genres = genres;
+        this.length = length;
+    }
+
     public String getTitle() {
         return title;
     }

@@ -1,11 +1,11 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 public class Reservation {
-
 
     @EmbeddedId
     private ReservationNumber number;
@@ -19,19 +19,27 @@ public class Reservation {
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Seat> bookedSeats;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
+
+    private BigDecimal totalPrice;
+
+    @ManyToOne
+    private Show show;
 
     public Reservation() {
     }
 
-    public Reservation(ReservationStatus status, Set<TicketOrder> tickets, Set<Seat> bookedSeats,
-                       Customer customer) {
-        this.number = new ReservationNumber();
+    public Reservation(Set<TicketOrder> tickets, Set<Seat> bookedSeats,
+                       Customer customer, BigDecimal totalPrice, Show show) {
+        this.number = ReservationNumber.generate();
         this.tickets = tickets;
         this.bookedSeats = bookedSeats;
         this.customer = customer;
-        this.status = status;
+        this.status = ReservationStatus.PENDING;
+        this.totalPrice = totalPrice;
+        this.show = show;
+
     }
 
     public ReservationStatus getStatus() {
@@ -64,5 +72,29 @@ public class Reservation {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public ReservationNumber getNumber() {
+        return number;
+    }
+
+    public Show getShow() {
+        return show;
+    }
+
+    public void setShow(Show show) {
+        this.show = show;
+    }
+
+    public void setNumber(ReservationNumber number) {
+        this.number = number;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
