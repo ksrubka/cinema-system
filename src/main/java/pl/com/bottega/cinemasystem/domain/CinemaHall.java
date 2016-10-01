@@ -1,10 +1,12 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.SeatDto;
+import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class CinemaHall {
@@ -12,15 +14,18 @@ public class CinemaHall {
     private static final int ROWS = 10;
     private static final int SEATS = 15;
     private boolean[][] seats = new boolean[ROWS][SEATS];
+    private Set<Reservation> reservations;
+
 
     public CinemaHall(Set<Reservation> reservations) {
         generateOccupiedSeats(reservations);
+        this.reservations = reservations;
     }
 
-    private void generateOccupiedSeats(Set<Reservation> reservations) {
-        Set<Seat> occupiedSeatsSet = new TreeSet<>();
-        reservations.forEach(reservation -> occupiedSeatsSet.addAll(reservation.getBookedSeats()));
+    private Set<Seat> generateOccupiedSeats(Set<Reservation> reservations) {
+        Set<Seat> occupiedSeatsSet = createOccupiedSeats(reservations);
         occupiedSeatsSet.forEach(seat -> seats[seat.getRow() - 1][seat.getNumber() - 1] = true);
+        return occupiedSeatsSet;
     }
 
     public void canReserve(Set<Seat> seats) {
@@ -112,5 +117,37 @@ public class CinemaHall {
             }
         }
         return spareSeatsCount;
+    }
+
+    public Set<SeatDto> getSpareSeats() {
+        int currentRow = 0;
+        int currentSeat = 0;
+        Set<SeatDto> setDtos = new HashSet<>();
+        for(boolean[] row : seats){
+            ++currentRow;
+            for (boolean seat : row){
+                ++currentSeat;
+                if(seat == false){
+                    setDtos.add(new SeatDto(currentRow, currentSeat));
+                }
+                if (currentSeat == SEATS){
+                    currentSeat = 0;
+                }
+            }
+        }
+        return setDtos;
+    }
+
+    public Set<SeatDto> getOccupiedSeats() {
+        Set<Seat> occupiedSeats = createOccupiedSeats(this.reservations);
+        Set<SeatDto> seatDto = DtoMapper.getSeatDto(occupiedSeats);
+        return seatDto;
+    }
+
+    private Set<Seat> createOccupiedSeats(Set<Reservation> reservations) {
+        Set<Seat> occupiedSeatsSet = new HashSet<>();
+        reservations.forEach(reservation ->
+                occupiedSeatsSet.addAll(reservation.getBookedSeats()));
+        return occupiedSeatsSet;
     }
 }
