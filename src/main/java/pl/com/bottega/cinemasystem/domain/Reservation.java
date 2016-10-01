@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
+import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -27,6 +29,9 @@ public class Reservation {
     @ManyToOne
     private Show show;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Payment> payments;
+
     public Reservation() {
     }
 
@@ -39,7 +44,13 @@ public class Reservation {
         this.status = ReservationStatus.PENDING;
         this.totalPrice = totalPrice;
         this.show = show;
+    }
 
+    public void addPayment(Payment payment) {
+        /*if (this.canBePaid() && payment.isSuccesfull()) {
+            reservation.setStatus(ReservationStatus.PAID);
+            payments.add(payment);
+        }*/
     }
 
     public ReservationStatus getStatus() {
@@ -96,5 +107,10 @@ public class Reservation {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public boolean canBePaid() {
+        return (this.getStatus().equals(ReservationStatus.PENDING) ||
+                this.getStatus().equals(ReservationStatus.PAYMENT_FAILED));
     }
 }
