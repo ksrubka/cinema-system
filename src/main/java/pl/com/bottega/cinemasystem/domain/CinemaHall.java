@@ -140,7 +140,7 @@ public class CinemaHall {
 
     public Set<SeatDto> getOccupiedSeats() {
         Set<Seat> occupiedSeats = createOccupiedSeats(this.reservations);
-        Set<SeatDto> seatDto = DtoMapper.getSeatDto(occupiedSeats);
+        Set<SeatDto> seatDto = DtoMapper.getSeatDtos(occupiedSeats);
         return seatDto;
     }
 

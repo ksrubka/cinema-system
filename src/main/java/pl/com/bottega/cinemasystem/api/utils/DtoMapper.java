@@ -31,7 +31,7 @@ public class DtoMapper {
                 .map(reservation -> new ReservationDto(
                         reservation.getNumber().getNumber(),
                         getShowDto(reservation.getShow()), getMovieDto(reservation.getShow().getMovie()),
-                        getTicketOrder(reservation.getTickets()), getSeatDto(reservation.getBookedSeats()),
+                        getTicketOrderDtos(reservation.getTickets()), getSeatDtos(reservation.getBookedSeats()),
                         getCustomerDto(reservation.getCustomer()), reservation.getStatus(),
                         reservation.getTotalPrice()))
                 .collect(Collectors.toList());
@@ -46,13 +46,13 @@ public class DtoMapper {
                 movie.getMinAge(), movie.getActors(), movie.getGenres(), movie.getLength());
     }
 
-    public static Set<TicketOrderDto> getTicketOrder(Set<TicketOrder> ticketOrders) {
+    public static Set<TicketOrderDto> getTicketOrderDtos(Set<TicketOrder> ticketOrders) {
         return ticketOrders.stream()
                 .map(ticketOrder -> new TicketOrderDto(ticketOrder.getKind(), ticketOrder.getCount()))
                 .collect(Collectors.toSet());
     }
 
-    public static Set<SeatDto> getSeatDto(Set<Seat> seats) {
+    public static Set<SeatDto> getSeatDtos(Set<Seat> seats) {
         return seats.stream()
                 .map(seat -> new SeatDto(seat.getRow(), seat.getNumber()))
                 .collect(Collectors.toSet());
