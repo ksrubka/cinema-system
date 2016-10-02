@@ -41,10 +41,6 @@ public class CalendarDtoTest {
         calendarBasedValidationStrategy.validate();
     }
 
-
-
-
-
     private CalendarDto newCalendarDtoInstance(LocalDate fromDate, LocalDate untilDate,
                                             Collection<DayOfWeek> weekDays, Collection<LocalTime> hours) {
         calendarDto.setFromDate(fromDate);
@@ -52,6 +48,5 @@ public class CalendarDtoTest {
         calendarDto.setWeekDays(weekDays);
         calendarDto.setHours(hours);
         return calendarDto;
-
     }
 }

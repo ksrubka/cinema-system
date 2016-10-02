@@ -25,7 +25,7 @@ public class JPAReservationCatalog implements ReservationCatalog {
 
     @Override
     @Transactional
-    public BrowseReservationResponse browseReservation(BrowseReservationRequest request) {
+    public BrowseReservationResponse browseReservations(BrowseReservationRequest request) {
         checkNotNull(request);
         String jpql = buildQuery(request);
         Query query = entityManager.createQuery(jpql);
