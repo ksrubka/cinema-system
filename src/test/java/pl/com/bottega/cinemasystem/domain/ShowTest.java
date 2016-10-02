@@ -9,7 +9,6 @@ public class ShowTest {
     private Calculation calculation;
 
     @Test
-    public void shouldCalculatePrices(){
-
+    public void shouldCalculatePrices() {
     }
 }

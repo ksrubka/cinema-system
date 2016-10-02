@@ -13,50 +13,43 @@ public class AdminPanel {
     private CinemaRepository cinemaRepository;
     private MovieRepository movieRepository;
     private ShowsRepository showsRepository;
-    private CinemaFactory cinemaFactory;
-    private MovieFactory movieFactory;
     private ShowsFactory showsFactory;
     private TicketPricesFactory ticketPricesFactory;
 
     public AdminPanel(CinemaRepository cinemaRepository,
                       MovieRepository movieRepository,
                       ShowsRepository showsRepository,
-                      CinemaFactory cinemaFactory,
-                      MovieFactory movieFactory,
                       ShowsFactory showsFactory,
                       TicketPricesFactory ticketPricesFactory) {
         this.cinemaRepository = cinemaRepository;
         this.movieRepository = movieRepository;
         this.showsRepository = showsRepository;
-        this.cinemaFactory = cinemaFactory;
-        this.movieFactory = movieFactory;
         this.showsFactory = showsFactory;
         this.ticketPricesFactory = ticketPricesFactory;
     }
 
     @Transactional
-    public void createCinema(CreateCinemaRequest createCinemaRequest) {
-        createCinemaRequest.validate();
-        Cinema cinema = cinemaRepository.load(createCinemaRequest.getCity(), createCinemaRequest.getName());
+    public void createCinema(CreateCinemaRequest request) {
+        request.validate();
+        Cinema cinema = cinemaRepository.load(request.getCity(), request.getName());
         if (cinema == null) {
-            cinema = cinemaFactory.createCinema(createCinemaRequest);
-        }
-        else {
+            cinema = new Cinema(request.getName(), request.getCity());
+        } else {
             throw new InvalidRequestException("Cinema already exists: "
-                    + createCinemaRequest.getCity() + " " + createCinemaRequest.getName());
+                    + request.getCity() + " " + request.getName());
         }
         cinemaRepository.save(cinema);
     }
 
     @Transactional
-    public void createMovie(CreateMovieRequest createMovieRequest) {
-        createMovieRequest.validate();
-        Movie movie = movieRepository.load(createMovieRequest.getTitle());
+    public void createMovie(CreateMovieRequest request) {
+        request.validate();
+        Movie movie = movieRepository.load(request.getTitle());
         if (movie == null) {
-            movie = movieFactory.createMovie(createMovieRequest);
-        }
-        else {
-            throw new InvalidRequestException("Movie already exists: " + createMovieRequest.getTitle());
+            movie = new Movie(request.getTitle(), request.getDescription(), request.getMinAge(), request.getActors(),
+                    request.getGenres(), request.getLength());
+        } else {
+            throw new InvalidRequestException("Movie already exists: " + request.getTitle());
         }
         movieRepository.save(movie);
     }
@@ -68,7 +61,7 @@ public class AdminPanel {
         Movie movie = movieRepository.load(request.getMovieId());
         checkIfCinemaExist(request.getCinemaId(), cinema);
         checkIfMovieExist(request.getMovieId(), movie);
-        Collection<Show> shows = showsFactory.createShows(cinema, movie, request);
+        Collection<Show> shows = showsFactory.createShows(cinema, movie, request.getShowDates());
         saveShows(shows);
         movie.addShows(shows);
     }
