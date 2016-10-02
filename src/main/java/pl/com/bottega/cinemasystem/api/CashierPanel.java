@@ -2,7 +2,10 @@ package pl.com.bottega.cinemasystem.api;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.domain.*;
+import pl.com.bottega.cinemasystem.api.utils.UUIDValidator;
+import pl.com.bottega.cinemasystem.domain.Payment;
+import pl.com.bottega.cinemasystem.domain.Reservation;
+import pl.com.bottega.cinemasystem.domain.ReservationRepository;
 
 @Service
 public class CashierPanel {
@@ -10,13 +13,14 @@ public class CashierPanel {
     private ReservationRepository reservationRepository;
     private CashPaymentStrategy cashPayment;
     private CreditCardPaymentStrategy creditCardPayment;
+    private PdfFacade pdfFacade;
 
-
-    public CashierPanel(ReservationRepository reservationRepository,
-                        CashPaymentStrategy cashPayment, CreditCardPaymentStrategy creditCardPayment) {
+    public CashierPanel(ReservationRepository reservationRepository, CashPaymentStrategy cashPayment,
+                        CreditCardPaymentStrategy creditCardPayment, PdfFacade pdfFacade) {
         this.reservationRepository = reservationRepository;
         this.cashPayment = cashPayment;
         this.creditCardPayment = creditCardPayment;
+        this.pdfFacade = pdfFacade;
     }
 
     @Transactional
@@ -50,5 +54,18 @@ public class CashierPanel {
         if (reservation == null) {
             throw new InvalidRequestException("Reservation does not exist");
         }
+    }
+
+    @Transactional
+    public String getPdfTickets(String reservationNumber) {
+        validateReservationNumber(reservationNumber);
+        Reservation reservation = reservationRepository.load(reservationNumber);
+        checkIfReservationExists(reservation);
+        return pdfFacade.createPdf(reservation);
+    }
+
+    private void validateReservationNumber(String reservationNumber) {
+        UUIDValidator uuidValidator = new UUIDValidator();
+        uuidValidator.validate(reservationNumber);
     }
 }
