@@ -9,7 +9,8 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
+    @Enumerated(value = EnumType.STRING)
+    private PaymentType type;
     private Long cashierId;
     private boolean succesfull;
     private LocalDateTime date;
@@ -20,7 +21,7 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(String type, Long cashierId) {
+    public Payment(PaymentType type, Long cashierId) {
         this.type = type;
         this.cashierId = cashierId;
         this.date = LocalDateTime.now();

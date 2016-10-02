@@ -1,31 +1,20 @@
 package pl.com.bottega.cinemasystem.api;
 
 import pl.com.bottega.cinemasystem.domain.CreditCard;
+import pl.com.bottega.cinemasystem.domain.Payment;
+import pl.com.bottega.cinemasystem.domain.PaymentType;
 
 public class PaymentDto {
 
-    private String type;
+    private PaymentType type;
     private Long cashierId;
     private CreditCard creditCard;
 
-    public PaymentDto(String type, Long cashierId) {
-        this.type = type;
-        this.cashierId = cashierId;
-    }
-
-    public Long getCashierId() {
-        return cashierId;
-    }
-
-    public void setCashierId(Long cashierId) {
-        this.cashierId = cashierId;
-    }
-
-    public String getType() {
+    public PaymentType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PaymentType type) {
         this.type = type;
     }
 
@@ -35,5 +24,13 @@ public class PaymentDto {
 
     public void setCreditCard(CreditCard creditCard) {
         this.creditCard = creditCard;
+    }
+
+    public Long getCashierId() {
+        return cashierId;
+    }
+
+    public void setCashierId(Long cashierId) {
+        this.cashierId = cashierId;
     }
 }

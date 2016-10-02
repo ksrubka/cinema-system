@@ -4,14 +4,7 @@ public class CreditCard {
     private String number;
     private Integer expirationMonth;
     private Integer expirationYear;
-    private String cvc;
-
-    public CreditCard(String number, Integer expirationMonth, Integer expirationYear, String cvc) {
-        this.number = number;
-        this.expirationMonth = expirationMonth;
-        this.expirationYear = expirationYear;
-        this.cvc = cvc;
-    }
+    private Integer cvc;
 
     public String getNumber() {
         return number;
@@ -37,11 +30,11 @@ public class CreditCard {
         this.expirationYear = expirationYear;
     }
 
-    public String getCvc() {
+    public Integer getCvc() {
         return cvc;
     }
 
-    public void setCvc(String cvc) {
+    public void setCvc(Integer cvc) {
         this.cvc = cvc;
     }
 }
