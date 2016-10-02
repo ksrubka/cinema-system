@@ -7,6 +7,8 @@ import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class CreateReservationRequest {
 
     private ReservationDto reservation;
@@ -64,25 +66,20 @@ public class CreateReservationRequest {
             checkIfNumberOfSeatsCorrespondsToNumberOfTickets();
         }
 
-        private void checkIfNumberOfSeatsCorrespondsToNumberOfTickets() {
-            int ticketsQuantity = countTickets();
-            if (seats.size() != ticketsQuantity) {
-                throw new InvalidRequestException("Tickets quantity does not correspond to number of reserved seats");
-            }
-        }
-
-        private int countTickets() {
-            int ticketsQuantity = 0;
-            for (TicketOrderDto ticket : tickets) {
-                ticketsQuantity += ticket.getCount();
-            }
-            return ticketsQuantity;
-        }
-
         private void validateTicketOrder(Integer minAge) {
+            checkIfTicketsAreNotNull("No seats");
             Set<String> ticketKinds = prepareTicketKindsForValidation();
             validateTicketKinds(ticketKinds, minAge);
             validateTicketsQuantity();
+        }
+
+        public void checkIfTicketsAreNotNull(String msg) {
+            checkNotNull(tickets);
+            tickets.forEach(ticket -> {
+                if (ticket.getCount() == null || ticket.getKind() == null) {
+                    throw new InvalidRequestException(msg);
+                }
+            });
         }
 
         private void validateTicketsQuantity() {
@@ -94,6 +91,14 @@ public class CreateReservationRequest {
                     throw new InvalidRequestException("Tickets quantity is too big");
                 }
             });
+        }
+
+        private int countTickets() {
+            int ticketsQuantity = 0;
+            for (TicketOrderDto ticket : tickets) {
+                ticketsQuantity += ticket.getCount();
+            }
+            return ticketsQuantity;
         }
 
         private Set<String> prepareTicketKindsForValidation() {
@@ -118,6 +123,7 @@ public class CreateReservationRequest {
         }
 
         private void validateSeats() {
+            checkIfSeatsAreNotNull("No seats");
             seats.forEach(seat -> {
                 if (seat.getRow() <= 0 || seat.getRow() > 10) {
                     throw new InvalidRequestException("Incorrect row: " + seat.getRow());
@@ -128,7 +134,17 @@ public class CreateReservationRequest {
             });
         }
 
+        public void checkIfSeatsAreNotNull(String msg) {
+            checkNotNull(seats);
+            seats.forEach(seat -> {
+                if (seat.getRow() == null || seat.getNumber() == null) {
+                    throw new InvalidRequestException(msg);
+                }
+            });
+        }
+
         private void validateCustomer() {
+            checkNotNull(customer);
             if (customer.getFirstName() == null || customer.getFirstName().trim().isEmpty()) {
                 throw new InvalidRequestException("Incorrect customer name");
             }
@@ -153,6 +169,13 @@ public class CreateReservationRequest {
             }
             EmailValidator emailValidator = new EmailValidator();
             emailValidator.validate(customer.getEmail());
+        }
+
+        private void checkIfNumberOfSeatsCorrespondsToNumberOfTickets() {
+            int ticketsQuantity = countTickets();
+            if (seats.size() != ticketsQuantity) {
+                throw new InvalidRequestException("Tickets quantity does not correspond to number of reserved seats");
+            }
         }
 
         public Long getShowId() {
