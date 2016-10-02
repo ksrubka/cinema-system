@@ -26,9 +26,7 @@ public class JPAReservationRepository implements ReservationRepository {
        try {
            return entityManager.createQuery(
                    "From Reservation r where r.number.number = :number",
-                   Reservation.class)
-                   .setParameter("number", number)
-                   .getSingleResult();
+                   Reservation.class).setParameter("number", number).getSingleResult();
        }
        catch (NoResultException ex){
            throw new InvalidRequestException("reservation number does not exist");
