@@ -1,9 +1,6 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,6 +13,7 @@ public class Payment {
     private Long cashierId;
     private boolean succesfull;
     private LocalDateTime date;
+    @OneToOne(cascade = CascadeType.ALL)
     private TransactionData transactionData;
 
     public Payment() {
