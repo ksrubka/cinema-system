@@ -10,4 +10,9 @@ public class TransactionData {
     @Id
     @GeneratedValue
     private Long id;
+    private String errorMessage;
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

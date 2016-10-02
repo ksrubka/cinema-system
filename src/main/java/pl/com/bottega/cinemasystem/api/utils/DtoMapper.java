@@ -62,4 +62,7 @@ public class DtoMapper {
         return new CustomerDto(customer.getFirstName(), customer.getLastName(),
                 customer.getEmail(), customer.getPhoneNumber());
     }
+    public static Payment getPayment(PaymentDto paymentDto){
+        return new Payment(paymentDto.getType(), paymentDto.getCashierId());
+    }
 }

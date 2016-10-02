@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
+import pl.com.bottega.cinemasystem.domain.Payment;
+
 public class CollectPaymentResponse {
 
     private boolean success;
@@ -12,6 +14,15 @@ public class CollectPaymentResponse {
     public CollectPaymentResponse(String failureReason) {
         this.failureReason = failureReason;
         success = false;
+    }
+
+    public CollectPaymentResponse(Payment payment) {
+        if(payment.isSuccesfull())
+            this.success = true;
+        else{
+            this.success = false;
+            this.failureReason = payment.getErrorMessage();
+        }
     }
 
     public boolean isSuccess() {
