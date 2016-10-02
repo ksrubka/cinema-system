@@ -3,6 +3,7 @@ package pl.com.bottega.cinemasystem.api;
 import pl.com.bottega.cinemasystem.api.utils.EmailValidator;
 import pl.com.bottega.cinemasystem.api.utils.PhoneNumberValidator;
 import pl.com.bottega.cinemasystem.api.utils.ValidationUtils;
+import pl.com.bottega.cinemasystem.domain.CinemaHall;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -84,10 +85,10 @@ public class CreateReservationRequest {
 
         private void validateTicketsQuantity() {
             tickets.forEach(ticket -> {
-                if (ticket.getCount() <= 0) {
+                if (ticket.getCount() <= CinemaHall.NO_TICKETS) {
                     throw new InvalidRequestException("Tickets quantity is too small");
                 }
-                if (countTickets() >= 150) {
+                if (countTickets() > CinemaHall.MAX_NUMBER_OF_TICKETS) {
                     throw new InvalidRequestException("Tickets quantity is too big");
                 }
             });
@@ -125,10 +126,10 @@ public class CreateReservationRequest {
         private void validateSeats() {
             checkIfSeatsAreNotNull("No seats");
             seats.forEach(seat -> {
-                if (seat.getRow() <= 0 || seat.getRow() > 10) {
+                if (seat.getRow() < CinemaHall.FIRST_ROW || seat.getRow() > CinemaHall.ROWS) {
                     throw new InvalidRequestException("Incorrect row: " + seat.getRow());
                 }
-                if (seat.getNumber() <= 0 || seat.getNumber() > 15) {
+                if (seat.getNumber() < CinemaHall.FIRST_SEAT || seat.getNumber() > CinemaHall.SEATS) {
                     throw new InvalidRequestException("Incorrect seat: " + seat.getNumber());
                 }
             });

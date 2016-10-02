@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemasystem.domain.MovieFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,9 +16,6 @@ public class CreateMovieRequestTest {
 
     @Mock
     private MovieDto movieDto;
-
-    @Mock
-    private MovieFactory movieFactory;
 
     private CreateMovieRequest createMovieRequest;
 
