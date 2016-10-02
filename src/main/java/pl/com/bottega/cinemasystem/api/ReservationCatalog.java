@@ -2,5 +2,5 @@ package pl.com.bottega.cinemasystem.api;
 
 public interface ReservationCatalog {
 
-    BrowseReservationResponse browseReservation(BrowseReservationRequest request);
+    BrowseReservationResponse browseReservations(BrowseReservationRequest request);
 }

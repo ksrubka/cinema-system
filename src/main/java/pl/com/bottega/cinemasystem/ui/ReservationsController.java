@@ -25,7 +25,7 @@ public class ReservationsController {
 
     @GetMapping
     public BrowseReservationResponse browseReservations(@ModelAttribute BrowseReservationRequest request) {
-        return reservationCatalog.browseReservation(request);
+        return reservationCatalog.browseReservations(request);
     }
 
     @PutMapping("/{reservationId}/payments")
