@@ -11,15 +11,23 @@ import java.util.stream.Collectors;
 
 public class CinemaHall {
 
-    private static final int ROWS = 10;
-    private static final int SEATS = 15;
+    public static final int FIRST_ROW = 1;
+    public static final int FIRST_SEAT = 1;
+    public static final int ROWS = 10;
+    public static final int SEATS = 15;
+    public static final int NO_TICKETS = 0;
+    public static final int MAX_NUMBER_OF_TICKETS = ROWS * SEATS;
+
     private boolean[][] seats = new boolean[ROWS][SEATS];
     private Set<Reservation> reservations;
 
+    private boolean reservationPossible;
+    private String errorMessage;
 
     public CinemaHall(Set<Reservation> reservations) {
         generateOccupiedSeats(reservations);
         this.reservations = reservations;
+        this.reservationPossible = true;
     }
 
     private Set<Seat> generateOccupiedSeats(Set<Reservation> reservations) {
@@ -28,17 +36,22 @@ public class CinemaHall {
         return occupiedSeatsSet;
     }
 
-    public void canReserve(Set<Seat> seats) {
+    private void reservationImpossible(String errorMessage) {
+        this.reservationPossible = false;
+        this.errorMessage = errorMessage;
+    }
+
+    public void checkReservationPossibility(Set<Seat> seats) {
         checkIfSeatsAreAlreadyReserved(seats);
         if (chosenSeatsAreInTheSameRow(seats)) {
             if (!chosenSeatsAreNextToEachOther(seats)) {
                 if (chosenSeatsCouldBeNextToEachOther(seats)) {
-                    throw new InvalidRequestException("Reserved seats should be next to each other");
+                    reservationImpossible("Reserved seats should be next to each other");
                 }
             }
         } else {
             if (chosenSeatsCouldBeInTheSameRow(seats)) {
-                throw new InvalidRequestException("Reserved seats should be in the same row");
+                reservationImpossible("Reserved seats should be in the same row");
             }
         }
     }
@@ -123,14 +136,14 @@ public class CinemaHall {
         int currentRow = 0;
         int currentSeat = 0;
         Set<SeatDto> setDtos = new HashSet<>();
-        for(boolean[] row : seats){
+        for (boolean[] row : seats) {
             ++currentRow;
-            for (boolean seat : row){
+            for (boolean seat : row) {
                 ++currentSeat;
-                if(seat == false){
+                if (seat == false) {
                     setDtos.add(new SeatDto(currentRow, currentSeat));
                 }
-                if (currentSeat == SEATS){
+                if (currentSeat == SEATS) {
                     currentSeat = 0;
                 }
             }
@@ -149,5 +162,13 @@ public class CinemaHall {
         reservations.forEach(reservation ->
                 occupiedSeatsSet.addAll(reservation.getBookedSeats()));
         return occupiedSeatsSet;
+    }
+
+    public boolean isReservationPossible() {
+        return reservationPossible;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

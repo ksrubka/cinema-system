@@ -23,34 +23,46 @@ public class ReservationManager {
 
     @Transactional
     public CreateReservationResponse createReservation(CreateReservationRequest request) {
+        //walidacja
         request.validateShowId();
         Show show = showsRepository.load(request.getShowId());
+        validateShow(request, show);
         request.validate(show.getMovie().getMinAge());
+        //mapowanie
         Set<Seat> seats = DtoMapper.getSeats(request.getSeats());
+        Customer customer = DtoMapper.getCustomer(request.getCustomer());
+        //walidacja
         checkIfSeatsCanBeReserved(seats, show);
-        Reservation reservation = create(request, seats, show);
-        show.addReservation(reservation);
+        //zewnętrzny system
+        Calculation calculation = callForCalculation(request, show);
+        //logika dziedzinowa
+        Reservation reservation = new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice(), show);
         reservationRepository.save(reservation);
+        show.addReservation(reservation);
+
         return new CreateReservationResponse(reservation.getNumber());
     }
 
-    private Reservation create(CreateReservationRequest request, Set<Seat> seats, Show show) {
+    private void validateShow(CreateReservationRequest request, Show show) {
+        if (show == null) {
+            throw new InvalidRequestException("No such show in repository, id: " + request.getShowId());
+        }
+    }
+
+    private Calculation callForCalculation(CreateReservationRequest request, Show show) {
         Set<TicketOrderDto> ticketOrders = request.getTickets();
-        Customer customer = DtoMapper.getCustomer(request.getCustomer());
         CalculatePriceRequest priceRequest =
-                new CalculatePriceRequest(request.getShowId(), ticketOrders);
+                new CalculatePriceRequest(show.getId(), ticketOrders);
         CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
-        Calculation calculation = calculatePriceResponse.getCalculation();
-        return new Reservation(calculation.getTickets(), seats, customer, calculation.getTotalPrice(), show);
+        return calculatePriceResponse.getCalculation();
     }
 
     private void checkIfSeatsCanBeReserved(Set<Seat> seats, Show show) {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
-        try {
-            cinemaHall.canReserve(seats);
-        } catch (Exception ex) {
-            throw new InvalidRequestException(ex.getMessage());
+        cinemaHall.checkReservationPossibility(seats);
+        if (!cinemaHall.isReservationPossible()) {
+            throw new InvalidRequestException(cinemaHall.getErrorMessage());
         }
     }
 }
