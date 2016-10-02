@@ -47,10 +47,22 @@ public class Reservation {
     }
 
     public void addPayment(Payment payment) {
-        /*if (this.canBePaid() && payment.isSuccesfull()) {
-            reservation.setStatus(ReservationStatus.PAID);
-            payments.add(payment);
-        }*/
+        if (payment.isSuccesfull()) {
+            this.setStatus(ReservationStatus.PAID);
+        }
+        else {
+            this.status = ReservationStatus.PAYMENT_FAILED;
+        }
+        payments.add(payment);
+    }
+
+    public boolean canBePaid() {
+        return (this.getStatus().equals(ReservationStatus.PENDING) ||
+                this.getStatus().equals(ReservationStatus.PAYMENT_FAILED));
+    }
+
+    public boolean isPaid() {
+        return status == ReservationStatus.PAID;
     }
 
     public ReservationStatus getStatus() {
@@ -107,10 +119,5 @@ public class Reservation {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public boolean canBePaid() {
-        return (this.getStatus().equals(ReservationStatus.PENDING) ||
-                this.getStatus().equals(ReservationStatus.PAYMENT_FAILED));
     }
 }

@@ -14,13 +14,15 @@ public class CashierPanel {
     private CashPaymentStrategy cashPayment;
     private CreditCardPaymentStrategy creditCardPayment;
     private PdfFacade pdfFacade;
+    private MailingFacade mailingFacade;
 
     public CashierPanel(ReservationRepository reservationRepository, CashPaymentStrategy cashPayment,
-                        CreditCardPaymentStrategy creditCardPayment, PdfFacade pdfFacade) {
+                        CreditCardPaymentStrategy creditCardPayment, PdfFacade pdfFacade, MailingFacade mailingFacade) {
         this.reservationRepository = reservationRepository;
         this.cashPayment = cashPayment;
         this.creditCardPayment = creditCardPayment;
         this.pdfFacade = pdfFacade;
+        this.mailingFacade = mailingFacade;
     }
 
     @Transactional
@@ -28,20 +30,19 @@ public class CashierPanel {
         request.validate();
         Reservation reservation = reservationRepository.load(request.getReservationNumber());
         validateReservation(reservation);
-        Payment payment =  processPayment(request, reservation);
+        Payment payment = processPayment(request, reservation);
         reservation.addPayment(payment);
+        if (payment.isOnline() && reservation.isPaid()) {
+            mailingFacade.sendEmail(reservation);
+        }
         return new CollectPaymentResponse(payment);
     }
 
     private Payment processPayment(CollectPaymentRequest request, Reservation reservation) {
-
-        if(request.getPayment().getType().equals("cash")){
+        if (request.getPayment().getType().equals("cash")) {
             return cashPayment.pay(request.getPayment(), reservation);
-        }
-        else return creditCardPayment.pay(request.getPayment(), reservation);
+        } else return creditCardPayment.pay(request.getPayment(), reservation);
     }
-
-
 
     private void validateReservation(Reservation reservation) {
         checkIfReservationExists(reservation);

@@ -29,7 +29,8 @@ public class ReservationsController {
     }
 
     @PutMapping("/{reservationNumber}/payments")
-    public CollectPaymentResponse collectPayment(@PathVariable String reservationNumber, @RequestBody CollectPaymentRequest request) {
+    public CollectPaymentResponse collectPayment(@PathVariable String reservationNumber,
+                                                 @RequestBody CollectPaymentRequest request) {
         request.setReservationNumber(reservationNumber);
         return cashierPanel.collectPayment(request);
     }

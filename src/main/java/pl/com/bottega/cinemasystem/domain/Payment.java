@@ -17,7 +17,6 @@ public class Payment {
     @OneToOne(cascade = CascadeType.ALL)
     private TransactionData transactionData;
 
-
     public Payment() {
     }
 
@@ -33,5 +32,9 @@ public class Payment {
     }
     public String getErrorMessage(){
        return this.transactionData.getErrorMessage();
+    }
+
+    public boolean isOnline() {
+        return type == PaymentType.CREDIT_CARD;
     }
 }
