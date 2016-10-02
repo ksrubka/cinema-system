@@ -23,12 +23,21 @@ public class CashierPanel {
     public CollectPaymentResponse collectPayment(CollectPaymentRequest request) {
         request.validate();
         Reservation reservation = reservationRepository.load(request.getReservationNumber());
-        CollectPaymentResponse response = new CollectPaymentResponse();
         validateReservation(reservation);
-        Payment payment = cashPayment.pay(request.getPayment());
+        Payment payment =  processPayment(request, reservation);
         reservation.addPayment(payment);
-        return response;
+        return new CollectPaymentResponse(payment);
     }
+
+    private Payment processPayment(CollectPaymentRequest request, Reservation reservation) {
+
+        if(request.getPayment().getType().equals("cash")){
+            return cashPayment.pay(request.getPayment(), reservation);
+        }
+        else return creditCardPayment.pay(request.getPayment(), reservation);
+    }
+
+
 
     private void validateReservation(Reservation reservation) {
         checkIfReservationExists(reservation);

@@ -1,5 +1,7 @@
 package pl.com.bottega.cinemasystem.api;
 
+import com.stripe.Stripe;
+
 public class CollectPaymentRequest {
 
     private PaymentDto payment;
@@ -16,6 +18,17 @@ public class CollectPaymentRequest {
         validatePaymentType();
         validateCashierId();
         validateReservationNumber();
+        if (payment.getCreditCard() != null) {
+            validateCreditCard();
+        }
+    }
+
+    private void validateCreditCard() {
+        if (payment.getCreditCard().getExpirationMonth() == null
+                || payment.getCreditCard().getExpirationYear() == null
+                || payment.getCreditCard().getCvc() == null
+                || payment.getCreditCard().getNumber() == null)
+            throw new InvalidRequestException("Fill all data");
     }
 
     private void validatePaymentType() {

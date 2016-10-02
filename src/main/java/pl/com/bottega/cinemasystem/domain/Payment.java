@@ -16,6 +16,7 @@ public class Payment {
     @OneToOne(cascade = CascadeType.ALL)
     private TransactionData transactionData;
 
+
     public Payment() {
     }
 
@@ -23,5 +24,13 @@ public class Payment {
         this.type = type;
         this.cashierId = cashierId;
         this.date = LocalDateTime.now();
+        this.succesfull = true;
+    }
+
+    public boolean isSuccesfull() {
+        return succesfull;
+    }
+    public String getErrorMessage(){
+       return this.transactionData.getErrorMessage();
     }
 }
