@@ -1,22 +1,18 @@
 package pl.com.bottega.cinemasystem.api;
 
 import com.stripe.Stripe;
+import pl.com.bottega.cinemasystem.domain.PaymentType;
 
 public class CollectPaymentRequest {
 
     private PaymentDto payment;
     private String reservationNumber;
 
-    public CollectPaymentRequest() {
-    }
-
-    public CollectPaymentRequest(PaymentDto payment) {
-        this.payment = payment;
-    }
-
     public void validate() {
         validatePaymentType();
-        validateCashierId();
+        if (payment.getCreditCard() == null) {
+            validateCashierId();
+        }
         validateReservationNumber();
         if (payment.getCreditCard() != null) {
             validateCreditCard();
@@ -32,18 +28,15 @@ public class CollectPaymentRequest {
     }
 
     private void validatePaymentType() {
-        if ((!payment.getType().trim().toLowerCase()
-                .equals("cash")) ||
-                (!payment.getType().trim().toLowerCase()
-                        .equals("credit card"))) {
-            throw new InvalidRequestException("Incorrect payment type: " + payment.getType());
+        if (payment.getType() == null) {
+            throw new InvalidRequestException("payment type can not be null");
         }
-        if (payment.getType().trim().toLowerCase().equals("cash")) {
+        if (payment.getType().equals(PaymentType.CASH)) {
             if (payment.getCreditCard() != null) {
                 throw new InvalidRequestException("Credit card should not be declared in cash payment");
             }
         }
-        if (payment.getType().trim().toLowerCase().equals("credit card")) {
+        if (payment.getType().equals(PaymentType.CREDIT_CARD)) {
             if (payment.getCreditCard() == null) {
                 throw new InvalidRequestException("Credit card should be declared in credit card payment");
             }
@@ -52,7 +45,7 @@ public class CollectPaymentRequest {
 
     private void validateCashierId() {
         if (payment.getCashierId() == null) {
-            throw new InvalidRequestException("Cshier id can not be null");
+            throw new InvalidRequestException("Cashier id can not be null");
         }
     }
 
