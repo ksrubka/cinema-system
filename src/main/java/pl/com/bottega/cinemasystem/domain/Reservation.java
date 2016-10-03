@@ -1,7 +1,5 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -49,8 +47,7 @@ public class Reservation {
     public void addPayment(Payment payment) {
         if (payment.isSuccesfull()) {
             this.setStatus(ReservationStatus.PAID);
-        }
-        else {
+        } else {
             this.status = ReservationStatus.PAYMENT_FAILED;
         }
         payments.add(payment);
