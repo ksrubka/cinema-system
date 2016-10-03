@@ -49,14 +49,6 @@ public class ReservationManager {
         }
     }
 
-    private Calculation callForCalculation(CreateReservationRequest request, Show show) {
-        Set<TicketOrderDto> ticketOrders = request.getTickets();
-        CalculatePriceRequest priceRequest =
-                new CalculatePriceRequest(show.getId(), ticketOrders);
-        CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
-        return calculatePriceResponse.getCalculation();
-    }
-
     private void checkIfSeatsCanBeReserved(Set<Seat> seats, Show show) {
         Set<Reservation> reservations = show.getReservations();
         CinemaHall cinemaHall = new CinemaHall(reservations);
@@ -64,5 +56,13 @@ public class ReservationManager {
         if (!cinemaHall.isReservationPossible()) {
             throw new InvalidRequestException(cinemaHall.getErrorMessage());
         }
+    }
+
+    private Calculation callForCalculation(CreateReservationRequest request, Show show) {
+        Set<TicketOrderDto> ticketOrders = request.getTickets();
+        CalculatePriceRequest priceRequest =
+                new CalculatePriceRequest(show.getId(), ticketOrders);
+        CalculatePriceResponse calculatePriceResponse = priceCalculator.calculatePrice(priceRequest);
+        return calculatePriceResponse.getCalculation();
     }
 }
