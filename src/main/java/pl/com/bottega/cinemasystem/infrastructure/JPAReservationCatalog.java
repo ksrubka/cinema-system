@@ -2,10 +2,10 @@ package pl.com.bottega.cinemasystem.infrastructure;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.api.BrowseReservationRequest;
-import pl.com.bottega.cinemasystem.api.BrowseReservationResponse;
-import pl.com.bottega.cinemasystem.api.ReservationCatalog;
-import pl.com.bottega.cinemasystem.api.ReservationDto;
+import pl.com.bottega.cinemasystem.api.requests.BrowseReservationRequest;
+import pl.com.bottega.cinemasystem.api.responses.BrowseReservationResponse;
+import pl.com.bottega.cinemasystem.api.catalogs.ReservationCatalog;
+import pl.com.bottega.cinemasystem.api.dtos.ReservationDto;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 import pl.com.bottega.cinemasystem.domain.ReservationStatus;
 

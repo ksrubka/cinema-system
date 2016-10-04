@@ -9,15 +9,10 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.api.CalendarDto;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.Set;
 
 import static junit.framework.TestCase.assertEquals;

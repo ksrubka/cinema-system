@@ -1,9 +1,9 @@
 package pl.com.bottega.cinemasystem.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemasystem.api.AdminPanel;
-import pl.com.bottega.cinemasystem.api.CreateMovieRequest;
-import pl.com.bottega.cinemasystem.api.UpdatePricesRequest;
+import pl.com.bottega.cinemasystem.api.services.AdminPanel;
+import pl.com.bottega.cinemasystem.api.requests.CreateMovieRequest;
+import pl.com.bottega.cinemasystem.api.requests.UpdatePricesRequest;
 
 @RestController
 @RequestMapping("/movies")

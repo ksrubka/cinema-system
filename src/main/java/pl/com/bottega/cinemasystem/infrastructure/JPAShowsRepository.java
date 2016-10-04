@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
 import org.springframework.stereotype.Repository;
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
 import pl.com.bottega.cinemasystem.domain.Show;
 import pl.com.bottega.cinemasystem.domain.ShowsRepository;
 import pl.com.bottega.cinemasystem.domain.TicketPrice;

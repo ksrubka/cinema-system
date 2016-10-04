@@ -2,8 +2,8 @@ package pl.com.bottega.cinemasystem.infrastructure;
 
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
-import pl.com.bottega.cinemasystem.api.ListMoviesInCinemaResponse;
-import pl.com.bottega.cinemasystem.api.MovieCatalog;
+import pl.com.bottega.cinemasystem.api.responses.ListMoviesInCinemaResponse;
+import pl.com.bottega.cinemasystem.api.catalogs.MovieCatalog;
 import pl.com.bottega.cinemasystem.domain.Movie;
 
 import javax.persistence.EntityManager;

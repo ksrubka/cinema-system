@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.requests.UpdatePricesRequest;
 import pl.com.bottega.cinemasystem.domain.Movie;
 
 import java.math.BigDecimal;

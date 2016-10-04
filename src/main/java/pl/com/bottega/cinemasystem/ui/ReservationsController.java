@@ -1,7 +1,15 @@
 package pl.com.bottega.cinemasystem.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemasystem.api.*;
+import pl.com.bottega.cinemasystem.api.catalogs.ReservationCatalog;
+import pl.com.bottega.cinemasystem.api.requests.BrowseReservationRequest;
+import pl.com.bottega.cinemasystem.api.requests.CollectPaymentRequest;
+import pl.com.bottega.cinemasystem.api.requests.CreateReservationRequest;
+import pl.com.bottega.cinemasystem.api.responses.BrowseReservationResponse;
+import pl.com.bottega.cinemasystem.api.responses.CollectPaymentResponse;
+import pl.com.bottega.cinemasystem.api.responses.CreateReservationResponse;
+import pl.com.bottega.cinemasystem.api.services.CashierPanel;
+import pl.com.bottega.cinemasystem.api.services.ReservationManager;
 
 @RestController
 @RequestMapping("/reservations")

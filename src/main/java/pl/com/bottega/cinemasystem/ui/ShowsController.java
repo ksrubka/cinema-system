@@ -1,10 +1,10 @@
 package pl.com.bottega.cinemasystem.ui;
 
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemasystem.api.AdminPanel;
-import pl.com.bottega.cinemasystem.api.CreateShowsRequest;
-import pl.com.bottega.cinemasystem.api.CustomerPanel;
-import pl.com.bottega.cinemasystem.api.GetShowSeatsResponse;
+import pl.com.bottega.cinemasystem.api.services.AdminPanel;
+import pl.com.bottega.cinemasystem.api.requests.CreateShowsRequest;
+import pl.com.bottega.cinemasystem.api.services.CustomerPanel;
+import pl.com.bottega.cinemasystem.api.responses.GetShowSeatsResponse;
 
 @RestController
 @RequestMapping

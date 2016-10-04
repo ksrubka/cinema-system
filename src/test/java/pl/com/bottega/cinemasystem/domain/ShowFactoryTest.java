@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemasystem.api.CreateShowsRequest;
+import pl.com.bottega.cinemasystem.api.requests.CreateShowsRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

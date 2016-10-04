@@ -8,8 +8,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.api.CinemaCatalog;
-import pl.com.bottega.cinemasystem.api.ListAllCinemasResponse;
+import pl.com.bottega.cinemasystem.api.catalogs.CinemaCatalog;
+import pl.com.bottega.cinemasystem.api.responses.ListAllCinemasResponse;
 import pl.com.bottega.cinemasystem.domain.Cinema;
 
 import javax.persistence.EntityManager;

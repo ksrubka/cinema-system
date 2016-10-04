@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemasystem.api.dtos.CinemaDto;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.requests.CreateCinemaRequest;
 
 import static org.junit.Assert.assertEquals;
 

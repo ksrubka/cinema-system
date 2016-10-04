@@ -9,11 +9,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import pl.com.bottega.cinemasystem.api.ListMoviesInCinemaResponse;
-import pl.com.bottega.cinemasystem.api.MovieCatalog;
+import pl.com.bottega.cinemasystem.api.responses.ListMoviesInCinemaResponse;
+import pl.com.bottega.cinemasystem.api.catalogs.MovieCatalog;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertNotNull;

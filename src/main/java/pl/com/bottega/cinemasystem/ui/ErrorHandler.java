@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
 
 @ControllerAdvice
 public class ErrorHandler {

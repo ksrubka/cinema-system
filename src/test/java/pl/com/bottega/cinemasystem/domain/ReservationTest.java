@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import pl.com.bottega.cinemasystem.api.ReservationDto;
+import pl.com.bottega.cinemasystem.api.dtos.ReservationDto;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

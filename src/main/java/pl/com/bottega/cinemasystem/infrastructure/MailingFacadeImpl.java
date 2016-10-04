@@ -3,8 +3,8 @@ package pl.com.bottega.cinemasystem.infrastructure;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-import pl.com.bottega.cinemasystem.api.MailingFacade;
-import pl.com.bottega.cinemasystem.api.PdfFacade;
+import pl.com.bottega.cinemasystem.api.facades.MailingFacade;
+import pl.com.bottega.cinemasystem.api.facades.PdfFacade;
 import pl.com.bottega.cinemasystem.domain.Reservation;
 
 import javax.mail.MessagingException;

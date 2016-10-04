@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
-import pl.com.bottega.cinemasystem.api.SeatDto;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.dtos.SeatDto;
 import pl.com.bottega.cinemasystem.api.utils.DtoMapper;
 
 import java.util.HashSet;

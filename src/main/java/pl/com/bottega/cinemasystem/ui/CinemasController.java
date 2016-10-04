@@ -2,7 +2,12 @@ package pl.com.bottega.cinemasystem.ui;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import pl.com.bottega.cinemasystem.api.*;
+import pl.com.bottega.cinemasystem.api.catalogs.CinemaCatalog;
+import pl.com.bottega.cinemasystem.api.catalogs.MovieCatalog;
+import pl.com.bottega.cinemasystem.api.requests.CreateCinemaRequest;
+import pl.com.bottega.cinemasystem.api.responses.ListAllCinemasResponse;
+import pl.com.bottega.cinemasystem.api.responses.ListMoviesInCinemaResponse;
+import pl.com.bottega.cinemasystem.api.services.AdminPanel;
 
 import java.time.LocalDate;
 

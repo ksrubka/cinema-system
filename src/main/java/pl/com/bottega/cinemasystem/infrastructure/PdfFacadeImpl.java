@@ -3,7 +3,7 @@ package pl.com.bottega.cinemasystem.infrastructure;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.stereotype.Component;
-import pl.com.bottega.cinemasystem.api.PdfFacade;
+import pl.com.bottega.cinemasystem.api.facades.PdfFacade;
 import pl.com.bottega.cinemasystem.domain.Reservation;
 import pl.com.bottega.cinemasystem.domain.Ticket;
 

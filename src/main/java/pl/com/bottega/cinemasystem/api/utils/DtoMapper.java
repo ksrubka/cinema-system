@@ -1,6 +1,6 @@
 package pl.com.bottega.cinemasystem.api.utils;
 
-import pl.com.bottega.cinemasystem.api.*;
+import pl.com.bottega.cinemasystem.api.dtos.*;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import java.util.List;

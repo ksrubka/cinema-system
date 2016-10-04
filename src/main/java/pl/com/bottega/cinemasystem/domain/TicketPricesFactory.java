@@ -1,7 +1,7 @@
 package pl.com.bottega.cinemasystem.domain;
 
 import org.springframework.stereotype.Component;
-import pl.com.bottega.cinemasystem.api.UpdatePricesRequest;
+import pl.com.bottega.cinemasystem.api.requests.UpdatePricesRequest;
 
 import java.util.HashSet;
 import java.util.Set;

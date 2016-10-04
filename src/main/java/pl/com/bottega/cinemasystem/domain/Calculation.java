@@ -1,6 +1,6 @@
 package pl.com.bottega.cinemasystem.domain;
 
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

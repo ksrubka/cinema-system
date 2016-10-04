@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemasystem.api.dtos.TicketOrderDto;
+import pl.com.bottega.cinemasystem.api.requests.CalculatePriceRequest;
+import pl.com.bottega.cinemasystem.api.services.PriceCalculator;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import java.math.BigDecimal;

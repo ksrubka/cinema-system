@@ -8,6 +8,15 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemasystem.api.dtos.CalendarDto;
+import pl.com.bottega.cinemasystem.api.dtos.ManyShowsDto;
+import pl.com.bottega.cinemasystem.api.dtos.MovieDto;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.requests.CreateCinemaRequest;
+import pl.com.bottega.cinemasystem.api.requests.CreateMovieRequest;
+import pl.com.bottega.cinemasystem.api.requests.CreateShowsRequest;
+import pl.com.bottega.cinemasystem.api.requests.UpdatePricesRequest;
+import pl.com.bottega.cinemasystem.api.services.AdminPanel;
 import pl.com.bottega.cinemasystem.domain.*;
 
 import java.math.BigDecimal;

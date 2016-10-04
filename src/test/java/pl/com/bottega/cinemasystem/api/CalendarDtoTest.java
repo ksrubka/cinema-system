@@ -2,6 +2,8 @@ package pl.com.bottega.cinemasystem.api;
 
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.bottega.cinemasystem.api.dtos.CalendarDto;
+import pl.com.bottega.cinemasystem.api.strategies.CalendarBasedValidationStrategy;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

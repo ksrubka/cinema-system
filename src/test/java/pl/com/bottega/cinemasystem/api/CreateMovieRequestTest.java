@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.com.bottega.cinemasystem.api.dtos.MovieDto;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.requests.CreateMovieRequest;
 
 import java.util.HashSet;
 import java.util.Set;

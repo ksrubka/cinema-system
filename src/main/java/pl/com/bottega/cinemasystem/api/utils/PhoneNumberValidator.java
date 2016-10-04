@@ -1,6 +1,6 @@
 package pl.com.bottega.cinemasystem.api.utils;
 
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

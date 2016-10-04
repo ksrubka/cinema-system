@@ -1,7 +1,6 @@
 package pl.com.bottega.cinemasystem.infrastructure;
 
-import pl.com.bottega.cinemasystem.api.InvalidRequestException;
-import pl.com.bottega.cinemasystem.domain.Movie;
+import pl.com.bottega.cinemasystem.api.exceptions.InvalidRequestException;
 import pl.com.bottega.cinemasystem.domain.Payment;
 import pl.com.bottega.cinemasystem.domain.PaymentRepository;
 
